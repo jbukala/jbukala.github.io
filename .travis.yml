@@ -28,6 +28,7 @@ script:
 # - pelican content -s publishconf.py
 - mkdir output
 - cp *.html output
+- cp *.css output
 - bash deploy.sh
 
 notifications:
