@@ -6,7 +6,7 @@ python:
 # Only run travis on main branch
 branches:
   only:
-  - master
+  - source
 
 install:
   # Install pelican
@@ -15,8 +15,8 @@ install:
   #- npm --prefix diag-theme install
 
 # Caching settings (this speeds up the )
-cache:
-  pip: true
+#cache:
+  # pip: true
   # directories:
     # - diag-theme/node_modules
 

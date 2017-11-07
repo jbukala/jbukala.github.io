@@ -5,7 +5,7 @@ GH_USERNAME=jbukala
 GH_REPO=jbukala.github.io
 
 #advanced settings
-BRANCH=gh-pages
+BRANCH=master
 GITHUB_OUTPUT_FOLDER=built_website
 WEBSITE_OUTPUT_FOLDER=output
 SHOW_CHANGES=true
