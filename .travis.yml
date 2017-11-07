@@ -10,9 +10,9 @@ branches:
 
 install:
   # Install pelican
-  #- pip install -r requirements.txt
+  # - pip install -r requirements.txt
   # Install requirements for the css build
-  #- npm --prefix diag-theme install
+  # - npm --prefix diag-theme install
 
 # Caching settings (this speeds up the )
 #cache:
