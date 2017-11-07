@@ -1,0 +1,36 @@
+# Set main language of the repo to python
+language: python
+python:
+- 3.5
+
+# Only run travis on main branch
+branches:
+  only:
+  - master
+
+install:
+  # Install pelican
+  #- pip install -r requirements.txt
+  # Install requirements for the css build
+  #- npm --prefix diag-theme install
+
+# Caching settings (this speeds up the )
+cache:
+  pip: true
+  # directories:
+    # - diag-theme/node_modules
+
+before_cache:
+  # - rm -f $HOME/.cache/pip/log/debug.log
+  
+script:
+# - npm --prefix diag-theme run minify
+# - pelican content -s publishconf.py
+- mkdir output
+- cp *.html output
+- bash deploy.sh
+
+notifications:
+ email:
+   on_success: never
+   on_failure: never
