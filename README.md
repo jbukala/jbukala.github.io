@@ -1,2 +1,0 @@
-# jbukala.github.io
-website
