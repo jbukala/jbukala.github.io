@@ -1,4 +1,4 @@
 baseURL = "https://jbukala.github.io/"
 languageCode = "en-us"
-title = "My New Hugo Site"
+title = "Joris Bukala"
 theme = 'ananke'
