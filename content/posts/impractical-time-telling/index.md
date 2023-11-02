@@ -1,7 +1,7 @@
 ---
 title: "Impractical Time Telling"
 date: 2023-11-01T19:51:01+01:00
-draft: true
+draft: false
 tags: ["Time", "Prime", "Watch", "Fun", "Math"]
 categories: "Nonsense"
 math: true
@@ -10,9 +10,7 @@ showtoc: true
 
 ## Impractical Time Telling
 
-You know how sometimes problems are just *solved* and thus boring? Like telling the time: We used to have sundials, now we have quartz watches, digital clocks, etc. A while ago I got a watch that I thought was quite funky, although a bit of a challenge to learn to read:
-
-![watch]( "Difficult watch")
+You know how sometimes problems are just *solved* and thus boring? Like telling the time: We used to have sundials, now we have quartz watches, digital clocks, etc. A while ago I got a [watch that was quite funky](https://projectswatches.com/cdn/shop/files/bauhausblackhero.jpg?v=1688088927&width=800), although a bit of a challenge to read
 
 It got me thinking, why not *create* a nice problem to solve by creating an impractical representation of the current time and make a watch face that can display it as reasonably as possible?
 
@@ -38,16 +36,19 @@ With our vector representation and the idea of a polar plot, we can now divide t
 
 Doing this gives us the following:
 
-![Prime time first polar plot]()
+![Prime time first polar plot](images/first_polar_plot.svg)
 
+Where we can see that $16 = 2^4$, $36 = 2^2 \cdot 3^2$ and $19 = 19^1$.\
 Cool! This is already technically usable, but has some obvious improvements:
-1. We should constrain the range of the radius to be $[0,5]$, as the largest amount of factors for a single prime is in $2^5 = 32$
+1. Firstly we should explicitly constrain the range of the radius to be $[0,5]$ for consistency, as the largest amount of factors for a single prime is in $2^5 = 32$.
 2. Most prime numbers will actually mostly have 1 or 2 factors. In the current setup that means the centre of the circle will be very 'busy', and is very small anyways. Most of the surface of our circle is on the outside. We should flip the radius axis, and actually start plotting from the outside of the circle inwards, to use the available space better.
-3. 
+3. Where the polar plots of the different numbers overlap, information can get lost. Let's just increase the transparancy of the plots for now to sort of deal with this.
 
-## Result (so far)
+## Current status
 
-![Prime time watch face](https://github.com/jbukala/prime_time/raw/main/prime_time.png)
+Making these changes, we arrive at the following:
+
+![Prime time watch face](images/prime_time_current.svg)
 
 ## Next steps
 
@@ -55,8 +56,8 @@ The current implementation is a very simple one in Python with matplotlib. A nic
 
 Something that is also already clear that even in this polar representation, there is a large part of the plot that is not being used. As mentioned already, most primes only need to be able to represent 1 or 2 factors (e.g. $53^4 = 7890481$ will never get used). For our watchface this means there is a sort of outward spiral-shaped part of the plot that will always be empty:
 
-![Empty part of current plot]()
+![Empty part of current plot](images/empty_spiral.svg)
 
 This is actually not a disaster: It gives some extra free space to dump gadgets like your heart rate, the date, etc.
 
-Finally - I don't expect the *seconds*-hand to be of any use at all. Not sure how fast you can/want to multiply prime numbers together in your head,
+Finally - I don't expect the *seconds*-hand to be of any use at all. Not sure how fast you can/want to multiply prime numbers together in your head, but I think it's better here to opt for more simplicity by just leaving it out.
