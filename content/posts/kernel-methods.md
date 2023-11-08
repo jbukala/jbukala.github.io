@@ -8,4 +8,6 @@ math: true
 
 ## Kernel Methods
 
+### Terminology
+
 $$k(x,x\prime) = <\phi(x), \phi(x\prime)>$$

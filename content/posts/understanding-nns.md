@@ -1,5 +1,5 @@
 ---
-title: "Understanding NNs"
+title: "Understanding Neural Networks"
 date: 2023-11-01T19:54:22+01:00
 draft: false
 tags: ["Physics", "Math", "Machine Learning", "Artificial Neural Networks", "AI", "Data Science", "Sparsity", "Thermodynamics"]
