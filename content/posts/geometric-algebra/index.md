@@ -1,6 +1,6 @@
 ---
 title: "Geometric Algebra"
-date: 2023-11-09T19:57:52+01:00
+date: 2023-11-09T17:30:52+01:00
 draft: false
 tags: ["Physics", "Math", "Algebra", "Geometric Algebra", "Vector", "Rotor", "Imaginary", "Quaternion"]
 math: true
@@ -19,9 +19,9 @@ Now consider cross products in contrast. Do you still remember? *Yeah, neither d
 $$
 \mathbf{a \times b} = 
 \begin{bmatrix}
-           a_2b_3 - a_3b_2 \\
-           a_3b_1 - a_1b_3 \\
-           a_1b_2 - a_2b_1 \\
+           a_{2}b_{3} - a_{3}b_{2} \\
+           a_{3}b_{1} - a_{1}b_{3} \\
+           a_{1}b_{2} - a_{2}b_{1} \\
          \end{bmatrix}
 $$
 Now what does the output mean: you get a vector orthogonal to your 2 original ones, with a magnitude that is equal to the surface that is spanned by the paralellogram of the 2 vectors. How does a vector *length* equal some *surface* area in the same space? The units dont even work. Its clear that something is off.
@@ -45,27 +45,27 @@ The objects we are interested in are on the same ladder as *scalars* and *vector
 This step from 0D point to 1D line practically begs us to keep going: But what would the equivalent 2D look like? The answer is that a 1D line segment becomes a 2D surface/sheet, and the magnitude of this sheet is its *area*. Note that our 1D arrows were pointing a certain way, and thus our sheet should do the same, ergo its a 2D *oriented* flat surface (essentially this means we can assign a top and bottom side to it). We call this object the **bi-vector**.
 
 ![Vector, Bi-Vector](https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Prod2.png/640px-Prod2.png)\
-*Fig: Two vectors *u* and *v* on the left and a bi-vector called $u \wedge v$ on the right ([source](https://commons.wikimedia.org/wiki/File:Prod2.png))*
+*Fig: Two vectors u and v on the left and a bi-vector called* $u \wedge v$ *on the right* ([source](https://commons.wikimedia.org/wiki/File:Prod2.png))
 
 Much like the 1D vector scenario, it doesnt matter much where you place this object. To go even further: as long as its magnitude (*area*) stays the same and the surfaces' top to points to the same direction, you can even transform the surface however you like. But flipping the direction of the surface corresponds to flipping the sign of the bi-vector:
 
 ![Two opposite Bi-Vectors](https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Alternating1.png/640px-Alternating1.png)\
-*Fig: Two bi-vectors with opposite orientation ([source](https://commons.wikimedia.org/wiki/File:Alternating1.png))*
+*Fig: Two bi-vectors with opposite orientation* ([source](https://commons.wikimedia.org/wiki/File:Alternating1.png))
 
 And we can do the same things with it as we are used to with 1D vectors: multiplying with a scalar just scales the surface by that amount. Where we can lay our 1D arrows end-to-end and draw a line from start to end to add the vectors, we can also align a side of each bi-vector, and draw a new bi-vector from start to end to get the sum of two bi-vectors:
 
 ![Adding vectors](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/1vectoraddition.png/640px-1vectoraddition.png)\
-*Fig: Adding vectors ([source](https://commons.wikimedia.org/wiki/File:1vectoraddition.png))*
+*Fig: Adding vectors* ([source](https://commons.wikimedia.org/wiki/File:1vectoraddition.png))
 
 ![Adding bi-vectors](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/2vectoraddition.png/640px-2vectoraddition.png)\
-*Fig: Adding bi-vectors ([source](https://commons.wikimedia.org/wiki/File:2vectoraddition.png))*
+*Fig: Adding bi-vectors* ([source](https://commons.wikimedia.org/wiki/File:2vectoraddition.png))
 
 Exactly like having a basis $\{e_i\}$ of a 1D vector space, you can take a set of mutually orthonormal surface areas and construct any bi-vector in that space from it by addition and scalar multiplication. 
 
 Hopefully after seeing these things in action, you are convinced that bi-vectors are consistent objects, we can work with them like vectors and the results of that make sense. Of course bi-vectors are also not the end of this ladder we are climbing, we have a general recipe to do this for any dimension (its just that the drawings will get less, uhm, informative). As a last example, 1 rung higher on the ladder we will get an oriented (has an inside and outside) 3D volume, called a **tri-vector**:
 
 ![Tri-vector](https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Grassmannian.png/640px-Grassmannian.png)\
-*Fig: $n$-vectors for $n=0..3$ ([source](https://commons.wikimedia.org/wiki/File:Grassmannian.png))*
+*Fig:* $n$*-vectors for* $n=0..3$ ([source](https://commons.wikimedia.org/wiki/File:Grassmannian.png))
 
 ### Interactions between n-Vectors
 So far all the mono, bi, tri, $n$-vectors have lived happily in their own world. While a neat continuation of a train of thought, defining them hasnt really added anything to our understanding yet. The key to their usefulness come in when we revisit the cross product, but doing it *the proper way*.
@@ -78,7 +78,7 @@ In 3D the cross-product actually gives us enough information (if we combine it w
 Let us define the *wedge product* $\mathbf{a} \wedge \mathbf{b}$. Remember from the cross-product that we got some measure of the area of the space that was spanned between the two input vectors, and it also gave a direction orthogonal to the them. These are nice things, lets keep them. The difference is that our wedge product will actually output a bi-vector. It will be the bi-vector with its surface's top pointing orthogonal to the input vectors, and a magnitude equal to the area spanned by the paralellogram of the 2 vectors. The surface will either point up or down depending on which vector is first, such that $\mathbf{a} \wedge \mathbf{b} = -\mathbf{b} \wedge \mathbf{a}$ (a.k.a. it is *anti-commutative*).
 
 ![Wedge product on vectors resulting in a bi-vector](https://upload.wikimedia.org/wikipedia/commons/d/d8/Exterior_calc_cross_product.svg)\
-*Fig: The difference between $\mathbf{a} \times \mathbf{b}$ and $\mathbf{a} \wedge \mathbf{b}$ in 3D space ([source](https://commons.wikimedia.org/wiki/File:Exterior_calc_cross_product.svg))*
+*Fig: The difference between* $\mathbf{a} \times \mathbf{b}$ *and* $\mathbf{a} \wedge \mathbf{b}$ *in 3D space* ([source](https://commons.wikimedia.org/wiki/File:Exterior_calc_cross_product.svg))
 
 In this way the wedge product has brought us *up* on the ladder of $n$-vectors. We start to see how the different levels of $n$-vectors begin to interact.
 
@@ -112,7 +112,7 @@ We can also note down the following **rules** for working with the geometric pro
 ## Consequences
 With these building blocks in hand, we can just start writing everything in terms of the original basis vectors again, and use the observations on how those basis vectors transform to study what happens.
 
-### Example in 3D:
+### Example in 3D
 Lets say we now want to calculate the product of two vectors in 3D. We write the vectors in terms of their components and simply start multiplying out the terms:
 $$
 (a_{1}\mathbf{\hat{x}} + a_{2}\mathbf{\hat{y}} + a_{3}\mathbf{\hat{z}})(b_{1}\mathbf{\hat{x}} + b_{1}\mathbf{\hat{y}} + a_{3}\mathbf{\hat{z}})
@@ -156,7 +156,7 @@ So, linear combinations of scalars and bi-vectors. Note that in 2D space, there 
 
 Lets see what happens when objects like these are multiplied using the geometric product:
 $$
-\mathbf{ab} = (a_1 + a_2 \hat{x}\hat{y})(b_1 + b_2 \hat{x}\hat{y}) = 
+\mathbf{ab} = (a_{1} + a_{2} \hat{x}\hat{y})(b_{1} + b_{2} \hat{x}\hat{y}) = 
 \\\
 a_{1}b_{1} + a_{1}b_{2}\hat{x}\hat{y} + a_{2}b_{1}\hat{x}\hat{y} + a_{2}b_{2}\hat{x}\hat{y}\hat{x}\hat{y} = 
 \\\
@@ -172,7 +172,7 @@ $$
 $$
 
 ![Multiplying a vector with xy from left and right](images/coordinates-2d-vector-multiplication.svg)\
-*Fig: Multiplying a vector $\mathbf{V}$ from the right with $\hat{x}\hat{y}$ rotates it counterclockwise, from the left does so clockwise*
+*Fig: Multiplying a vector* $\mathbf{V}$ *from the right with* $\hat{x}\hat{y}$ *rotates it counterclockwise, from the left does so clockwise*
 
 It turns out that $\hat{x}\hat{y} = i$, the imaginary unit! This is weird, right? Not only have we rediscovered $i$ without particularly looking for it, we also don't rely anymore for its definition on the: "$i = \sqrt{-1}$ but not really because that isnt actually defined but just pretend it exists anyway". \
 No: $i$ is the basis bi-vector in 2D space. Simple.
@@ -180,7 +180,7 @@ No: $i$ is the basis bi-vector in 2D space. Simple.
 ### Quaternions
 We can do this same trick in 3D: The difference here is that there are more terms coming into play when looking at all possible multi-vectors: We have the scalar, 3 basis vector, and as we've seen the basis of bi-vectors has 3 components. Finally there is also one basis tri-vector $\hat{x}\hat{y}\hat{z}$, bringing us to a total of 8 components:
 $$
-V = a_1 + a_{2}\hat{x} + a_{3}\hat{y} + a_{4}\hat{z} + a_{5}\hat{x}\hat{y} + a_{6}\hat{y}\hat{z} + a_{7}\hat{x}\hat{z} + a_{8}\hat{x}\hat{y}\hat{z}
+V = a_{1} + a_{2}\hat{x} + a_{3}\hat{y} + a_{4}\hat{z} + a_{5}\hat{x}\hat{y} + a_{6}\hat{y}\hat{z} + a_{7}\hat{x}\hat{z} + a_{8}\hat{x}\hat{y}\hat{z}
 $$
 I won't type it all out here, but if you look at how the 3 basis bi-vectors transform in this space under the geometric product, you will find that they describe [quaternion](https://en.wikipedia.org/wiki/Quaternion) multiplication.
 
