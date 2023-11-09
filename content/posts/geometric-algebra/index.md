@@ -115,17 +115,13 @@ With these building blocks in hand, we can just start writing everything in term
 ### Example in 3D
 Lets say we now want to calculate the product of two vectors in 3D. We write the vectors in terms of their components and simply start multiplying out the terms:
 $$
-(a_{1}\mathbf{\hat{x}} + a_{2}\mathbf{\hat{y}} + a_{3}\mathbf{\hat{z}})(b_{1}\mathbf{\hat{x}} + b_{1}\mathbf{\hat{y}} + a_{3}\mathbf{\hat{z}})
-=
-\newline
+(a_{1}\mathbf{\hat{x}} + a_{2}\mathbf{\hat{y}} + a_{3}\mathbf{\hat{z}})(b_{1}\mathbf{\hat{x}} + b_{1}\mathbf{\hat{y}} + a_{3}\mathbf{\hat{z}}) = \newline
 a_{1}a_{2} \mathbf{\hat{x}\hat{x}} +
 a_{1}b_{2} \mathbf{\hat{x}\hat{y}} +
-a_{1}c_{2} \mathbf{\hat{x}\hat{z}} +
-\newline
+a_{1}c_{2} \mathbf{\hat{x}\hat{z}} + \newline
 b_{1}a_{2} \mathbf{\hat{y}\hat{x}} +
 b_{1}b_{2} \mathbf{\hat{y}\hat{y}} +
-b_{1}c_{2} \mathbf{\hat{y}\hat{z}} +
-\newline
+b_{1}c_{2} \mathbf{\hat{y}\hat{z}} + \newline
 c_{1}a_{2} \mathbf{\hat{z}\hat{x}} +
 c_{1}b_{2} \mathbf{\hat{z}\hat{y}} +
 c_{1}c_{2} \mathbf{\hat{z}\hat{z}}
