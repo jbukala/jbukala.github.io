@@ -19,9 +19,9 @@ Now consider cross products in contrast. Do you still remember? *Yeah, neither d
 $$
 \mathbf{a \times b} = 
 \begin{bmatrix}
-           a_{2}b_{3} - a_{3}b_{2} \\
-           a_{3}b_{1} - a_{1}b_{3} \\
-           a_{1}b_{2} - a_{2}b_{1} \\
+           a_{2}b_{3} - a_{3}b_{2} \newline
+           a_{3}b_{1} - a_{1}b_{3} \newline
+           a_{1}b_{2} - a_{2}b_{1} \newline
          \end{bmatrix}
 $$
 Now what does the output mean: you get a vector orthogonal to your 2 original ones, with a magnitude that is equal to the surface that is spanned by the paralellogram of the 2 vectors. How does a vector *length* equal some *surface* area in the same space? The units dont even work. Its clear that something is off.
