@@ -128,7 +128,7 @@ b_{1}c_{2} \mathbf{\hat{y}\hat{z}} +
 \newline
 c_{1}a_{2} \mathbf{\hat{z}\hat{x}} +
 c_{1}b_{2} \mathbf{\hat{z}\hat{y}} +
-c_{1}c_{2} \mathbf{\hat{z}\hat{z}} +
+c_{1}c_{2} \mathbf{\hat{z}\hat{z}}
 $$
 If we now use our **rule 1** that says $\mathbf{\hat{x}\hat{x}} = \mathbf{\hat{y}\hat{y}} = \mathbf{\hat{z}\hat{z}} = 1$ we can bring those numbers together, and **rule 2** saying that $\mathbf{\hat{x}\hat{y}} = - \mathbf{\hat{y}\hat{x}}$ etc. we can bring those terms together too. We then end up with the general formula of the geometric product of two vectors in 3D:
 $$
