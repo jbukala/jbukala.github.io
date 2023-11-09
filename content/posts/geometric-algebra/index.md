@@ -116,17 +116,17 @@ With these building blocks in hand, we can just start writing everything in term
 Lets say we now want to calculate the product of two vectors in 3D. We write the vectors in terms of their components and simply start multiplying out the terms:
 $$
 (a_{1}\mathbf{\hat{x}} + a_{2}\mathbf{\hat{y}} + a_{3}\mathbf{\hat{z}})(b_{1}\mathbf{\hat{x}} + b_{1}\mathbf{\hat{y}} + a_{3}\mathbf{\hat{z}})
-\\\
+\newline
 =
-\\\
+\newline
 a_{1}a_{2} \mathbf{\hat{x}\hat{x}} +
 a_{1}b_{2} \mathbf{\hat{x}\hat{y}} +
 a_{1}c_{2} \mathbf{\hat{x}\hat{z}} +
-\\\
+\newline
 b_{1}a_{2} \mathbf{\hat{y}\hat{x}} +
 b_{1}b_{2} \mathbf{\hat{y}\hat{y}} +
 b_{1}c_{2} \mathbf{\hat{y}\hat{z}} +
-\\\
+\newline
 c_{1}a_{2} \mathbf{\hat{z}\hat{x}} +
 c_{1}b_{2} \mathbf{\hat{z}\hat{y}} +
 c_{1}c_{2} \mathbf{\hat{z}\hat{z}} +
@@ -134,7 +134,7 @@ $$
 
 If we now use our **rule 1** that says $\mathbf{\hat{x}\hat{x}} = \mathbf{\hat{y}\hat{y}} = \mathbf{\hat{z}\hat{z}} = 1$ we can bring those numbers together, and **rule 2** saying that $\mathbf{\hat{x}\hat{y}} = - \mathbf{\hat{y}\hat{x}}$ etc. we can bring those terms together too. We then end up with the general formula of the geometric product of two vectors in 3D:
 $$
-\mathbf{ab}  = a_{1}a_{2} +b_{1}b_{2} + c_{1}c_{2} + \\\
+\mathbf{ab}  = a_{1}a_{2} +b_{1}b_{2} + c_{1}c_{2} + \newline
 (a_{1}b_{2} - b_{1}a_{2})\mathbf{\hat{x}\hat{y}} + (b_{1}c_{2} - c_{1}b_{2})\mathbf{\hat{y}\hat{z}} + (a_{1}c_{2} - c_{1}a_{2})\mathbf{\hat{x}\hat{z}}
 $$
 
@@ -157,9 +157,9 @@ So, linear combinations of scalars and bi-vectors. Note that in 2D space, there 
 Lets see what happens when objects like these are multiplied using the geometric product:
 $$
 \mathbf{ab} = (a_{1} + a_{2} \hat{x}\hat{y})(b_{1} + b_{2} \hat{x}\hat{y}) = 
-\\\
+\newline
 a_{1}b_{1} + a_{1}b_{2}\hat{x}\hat{y} + a_{2}b_{1}\hat{x}\hat{y} + a_{2}b_{2}\hat{x}\hat{y}\hat{x}\hat{y} = 
-\\\
+\newline
 a_{1}b_{1}- a_{2}b_{2} + (a_{1}b_{2} + a_{2}b_{1})\hat{x}\hat{y}
 $$
 Where in the last step for the last term we applied **rule 2** and then **1**:
