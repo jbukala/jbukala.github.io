@@ -103,11 +103,11 @@ Firstly you can note that the inner product produces a scalar and the wedge prod
 
 Thinking about what happens with this product in some simple settings, we can quickly see that if $\mathbf{a}$ and $\mathbf{b}$ are parallel, the area spanned by the input vectors will be 0 and thus it reduces to a simple inner product. If they are orthogonal however, it will be the inner product that equals zero and only the wedge will remain.
 
-To continue and make sense of what the consequences of our definition are, lets clarify something: We already know we can build a basis of higher order $n$-vectors from wedge products of basis vectors. Assuming our basis is orthonormal the geometric product and wedge product are the same, so for the basis of our bi-vector space we can just write $\{ \mathbf{e_ie_j}| i\neq j\}$
+To continue and make sense of what the consequences of our definition are, lets clarify something: We already know we can build a basis of higher order $n$-vectors from wedge products of basis vectors. Assuming our basis is orthonormal the geometric product and wedge product are the same, so for the basis of our bi-vector space we can just write $\{ \mathbf{e_{i}e_{j}}| i\neq j\}$
 
 We can also note down the following **rules** for working with the geometric product for basis vectors in this space:
-1. $\mathbf{e_ie_i} = ||\mathbf{e_i}||^2 = 1 \quad \forall i$ (because it's parallel with itself)
-2. $\mathbf{e_ie_j} = -\mathbf{e_je_i} \quad \forall i \neq j$ (because the wedge product is anti-commutative)
+1. $\mathbf{e_{i}e_{i}} = ||\mathbf{e_i}||^2 = 1 \quad \forall i$ (because it's parallel with itself)
+2. $\mathbf{e_{i}e_{j}} = -\mathbf{e_{j}e_{i}} \quad \forall i \neq j$ (because the wedge product is anti-commutative)
 
 ## Consequences
 With these building blocks in hand, we can just start writing everything in terms of the original basis vectors again, and use the observations on how those basis vectors transform to study what happens.
@@ -115,27 +115,27 @@ With these building blocks in hand, we can just start writing everything in term
 ### Example in 3D:
 Lets say we now want to calculate the product of two vectors in 3D. We write the vectors in terms of their components and simply start multiplying out the terms:
 $$
-(a_1\mathbf{\hat{x}} + a_2\mathbf{\hat{y}} + a_3\mathbf{\hat{z}})(b_1\mathbf{\hat{x}} + b_1\mathbf{\hat{y}} + a_3\mathbf{\hat{z}})
-\newline
+(a_{1}\mathbf{\hat{x}} + a_{2}\mathbf{\hat{y}} + a_{3}\mathbf{\hat{z}})(b_{1}\mathbf{\hat{x}} + b_{1}\mathbf{\hat{y}} + a_{3}\mathbf{\hat{z}})
+\\\
 =
-\newline
-a_1a_2 \mathbf{\hat{x}\hat{x}} +
-a_1b_2 \mathbf{\hat{x}\hat{y}} +
-a_1c_2 \mathbf{\hat{x}\hat{z}} +
-\newline
-b_1a_2 \mathbf{\hat{y}\hat{x}} +
-b_1b_2 \mathbf{\hat{y}\hat{y}} +
-b_1c_2 \mathbf{\hat{y}\hat{z}} +
-\newline
-c_1a_2 \mathbf{\hat{z}\hat{x}} +
-c_1b_2 \mathbf{\hat{z}\hat{y}} +
-c_1c_2 \mathbf{\hat{z}\hat{z}} +
+\\\
+a_{1}a_{2} \mathbf{\hat{x}\hat{x}} +
+a_{1}b_{2} \mathbf{\hat{x}\hat{y}} +
+a_{1}c_{2} \mathbf{\hat{x}\hat{z}} +
+\\\
+b_{1}a_{2} \mathbf{\hat{y}\hat{x}} +
+b_{1}b_{2} \mathbf{\hat{y}\hat{y}} +
+b_{1}c_{2} \mathbf{\hat{y}\hat{z}} +
+\\\
+c_{1}a_{2} \mathbf{\hat{z}\hat{x}} +
+c_{1}b_{2} \mathbf{\hat{z}\hat{y}} +
+c_{1}c_{2} \mathbf{\hat{z}\hat{z}} +
 $$
 
 If we now use our **rule 1** that says $\mathbf{\hat{x}\hat{x}} = \mathbf{\hat{y}\hat{y}} = \mathbf{\hat{z}\hat{z}} = 1$ we can bring those numbers together, and **rule 2** saying that $\mathbf{\hat{x}\hat{y}} = - \mathbf{\hat{y}\hat{x}}$ etc. we can bring those terms together too. We then end up with the general formula of the geometric product of two vectors in 3D:
 $$
-\mathbf{ab}  = a_1a_2 +b_1b_2 + c_1c_2 + \newline
-(a_1b_2 - b_1a_2)\mathbf{\hat{x}\hat{y}} + (b_1c_2 - c_1b_2)\mathbf{\hat{y}\hat{z}} + (a_1c_2 - c_1a_2)\mathbf{\hat{x}\hat{z}}
+\mathbf{ab}  = a_{1}a_{2} +b_{1}b_{2} + c_{1}c_{2} + \\\
+(a_{1}b_{2} - b_{1}a_{2})\mathbf{\hat{x}\hat{y}} + (b_{1}c_{2} - c_{1}b_{2})\mathbf{\hat{y}\hat{z}} + (a_{1}c_{2} - c_{1}a_{2})\mathbf{\hat{x}\hat{z}}
 $$
 
 Looking at this formula 2 things are clear:
@@ -150,25 +150,25 @@ But this is where the pay-off is just starting.
 ### Imaginary numbers
 Let's look at the following setting now: We are in 2D space, and concerned with multivectors of the following form:
 $$
-\mathbf{a} = a_1 + a_2 \hat{x}\hat{y}
+\mathbf{a} = a_{1} + a_{2} \hat{x}\hat{y}
 $$
 So, linear combinations of scalars and bi-vectors. Note that in 2D space, there is only *one* 2D plane, so the basis of our bi-vector space is one-dimensional (only consisting of $\hat{x} \hat{y}$).
 
 Lets see what happens when objects like these are multiplied using the geometric product:
 $$
 \mathbf{ab} = (a_1 + a_2 \hat{x}\hat{y})(b_1 + b_2 \hat{x}\hat{y}) = 
-\newline
-a_1b_1 + a_1b_2\hat{x}\hat{y} + a_2b_1\hat{x}\hat{y} + a_2b_2\hat{x}\hat{y}\hat{x}\hat{y} = 
-\newline
-a_1b_1- a_2b_2 + (a_1b_2 + a_2b_1)\hat{x}\hat{y}
+\\\
+a_{1}b_{1} + a_{1}b_{2}\hat{x}\hat{y} + a_{2}b_{1}\hat{x}\hat{y} + a_{2}b_{2}\hat{x}\hat{y}\hat{x}\hat{y} = 
+\\\
+a_{1}b_{1}- a_{2}b_{2} + (a_{1}b_{2} + a_{2}b_{1})\hat{x}\hat{y}
 $$
 Where in the last step for the last term we applied **rule 2** and then **1**:
 $$
-a_2b_2\hat{x}\hat{y}\hat{x}\hat{y} \stackrel{r2}{=} -a_2b_2\hat{y}\hat{x}\hat{x}\hat{y} \stackrel{r1}{=} -a_2b_2\hat{y}\hat{y} \stackrel{r1}{=} -a_2b_2
+a_{2}b_{2}\hat{x}\hat{y}\hat{x}\hat{y} \stackrel{r2}{=} -a_{2}b_{2}\hat{y}\hat{x}\hat{x}\hat{y} \stackrel{r1}{=} -a_{2}b_{2}\hat{y}\hat{y} \stackrel{r1}{=} -a_{2}b_{2}
 $$
 Looks a bit familiar, maybe? Lets look in particular at $\hat{x} \hat{y}$ and try to multiply a vector with it:
 $$
-\hat{x}\hat{y}(a_1\hat{x} + b_1\hat{y}) = a_1\hat{x}\hat{y}\hat{x} + b_1 \hat{x}\hat{y} \hat{y} \stackrel{r2}{=} - a_1\hat{x}\hat{x}\hat{y} + b_1 \hat{x}\hat{y} \hat{y} \stackrel{r1}{=} b_1\hat{x} - a_1\hat{y}
+\hat{x}\hat{y}(a_{1}\hat{x} + b_{1}\hat{y}) = a_{1}\hat{x}\hat{y}\hat{x} + b_{1} \hat{x}\hat{y} \hat{y} \stackrel{r2}{=} - a_{1}\hat{x}\hat{x}\hat{y} + b_{1} \hat{x}\hat{y} \hat{y} \stackrel{r1}{=} b_{1}\hat{x} - a_{1}\hat{y}
 $$
 
 ![Multiplying a vector with xy from left and right](images/coordinates-2d-vector-multiplication.svg)\
@@ -180,7 +180,7 @@ No: $i$ is the basis bi-vector in 2D space. Simple.
 ### Quaternions
 We can do this same trick in 3D: The difference here is that there are more terms coming into play when looking at all possible multi-vectors: We have the scalar, 3 basis vector, and as we've seen the basis of bi-vectors has 3 components. Finally there is also one basis tri-vector $\hat{x}\hat{y}\hat{z}$, bringing us to a total of 8 components:
 $$
-V = a_1 + a_2\hat{x} + a_3\hat{y} + a_4\hat{z} + a_5\hat{x}\hat{y} + a_6\hat{y}\hat{z} + a_7\hat{x}\hat{z} + a_8\hat{x}\hat{y}\hat{z}
+V = a_1 + a_{2}\hat{x} + a_{3}\hat{y} + a_{4}\hat{z} + a_{5}\hat{x}\hat{y} + a_{6}\hat{y}\hat{z} + a_{7}\hat{x}\hat{z} + a_{8}\hat{x}\hat{y}\hat{z}
 $$
 I won't type it all out here, but if you look at how the 3 basis bi-vectors transform in this space under the geometric product, you will find that they describe [quaternion](https://en.wikipedia.org/wiki/Quaternion) multiplication.
 
