@@ -60,7 +60,7 @@ And we can do the same things with it as we are used to with 1-vectors: multiply
 ![Adding bi-vectors](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/2vectoraddition.png/640px-2vectoraddition.png)\
 *Fig: Adding bi-vectors* ([source](https://commons.wikimedia.org/wiki/File:2vectoraddition.png))
 
-Exactly like having a basis $ \{ e_i \} $ of a 1-vector space, you can take a set of mutually orthonormal surface areas and construct any bi-vector in that space from it by addition and scalar multiplication. 
+Exactly like having a basis $ \left\{ e_i \right\} $ of a 1-vector space, you can take a set of mutually orthonormal surface areas and construct any bi-vector in that space from it by addition and scalar multiplication. 
 
 Hopefully after seeing these things in action, you are convinced that bi-vectors are consistent objects, we can work with them like 1-vectors and the results of that make sense. Of course bi-vectors are also not the end of this ladder we are climbing, we have a general recipe to do this for any dimension (its just that the drawings will get less, uhm, informative). As a last example, 1 rung higher on the ladder we will get an oriented (has an inside and outside) 3D volume, called a **tri-vector**:
 
@@ -82,9 +82,9 @@ Let us define the *wedge product* $\mathbf{a} \wedge \mathbf{b}$. Remember from 
 
 In this way the wedge product has brought us *up* on the ladder of $n$-vectors. We start to see how the different levels of $n$-vectors begin to interact.
 
-Neat to note here is something about the basis elements of our bi-vector space. Now we have the wedge product we can actually represent the basis-*bi*vectors by wedge products of basis-vectors. if $ \{ e_i \} $ is a basis of the vector space, and $A_i$ is the basis-surface pointing in the $i$-direction for the bi-vectors, we can build a basis by wedging:
+Neat to note here is something about the basis elements of our bi-vector space. Now we have the wedge product we can actually represent the basis-*bi*vectors by wedge products of basis-vectors. if $ \left\{ e_i \right\} $ is a basis of the vector space, and $A_i$ is the basis-surface pointing in the $i$-direction for the bi-vectors, we can build a basis by wedging:
 $$
-\{ A_i = e_j \wedge e_k \quad \forall i,j,k \quad | \quad i \neq j, \quad j \lt k \}
+\left\{ A_i = e_j \wedge e_k \quad \forall i,j,k \quad | \quad i \neq j, \quad j \lt k \right\}
 $$
 
 Which means we just need the basis of the 1-vectors, combined with the wedge product in order to fully describe all $n$-vectors.
@@ -105,7 +105,7 @@ Firstly you can note that the inner product produces a scalar and the wedge prod
 
 Thinking about what happens with this product in some simple settings, we can quickly see that if $\mathbf{a}$ and $\mathbf{b}$ are parallel, the area spanned by the input vectors will be 0 and thus it reduces to a simple inner product. If they are orthogonal however, it will be the inner product that equals zero and only the wedge will remain.
 
-To continue and make sense of what the consequences of our definition are, lets clarify something: We already know we can build a basis of higher order $n$-vectors from wedge products of basis 1-vectors. Assuming our basis is orthonormal the geometric product and wedge product are the same, so for the basis of our bi-vector space we can just write $ \{ \mathbf{e_{i}e_{j}}| i\neq j\} $
+To continue and make sense of what the consequences of our definition are, lets clarify something: We already know we can build a basis of higher order $n$-vectors from wedge products of basis 1-vectors. Assuming our basis is orthonormal the geometric product and wedge product are the same, so for the basis of our bi-vector space we can just write $ \left\{ \mathbf{e_{i}e_{j}}| i\neq j\right\} $
 
 We can also note down the following **rules** for working with the geometric product for basis vectors in this space:
 1. $\mathbf{e_{i}e_{i}} = ||\mathbf{e_i}||^2 = 1 \quad \forall i$ (because it's parallel with itself)
