@@ -170,7 +170,7 @@ $$
 Looks a bit familiar, maybe? Lets look in particular at $\hat{x} \hat{y}$ and try to multiply a vector with it:
 $$
 \hat{x}\hat{y}(a_{1}\hat{x} + b_{1}\hat{y}) = a_{1}\hat{x}\hat{y}\hat{x} + b_{1} \hat{x}\hat{y} \hat{y} \stackrel{r2}{=} \newline
-- a_{1}\hat{x}\hat{x}\hat{y} + b_{1} \hat{x}\hat{y} \hat{y} \stackrel{r1}{=} b_{1}\hat{x} - a_{1}\hat{y}
+-a_{1}\hat{x}\hat{x}\hat{y} + b_{1} \hat{x}\hat{y} \hat{y} \stackrel{r1}{=} b_{1}\hat{x} - a_{1}\hat{y}
 $$
 
 ![Multiplying a vector with xy from left and right](images/coordinates-2d-vector-multiplication.svg)\
