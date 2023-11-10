@@ -1,6 +1,6 @@
 baseURL: https://jbukala.github.io/
 languageCode: en-us
-title: Joris Bukala
+title: Joris Bukala | Math & ML
 paginate: 5
 theme: PaperMod
 
@@ -9,7 +9,7 @@ buildDrafts: false
 buildFuture: false
 buildExpired: false
 
-googleAnalytics: UA-123-45
+#googleAnalytics: UA-123-45
 
 minify:
   disableXML: true
@@ -17,7 +17,7 @@ minify:
 
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
-  title: Joris
+  title: Joris Bukala | Math & ML
   description: "Math/ML notes"
   keywords: [Blog, Math, Machine learning]
   #author: Me
@@ -31,7 +31,7 @@ params:
   ShowPostNavLinks: true
   ShowBreadCrumbs: true
   ShowCodeCopyButtons: false
-  ShowWordCount: true
+  ShowWordCount: false
   ShowRssButtonInSectionTermList: true
   UseHugoToc: true
   disableSpecial1stPost: false
@@ -44,11 +44,11 @@ params:
 
   assets:
     # disableHLJS: true # to disable highlight.js
-    # disableFingerprinting: true
-    favicon: "favicon/favicon.ico"
-    favicon16x16: "favicon/favicon-16x16.png"
-    favicon32x32: "favicon/favicon-32x32.png"
-    apple_touch_icon: "favicon/apple-touch-icon.png"
+    disableFingerprinting: true
+    favicon: "favicons/favicon.ico"
+    favicon16x16: "favicons/favicon-16x16.png"
+    favicon32x32: "favicons/favicon-32x32.png"
+    apple_touch_icon: "favicons/apple-touch-icon.png"
     #safari_pinned_tab: "favicon/favicon.ico"
 
   label:
