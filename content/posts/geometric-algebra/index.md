@@ -24,12 +24,12 @@ $$
            a_{1}b_{2} - a_{2}b_{1} \newline
          \end{bmatrix}
 $$
-Now what does the output mean: you get a vector orthogonal to your 2 original ones, with a magnitude that is equal to the surface that is spanned by the paralellogram of the 2 vectors. How does a vector *length* equal some surface *area* in the same space? The units don't even work. It's clear that something is off.
+Now what does the output mean: you get a vector orthogonal to your 2 original ones, with a magnitude equal to the surface that is spanned by the paralellogram of the 2 vectors. How does a vector *length* equal some surface *area* in the same space? The units don't even work. It's clear that something is off.
 
 ### A Way Out
-When you inevitably bring it up it's often encouraged not to worry too much about it, it's just some math stuff, shut up and learn the formula by heart. For those people plagued for years by these questions, today I present salvation from your vector-related nightmares: **Geometric Algebra** (known in some circles as a *Clifford algebra*).
+When you inevitably bring it up it's often encouraged not to worry too much about it, it's just some math stuff, shut up and learn the formula by heart. For those people plagued for years by these questions, today I present salvation from your vector-related nightmares: **Geometric Algebra**.
 
-Geometric Algebra is a simple and small step back from Linear Algebra in terms of abstractness. In turn, it gives you a nice and consistent framework where many things just suddenly make *sense*: Cross products, imaginary numbers, quaternions and more.
+Geometric Algebra (known in some circles as a *Clifford algebra*) is a simple and small step back from Linear Algebra in terms of abstractness. In turn, it gives you a nice and consistent framework where many things just suddenly make *sense*: Cross products, imaginary numbers, quaternions and more.
 
 ## Multiplying Vectors
 To kick this journey off think about what we can do with vectors in general: we can add them together, we can multiply them with scalars, but we don't know how to multiply them with eachother. This multiplication takes place in a space that is a bit more general then just a vector space, encompassing so-called $n$-vectors.

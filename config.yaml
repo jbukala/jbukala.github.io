@@ -1,4 +1,4 @@
-baseURL: https://jbukala.github.io/
+baseURL: https://jorisbukala.com/
 languageCode: en-us
 title: Joris Bukala | Math & ML
 paginate: 5
@@ -26,7 +26,7 @@ params:
   defaultTheme: dark #auto, dark, light
   disableThemeToggle: false
 
-  ShowReadingTime: true
+  ShowReadingTime: false
   ShowShareButtons: true
   ShowPostNavLinks: true
   ShowBreadCrumbs: true
