@@ -50,6 +50,10 @@ Making these changes, we arrive at the plot below:
 
 ![Prime time watch face](images/prime_time_current.svg)
 
+To appreciate its full funky-ness, here is a GIF of the watch running for 10 seconds:
+
+![Prime time watch running for 10 seconds](images/running_clock.gif)
+
 ## Next steps
 
 The current implementation is a very simple one in Python with matplotlib. A nice next step would be to actually implement this for a smart watch of some sorts.
@@ -60,4 +64,4 @@ Something that is also already clear that even in this polar representation, the
 
 This is actually not a disaster: It gives some extra free space to dump gadgets like your heart rate, the date, etc.
 
-Finally - I don't expect the *seconds*-hand to be of any use at all. Not sure how fast you can/want to multiply prime numbers together in your head, but I think it's better here to opt for more simplicity by just leaving it out.
+Finally - I don't expect the *seconds*-hand to be of much practical use. Not sure how fast you can multiply prime numbers together in your head, although it *does* make it look extra funky!
