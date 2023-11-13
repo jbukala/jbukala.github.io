@@ -62,7 +62,7 @@ Similarly, we can also align a side of each bi-vector, and draw a new bi-vector 
 ![Adding bi-vectors](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/2vectoraddition.png/640px-2vectoraddition.png)\
 *Fig: Adding bi-vectors* ([source](https://commons.wikimedia.org/wiki/File:2vectoraddition.png))
 
-Exactly like having a basis $ \lbrace e_i \rbrace $ of a 1-vector space from which you can make any 1-vector through addition and scalar multiplication, you can take a set of mutually orthonormal surface areas $ \lbrace \Pi_i \rbrace $ and use that as a basis of bi-vectors. 
+Exactly like having a orthonormal basis $ \lbrace e_i \rbrace $ of a 1-vector space from which you can make any 1-vector through addition and scalar multiplication, you can take a set of mutually orthonormal surface areas $ \lbrace \Pi_i \rbrace $ and use that as a basis of bi-vectors. 
 
 Hopefully after seeing these things in action, you are convinced that bi-vectors are consistent objects, we can work with them like 1-vectors and the results of that make sense. Of course bi-vectors are also not the end of this ladder we are climbing. We have a general recipe to do this for any dimension (it's just that the drawings will get less, uhm, informative). As a last example, 1 rung higher on the ladder we will get an oriented (has an inside and outside) 3D volume, called a **tri-vector**:
 
@@ -82,7 +82,7 @@ Let us define the *wedge product* $\mathbf{a} \wedge \mathbf{b}$. The cross-prod
 ![Wedge product on 1-vectors resulting in a bi-vector](https://upload.wikimedia.org/wikipedia/commons/d/d8/Exterior_calc_cross_product.svg)\
 *Fig: The difference between* $\mathbf{a} \times \mathbf{b}$ *and* $\mathbf{a} \wedge \mathbf{b}$ *in 3D space* ([source](https://commons.wikimedia.org/wiki/File:Exterior_calc_cross_product.svg))
 
-We started out with two 1-vectors and ended up with a bi-vector. In this way the wedge product has brought us *up* on the ladder of $n$-vectors. We start to see how the different levels of $n$-vectors begin to interact.
+We started out with two 1-vectors and ended up with a bi-vector. In this way the wedge product has brought us *up* on the ladder of $n$-vectors. If we wanted to, we could take the wedge product between this bi-vector and another 1-vector to make a tri-vector. We start to see how the different levels of $n$-vectors begin to interact.
 
 There is something neat to note here about the basis elements of our bi-vector space. Now that we have the wedge product we can actually represent the basis *bi*vectors by wedge products of basis 1-vectors. If $ \lbrace e_i \rbrace $ is the basis of the 1-vector space, we can build a basis-surface pointing in the $i$-direction for the bi-vector space $A_i$ by wedging: 
 $$
@@ -122,23 +122,23 @@ The previous observations now allow us to simplify this multi-vector space: we c
 ### Example in 3D
 Let's say we now want to calculate the geometric product of two vectors in 3D. We write the vectors in terms of their components and simply start multiplying out the terms:
 $$
-(a_{1}\mathbf{\hat{x}} + a_{2}\mathbf{\hat{y}} + a_{3}\mathbf{\hat{z}})(b_{1}\mathbf{\hat{x}} + b_{1}\mathbf{\hat{y}} + a_{3}\mathbf{\hat{z}}) = \newline
-a_{1}a_{2} \mathbf{\hat{x}\hat{x}} +
+(a_{1}\mathbf{\hat{x}} + a_{2}\mathbf{\hat{y}} + a_{3}\mathbf{\hat{z}})(b_{1}\mathbf{\hat{x}} + b_{2}\mathbf{\hat{y}} + b_{3}\mathbf{\hat{z}}) = \newline
+a_{1}b_{1} \mathbf{\hat{x}\hat{x}} +
 a_{1}b_{2} \mathbf{\hat{x}\hat{y}} +
-a_{1}c_{2} \mathbf{\hat{x}\hat{z}} + \newline
-b_{1}a_{2} \mathbf{\hat{y}\hat{x}} +
-b_{1}b_{2} \mathbf{\hat{y}\hat{y}} +
-b_{1}c_{2} \mathbf{\hat{y}\hat{z}} + \newline
-c_{1}a_{2} \mathbf{\hat{z}\hat{x}} +
-c_{1}b_{2} \mathbf{\hat{z}\hat{y}} +
-c_{1}c_{2} \mathbf{\hat{z}\hat{z}}
+a_{1}b_{3} \mathbf{\hat{x}\hat{z}} + \newline
+a_{2}b_{1} \mathbf{\hat{y}\hat{x}} +
+a_{2}b_{2} \mathbf{\hat{y}\hat{y}} +
+a_{2}b_{3} \mathbf{\hat{y}\hat{z}} + \newline
+a_{3}b_{1} \mathbf{\hat{z}\hat{x}} +
+a_{3}b_{2} \mathbf{\hat{z}\hat{y}} +
+a_{3}b_{3} \mathbf{\hat{z}\hat{z}}
 $$
 If we now use our **rule 1** that says $\mathbf{\hat{x}\hat{x}} = \mathbf{\hat{y}\hat{y}} = \mathbf{\hat{z}\hat{z}} = 1$, and **rule 2** saying that $\mathbf{\hat{x}\hat{y}} = - \mathbf{\hat{y}\hat{x}}$ etc. We then end up with the general formula of the geometric product of two vectors in 3D:
 $$
-\mathbf{ab}  = a_{1}a_{2} +b_{1}b_{2} + c_{1}c_{2} + \newline
-(a_{1}b_{2} - b_{1}a_{2})\mathbf{\hat{x}\hat{y}} + \newline
-(b_{1}c_{2} - c_{1}b_{2})\mathbf{\hat{y}\hat{z}} + \newline
-(a_{1}c_{2} - c_{1}a_{2})\mathbf{\hat{x}\hat{z}}
+\mathbf{ab}  = a_{1}b_{1} +a_{2}b_{2} + a_{3}b_{3} + \newline
+(a_{1}b_{2} - a_{2}b_{1})\mathbf{\hat{x}\hat{y}} + \newline
+(a_{2}b_{3} - a_{3}b_{2})\mathbf{\hat{y}\hat{z}} + \newline
+(a_{1}b_{3} - a_{3}b_{1})\mathbf{\hat{x}\hat{z}}
 $$
 
 Looking at this formula 2 things are clear:
