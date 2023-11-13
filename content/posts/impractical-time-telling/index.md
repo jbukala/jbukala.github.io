@@ -1,6 +1,6 @@
 ---
 title: "Impractical Time Telling"
-date: 2023-11-01T19:51:01+01:00
+date: 2023-11-03T19:51:01+01:00
 draft: false
 tags: ["Time", "Prime", "Watch", "Fun", "Math"]
 categories: "Nonsense"
