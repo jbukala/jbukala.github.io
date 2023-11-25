@@ -9,7 +9,7 @@ showtoc: true
 
 ## Playing with strings
 
-Knot theory is one of those topics where you start out asking a very simple and natural question, follow a thread (*hehe*), then look around you and realize you're knee-deep in at least 5 fields of math.
+Knot theory is one of those topics where you start out by asking a very simple and natural question, follow a thread (*hehe*), then look around you and realize you're knee-deep in at least 5 fields of math.
 
 The central topic of interest within knot theory is - you guessed it - knots. A **knot** in this context can be thought of as just a piece of string that is attached together at the ends. So if you feel like it, go and grab a piece of string lying around your house, or cut open a rubber band or whatever. It's literally all you need.
 
@@ -29,7 +29,7 @@ It turns out that there exist many different knots. The system of writing them d
 ![First part of the Knot Table](images/knot_table_red.svg)\
 *Fig: The table of prime knots up to 7 crossings with Alexander-Briggs notation ([Source](https://en.wikipedia.org/wiki/File:Knot_table.svg))*
 
-The simplest form of a knot is called a [prime knot](https://en.wikipedia.org/wiki/Prime_knot). Yes, that word carries a lot of baggage with it, and no it doesn't just talk the talk. Prime knots are not the result of composing together other simpler knots, and all knots can be uniquely constructed by connecting prime knots together. They are the equivalent of prime numbers within number theory.
+The simplest form of a knot is called a [prime knot](https://en.wikipedia.org/wiki/Prime_knot). Yes, that word carries a lot of baggage with it, and no it doesn't just talk the talk. Prime knots are not the result of composing together other simpler knots, and all knots can be uniquely constructed by connecting prime knots together. (Composing a knot is as simple as cutting both of them open, and connecting the ends of the knots together.) Prime knots are the equivalent of prime numbers within number theory. 
 
 What I didn't say yet is how we know we know that these are all different knots, and how we know that these are all knots with up to 7 crossings. This is a really hard question. Finding out if two knots are equivalent to eachother is actually the **central question of knot theory**, and it leads to some interesting places.
 
@@ -52,7 +52,7 @@ Much of knot theory consists of mapping a knot to some number, which is not depe
 
 ### Colorability
 
-As a simple example of this, we can define *tri-colorability*. This is a binary outcome which says if the knot $K$ is tri-colorable or not. Taking a 2D knot diagram, we should try to color each line segment (so stopping when the line does *under* a crossing) according to the following rules:
+As a simple example of this, we can define *tri-colorability*. This is a binary outcome which says if the knot $K$ is tri-colorable or not. Taking a 2D knot diagram, we should try to color each line segment (so stopping when the line goes *under* a crossing) according to the following rules:
 1. At least 2 different colors have to be used
 2. At each crossing, the lines have to be either all the same color, or all different 
 
@@ -61,15 +61,65 @@ If this is possible, the knot is called tri-colorable. An example is given below
 ![A tri-colorable knot](https://upload.wikimedia.org/wikipedia/commons/3/3c/TricoloredGrannyKnot.svg)\
 *Fig: A Granny Knot which has been tri-colored ([source](https://en.wikipedia.org/wiki/Tricolorability#/media/File:TricoloredGrannyKnot.svg))*
 
-The Reidemeister moves [don't affect this binary tri-colorability invariant](https://en.wikipedia.org/wiki/Tricolorability#Isotopy_invariant). So now we know that **if one knot is tri-colorable while the other is not, they *must* be different knots**. To flex our newfound knowledge, let's refer back to the table of prime knots and try to find the tri-colorability of both the un-knot and $3_1$. The un-knot is not tri-colorable, as we fail immediately at rule #1. The knot $3_1$ is the simplest knot to tri-color. This means we've proven the difference of the first 2 knots in the diagram! Unfortunately this invariant is rather weak: As it's only a binary property, it can only ever divide all possible knots into two groups, without any way to discern betwwn knots inside each group. The granny knot pictured above is also tri-colorable, but we know it's not $3_1$.
+The Reidemeister moves [don't affect this binary tri-colorability invariant](https://en.wikipedia.org/wiki/Tricolorability#Isotopy_invariant). So now we know that **if one knot is tri-colorable while the other is not, they *must* be different knots**. To flex our newfound knowledge, let's refer back to the table of prime knots and try to find the tri-colorability of both the un-knot and $3_1$. The un-knot is not tri-colorable, as we fail immediately at rule #1. The knot $3_1$ is the simplest knot to tri-color. This means we've proven the difference of the first 2 knots in the diagram! Unfortunately this invariant is rather weak: As it's a binary property, it can only ever divide all possible knots into two groups, without any way to discern between knots inside each group. The granny knot pictured above is also tri-colorable, but we know it's not $3_1$.
 
 The solution is clear: Construct more invariants (preferably more discerning than this one) and start throwing them at our collection of knots to find if they can discern between different ones.
 
 ### Alexander Polynomial
+One of the invariants derived by James Alexander in 1923 is the [Alexander polynomial](https://en.wikipedia.org/wiki/Alexander_polynomial). As you may expect, producing a polynomial for each knot should be much more distinctive in theory than a binary outcome could ever be.
 
-### Conway Polynomial
+The following is a recipe for taking a knot diagram and producing the Alexander polynomial from it:
 
-### Genus
+1. Orient the knot (this means assigning a consistent direction in which you can travel around the line of the knot). You now have a diagram with $n$ crossings and $n+2$ regions bounded by line segments
+2. Now build an $n$-by-$n+2$ incidence matrix with an entry for each crossing/region combination (a row for each crossing, a column for each region)
+3. For each crossing (refer to figure below):
+    * Align yourself to the piece of the knot coming in to and traveling underneath the crossing
+    * The region to the left, before the crossing gets assigned a $-t$, the one on the left after crossing a $t$.
+    * The region to the right before crossing gets assigned a 1, after crossing a -1
+    * If a region doesnt touch this crossing at all, assign it a 0
+4. Take your completed incidence matrix and delete any 2 columns or your choosing corresponding to adjacent regions
+5. Calculate the determinant of this matrix. You will end up with a polynomial in *t*
+6. Divide out the largest power of *t^n* and multiply by 1 if needed to make the constant term positive. (This is needed to remove ambiguity in the polynomial due to your freedom in choice of columns to delete during step 4.)
+
+![Alexander Polynomial Incidence matrix construction](images/alexander_polynomial_incidence_matrix.svg)\
+*Fig: Constructing the incidence matrix from each crossing for the Alexander polynomial*
+
+#### Example
+Now we'll run through how you can do this for the knot $4_1$. In the figure below we have already picked an orientation for the knot, and have numbered both the crossings and regions. Note that all these choices are arbitrary and will not affect the final polynomial.
+
+![Alexander polynomial incidence matrix construction for 4_1](images/alexander_polynomial_4_1.svg)\
+*The knot $4_1$ with an orientation, crossings (in blue) and regions (in green) numbered to build an incidence matrix*
+
+We go through the crossings 1 by 1, starting at the one you first encounter while moving upwards on the left side. This results in the following incidence matrix (If you want, verify for a crossing or two that the numbers indeed end up where you expect them to):
+
+$$
+\begin{bmatrix}
+           -t & 1 & t & -1 & 0 & 0 \newline
+           -1 & 0 & t & -t & 1 & 0 \newline
+           -t & t & 0 & 0 & 1 & -1 \newline
+           0 & 1 & 0 & -t & t & -1 \newline
+         \end{bmatrix}
+$$
+
+Now throwing away the first two columns and calculating the determinant of the remaining 4x4 matrix we get $-t^3 + 3t^2 - t$. This we can then divide by $t^2$ (no need to multiply by $-1$ here) to arrive at the Alexander polynomial of $4_1$:
+
+$$
+\Delta_{4_1}(t) = -t - t^{-1} + 3
+$$
+
+To check our work we can go to this [Knot Atlas Wiki page](http://katlas.math.toronto.edu/wiki/The_Rolfsen_Knot_Table), click on the knot $4_1$ and look at the invariants section.
+
+### Usefulness/meaning of Alexander polynomial
+
+
+
+### Other invariants
+
+There is also:
+* Conway polynomial
+* Genus
+* Jones polynomial
+* many more
 
 ## Applications
 
