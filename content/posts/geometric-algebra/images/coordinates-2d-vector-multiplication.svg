@@ -8,7 +8,7 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
-   sodipodi:docname="coordinate_with_bibasis_vectors.svg"
+   sodipodi:docname="coordinates-2d-vector-multiplication.svg"
    inkscape:export-filename="coordinate_2d_multiplication.svg"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
@@ -28,12 +28,12 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="1.4142136"
-     inkscape:cx="261.27596"
-     inkscape:cy="249.96225"
+     inkscape:cx="261.27595"
+     inkscape:cy="250.31579"
      inkscape:window-width="1920"
-     inkscape:window-height="1001"
-     inkscape:window-x="-9"
-     inkscape:window-y="-9"
+     inkscape:window-height="1002"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer4"
      inkscape:export-bgcolor="#ffffffff">
@@ -121,8 +121,8 @@
     <rect
        x="250.3158"
        y="15.556349"
-       width="31.112698"
-       height="32.381794"
+       width="62.225396"
+       height="63.494492"
        id="rect66-2" />
   </defs>
   <g
@@ -310,9 +310,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect66-16);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.623622;stroke-linecap:butt;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"><tspan
          x="250.31641"
          y="36.243451"
-         id="tspan2">e<tspan
-   style="font-size:65%;baseline-shift:sub"
-   id="tspan1">x</tspan></tspan></text>
+         id="tspan12">1</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-11.415316,18.193995)"
@@ -320,9 +318,11 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect66-2);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.623622;stroke-linecap:butt;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"><tspan
          x="250.31641"
          y="36.243451"
-         id="tspan4">e<tspan
+         id="tspan15">e<tspan
    style="font-size:65%;baseline-shift:sub"
-   id="tspan3">y</tspan></tspan></text>
+   id="tspan13">x</tspan>e<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan14">y</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,17.563451,0)"
@@ -330,11 +330,11 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect109);fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.623622;stroke-linecap:butt;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"><tspan
          x="8.1777344"
          y="49.678998"
-         id="tspan7">Ve<tspan
+         id="tspan18">Ve<tspan
    style="font-size:65%;baseline-shift:sub"
-   id="tspan5">x</tspan>e<tspan
+   id="tspan16">x</tspan>e<tspan
    style="font-size:65%;baseline-shift:sub"
-   id="tspan6">y</tspan></tspan></text>
+   id="tspan17">y</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,17.563451,0)"
@@ -342,11 +342,11 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect111);fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.623622;stroke-linecap:butt;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"><tspan
          x="274.85742"
          y="488.79228"
-         id="tspan10">e<tspan
+         id="tspan21">e<tspan
    style="font-size:65%;baseline-shift:sub"
-   id="tspan8">x</tspan>e<tspan
+   id="tspan19">x</tspan>e<tspan
    style="font-size:65%;baseline-shift:sub"
-   id="tspan9">y</tspan>V</tspan></text>
+   id="tspan20">y</tspan>V</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,17.563451,0)"
@@ -354,6 +354,6 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect114);fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.623622;stroke-linecap:butt;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"><tspan
          x="354.77539"
          y="157.99931"
-         id="tspan11">V</tspan></text>
+         id="tspan22">V</tspan></text>
   </g>
 </svg>
