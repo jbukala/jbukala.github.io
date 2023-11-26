@@ -24,7 +24,7 @@ But wait a minute - what about the knot on the right? If we would grab that stri
 
 But how do we know if a knot is the unknot when all we see is a complicated diagram? Should we simply get a piece of string and try to pull from all directions until we get the unknot back? What if we don't succeed? Does that mean it's not actually the unknot, or that we just didn't try for long enough?
 
-It turns out that there exist many different knots. The system of writing them down considers each knot in their simplest form: having the minimum amount of *crossings* (the times that the diagram crosses overneath itself). If we call this minimum crossing number $C$, a knot is referred to as $C_i$, where $i$ is simply a number allocated to it in a knot-encyclopedia of sorts, but not inherently meaningful.
+It turns out that there exist many different knots. There is a system of enumerating them, by considering each knot in their simplest form: one aspect of this means having the minimum amount of *crossings* (the times that the diagram crosses underneath itself). If we call this minimum crossing number $C$, a knot is referred to as $C_i$, where $i$ is simply a number allocated to it in a knot-encyclopedia of sorts, but not inherently meaningful.
 
 ![First part of the Knot Table](images/knot_table_red.svg)\
 *Fig: The table of prime knots up to 7 crossings with Alexander-Briggs notation ([Source](https://en.wikipedia.org/wiki/File:Knot_table.svg))*
@@ -44,11 +44,11 @@ The moves are as follows:
 2. Having two separate parts of the knot, and pulling a small bit of the one underneath the other (pulling blue underneath red in the image)
 3. Having two sections crossing over eachother (blue and green in the image), and a third section passing over each of them (red), you can move that third section completely over the initial crossing (move red downwards)
 
-This means that any two of the same knots can be transformed into eachother through a sequence of the correct Reidemeister moves. You probably see quickly for the two depictions of the un-knot pictured above that it is just one step: move 1. However, for larger knots with many crossings, even this quickly becomes unviable. Consider also the knots $3_1$ and $4_1$ in the diagram above: Knowing the Reidemeister moves doesn't immediately show you that it is impossible to transform one into the other through them. Perhaps there is an extremely long sequence of moves that takes you from one to the other. Proving the negative requires an extra ingredient: **invariants**.
+This means that any two diagrams of the same knots can be transformed into eachother through a sequence of the correct Reidemeister moves. You probably see quickly for the two depictions of the un-knot pictured above that it is just one step: move 1. However, for larger knots with many crossings, even this quickly becomes unviable. Consider also the knots $3_1$ and $4_1$ in the diagram above: Knowing the Reidemeister moves doesn't immediately show you that it is impossible to transform one into the other through them. Perhaps there is an extremely long sequence of moves that takes you from one to the other. You could check all possible sequences of a certain length of Reidemeister moves, but the sequence length you should check increases [absolutely monstrously quick](https://arxiv.org/abs/1104.1882) as a function of crossing number. Proving the negative in a viable manner requires an extra ingredient: **invariants**.
 
 ## Knot Invariants
 
-Much of knot theory consists of mapping a knot to some number, which is not dependent on the way that it is folded. To prove that the quantity is invariant to all possible transformations, we can use the Reidemeister moves. If we prove that for each of the Reidemeister moves the output number stays constant, we know it's an invariant.
+Much of knot theory consists of mapping a knot to some number, which is not dependent on the way that it is folded. To prove that the quantity is invariant to all possible transformations, we can still use the Reidemeister moves. If we prove that the number stays constant under application of each of the 3 Reidemeister moves, we know it's an invariant.
 
 ### Colorability
 
@@ -61,7 +61,7 @@ If this is possible, the knot is called tri-colorable. An example is given below
 ![A tri-colorable knot](https://upload.wikimedia.org/wikipedia/commons/3/3c/TricoloredGrannyKnot.svg)\
 *Fig: A Granny Knot which has been tri-colored ([source](https://en.wikipedia.org/wiki/Tricolorability#/media/File:TricoloredGrannyKnot.svg))*
 
-The Reidemeister moves [don't affect this binary tri-colorability invariant](https://en.wikipedia.org/wiki/Tricolorability#Isotopy_invariant). So now we know that **if one knot is tri-colorable while the other is not, they *must* be different knots**. To flex our newfound knowledge, let's refer back to the table of prime knots and try to find the tri-colorability of both the un-knot and $3_1$. The un-knot is not tri-colorable, as we fail immediately at rule #1. The knot $3_1$ is the simplest knot to tri-color. This means we've proven the difference of the first 2 knots in the diagram! Unfortunately this invariant is rather weak: As it's a binary property, it can only ever divide all possible knots into two groups, without any way to discern between knots inside each group. The granny knot pictured above is also tri-colorable, but we know it's not $3_1$.
+The Reidemeister moves [don't affect this binary tri-colorability invariant](https://en.wikipedia.org/wiki/Tricolorability#Isotopy_invariant). So now we know that **if one knot is tri-colorable while the other is not, they *must* be different knots**. To flex our newfound knowledge, let's refer back to the table of prime knots and try to find the tri-colorability of both the un-knot and $3_1$. The un-knot is not tri-colorable, as we fail immediately at rule #1. The knot $3_1$ is the simplest knot to tri-color (try it!). This means we've proven the difference of the first 2 knots in the diagram! Unfortunately this invariant is rather weak: As it's a binary property, it can only ever divide all possible knots into two groups, without any way to discern between knots inside each group. The granny knot pictured above is also tri-colorable, but we know it's not $3_1$.
 
 The solution is clear: Construct more invariants (preferably more discerning than this one) and start throwing them at our collection of knots to find if they can discern between different ones.
 
@@ -70,14 +70,14 @@ One of the invariants derived by James Alexander in 1923 is the [Alexander polyn
 
 The following is a recipe for taking a knot diagram and producing the Alexander polynomial from it:
 
-1. Orient the knot (this means assigning a consistent direction in which you can travel around the line of the knot). You now have a diagram with $n$ crossings and $n+2$ regions bounded by line segments
-2. Now build an $n$-by-$n+2$ incidence matrix with an entry for each crossing/region combination (a row for each crossing, a column for each region)
+1. Orient the knot (this means assigning a consistent direction in which you can travel along your piece of string). You now have a diagram with $n$ crossings and $n+2$ regions bounded by line segments. (To see why, you can consider the un-knot: 0 crossings, but there are 2 regions: the area inside it and the one outside it. For every time that you twist it, one crossing is added, and another area inside is added.)
+2. Now build an $n$-by-($n+2$) incidence matrix with an entry for each crossing/region combination (a row for each crossing, a column for each region)
 3. For each crossing (refer to figure below):
     * Align yourself to the piece of the knot coming in to and traveling underneath the crossing
     * The region to the left, before the crossing gets assigned a $-t$, the one on the left after crossing a $t$.
     * The region to the right before crossing gets assigned a 1, after crossing a -1
     * If a region doesnt touch this crossing at all, assign it a 0
-4. Take your completed incidence matrix and delete any 2 columns or your choosing corresponding to adjacent regions
+4. Take your completed incidence matrix and delete any 2 columns of your choosing corresponding to adjacent regions
 5. Calculate the determinant of this matrix. You will end up with a polynomial in *t*
 6. Divide out the largest power of *t^n* and multiply by 1 if needed to make the constant term positive. (This is needed to remove ambiguity in the polynomial due to your freedom in choice of columns to delete during step 4.)
 
@@ -90,7 +90,7 @@ Now we'll run through how you can do this for the knot $4_1$. In the figure belo
 ![Alexander polynomial incidence matrix construction for 4_1](images/alexander_polynomial_4_1.svg)\
 *The knot $4_1$ with an orientation, crossings (in blue) and regions (in green) numbered to build an incidence matrix*
 
-We go through the crossings 1 by 1, starting at the one you first encounter while moving upwards on the left side. This results in the following incidence matrix (If you want, verify for a crossing or two that the numbers indeed end up where you expect them to):
+We go through the crossings one by one, starting at the one you first encounter while moving upwards on the left side. This results in the following incidence matrix (If you want, verify for a crossing or two that the numbers indeed end up where you expect them to):
 
 $$
 \begin{bmatrix}
@@ -116,13 +116,22 @@ To check our work we can go to this [Knot Atlas Wiki page](http://katlas.math.to
 ### Other invariants
 
 There is also:
-* Conway polynomial
-* Genus
-* Jones polynomial
-* many more
+* [Conway polynomial](https://en.wikipedia.org/wiki/Alexander_polynomial#Alexander%E2%80%93Conway_polynomial): A recursively-defined polynomial in $z$ with integer values for the coefficients, commonly written $\nabla(z)$. It defines the un-knot to have a polynomial equal to $1$, together with a recursive relationship: $\nabla(L_{+}) - \nabla(L_{-}) = z\nabla(L_{0})$, where $L_{+}$ and $L_{-}$ can be 'made' from $L_{0}$ by taking two separate parts of a knot, and connecting the strings together in 2 different ways (see the figure below). In this way more and more complicated knots can be constructed from the un-knot.
+* [Genus](https://en.wikipedia.org/wiki/Seifert_surface#Genus_of_a_knot): This approach considers the lines of the knot to bound a certain surface (called the Seifert surface). The genus of this surface (the number of holes in it) is an invariant.
+* [Chirality](https://en.wikipedia.org/wiki/Chiral_knot): If you take the mirror image of a knot, will you get the same knot? If you get a different one, that knot is *chiral*
+* [Jones polynomial](https://en.wikipedia.org/wiki/Jones_polynomial): Like the Conway polynomial, it's recursively defined by having the value 1 for the un-knot, but a slightly different recursion: $(t^{\frac{1}{2}} - t^{-\frac{1}{2}})V(L_{0}) = t^{-1}V(L_{+}) - tV(L_{-})$. Unlike the Alexander polynomial, the Jones polynomial can in some cases discern between a chiral knot and its mirror image as well.
+* [Concordance/slice](https://en.wikipedia.org/wiki/Slice_knot): Embedding the knot in a 4D hypersphere. If this can be done in a locally flat/smooth way, the knot is said to be *slice*.
+
+![Knot surgery for the Conway polynomial](https://upload.wikimedia.org/wikipedia/commons/c/c3/Skein_%28HOMFLY%29.svg)\
+*Fig: How to perform knot surgery for the purposes of the Conway polynomial ([source](https://commons.wikimedia.org/wiki/File:Skein_(HOMFLY).svg))*
+
+There are more invariants like this as you may have seen listed in the Knot Atlas wiki link. Some are generally stronger than others, but none of them are found to be distinctive enough to discern between *all* different knots. For example, it is still an [open problem](https://en.wikipedia.org/wiki/Jones_polynomial#Detection_of_the_unknot) whether there exist other knots than the un-knot with Jones polynomial $V(K) = 1$. When trying to solve the question of whether two given knots are the same oftentimes multiple of these invariants are computed and compared against eachother to obtain a higher degree of confidence that they are the same. But only finding the correct series of Reidemeister moves can give you certainty.
 
 ## Applications
+
+*This section has been intentionally left blank*
 
 ## References
 
 * A really great [lecture series on knot theory](https://www.youtube.com/watch?v=EBWP1POPc2A&list=PLOROtRhtegr4c1H1JaWN1f6J_q1HdWZOY) by Dr. Bosman at Andrews University. The Youtube video playlist starts with a nice entry level explanation to the central topic, but goes very in depth and the lecturer is excellent.
+* The [Rolfsen knot table](http://katlas.math.toronto.edu/wiki/The_Rolfsen_Knot_Table) in the Knot Atlas. Nice reference information and pictures.
