@@ -13,7 +13,7 @@ Knot theory is one of those topics where you start out by asking a very simple a
 
 The central topic of interest within knot theory is - you guessed it - knots. A **knot** in this context can be thought of as just a piece of string that is attached together at the ends. So if you feel like it, go and grab a piece of string lying around your house, or cut open a rubber band or whatever. It's literally all you need.
 
-**Disclaimer**: I'm not going to write down any *proofs* in here. I'll just mention that it is proven and then you can go down to the lecture series videos if you are interested in them. Also, I'm just learning to work with Inkscape to draw graphics whenever I can't find them on Wikipedia, so cut me some slack in that department.
+**Disclaimer**: I'm not going to write down any *proofs* in here. I'll just mention that it is proven and then you can go down to the lecture series videos if you are interested in them. (Good proofs often also illuminate the *why*, so if a jump in logic here doesn't make sense be sure to look it up.) Also, I'm just learning to work with Inkscape to draw graphics whenever I can't find them on Wikipedia, so cut me some slack in that department.
 
 The simplest possible knot we can look at is made when we take our piece of string and just tie the ends together so that it makes a clean circle. This is such a simple knot it is barely even a knot, right? This is why it's called the **un-knot**. It's depicted on the left in the figure below:
 
@@ -61,7 +61,7 @@ If this is possible, the knot is called tri-colorable. An example is given below
 ![A tri-colorable knot](https://upload.wikimedia.org/wikipedia/commons/3/3c/TricoloredGrannyKnot.svg)\
 *Fig: A Granny Knot which has been tri-colored ([source](https://en.wikipedia.org/wiki/Tricolorability#/media/File:TricoloredGrannyKnot.svg))*
 
-The Reidemeister moves [don't affect this binary tri-colorability invariant](https://en.wikipedia.org/wiki/Tricolorability#Isotopy_invariant). So now we know that **if one knot is tri-colorable while the other is not, they *must* be different knots**. To flex our newfound knowledge, let's refer back to the table of prime knots and try to find the tri-colorability of both the un-knot and $3_1$. The un-knot is not tri-colorable, as we fail immediately at rule #1. The knot $3_1$ is the simplest knot to tri-color (try it!). This means we've proven the difference of the first 2 knots in the diagram! Unfortunately this invariant is rather weak: As it's a binary property, it can only ever divide all possible knots into two groups, without any way to discern between knots inside each group. The granny knot pictured above is also tri-colorable, but we know it's not $3_1$.
+The Reidemeister moves [don't affect this binary tri-colorability invariant](https://en.wikipedia.org/wiki/Tricolorability#Isotopy_invariant). So now we know that **if one knot is tri-colorable while the other is not, they *must* be different knots**. To flex our newfound knowledge, let's refer back to the table of prime knots and try to find the tri-colorability of both the un-knot and $3_1$. The un-knot is not tri-colorable, as we fail immediately at rule #1. The knot $3_1$ is the simplest knot to tri-color (try it!). This means we've proven that the first 2 knots in the diagram are different! Unfortunately this invariant is rather weak: As it's a binary property, it can only ever divide all possible knots into two groups, without any way to discern between knots inside each group. The granny knot pictured above is also tri-colorable, but we know it's not $3_1$.
 
 The solution is clear: Construct more invariants (preferably more discerning than this one) and start throwing them at our collection of knots to find if they can discern between different ones.
 
@@ -109,9 +109,19 @@ $$
 
 To check our work we can go to this [Knot Atlas Wiki page](http://katlas.math.toronto.edu/wiki/The_Rolfsen_Knot_Table), click on the knot $4_1$ and look at the invariants section.
 
-### Usefulness/meaning of Alexander polynomial
+### Derivation/meaning of the Alexander polynomial
 
+This whole procedure is a bit magical when you see it, but remember: as long as you can prove none of the Reidemeister moves would change the outcome, you are good.
 
+The [actual derivation](https://math.berkeley.edu/~hutching/teach/215b-2004/yu.pdf) is based on the [fundamental group](https://en.wikipedia.org/wiki/Fundamental_group), a concept in algebraic topology which is really cool in its own right. Bit heavy on the theory, but it comes down to studying how the knot $K$ subdivides the $\Reals^3$ space itself into pieces where a loop of string would get stuck if you try to move it around from one place to the other. 
+For example: I can take a ring from my finger (an unknot), and then study how it subdivides $\Reals^3$: Get a couple of string pieces, and see how many different simple loops you can make that cannot be transformed into eachother. See the picture below for illustration. Together with the operation of adding two loops together, it turns out that this space of different loops is actually a [group](https://en.wikipedia.org/wiki/Group_theory) isomorphic to $\Z$.
+
+![Illustration of the fundamental group of the unknot](images/fundamental_group_unknot.svg)\
+*Fig: Each of the three simple/unknotted red loops cannot be deformed into eachother without 'breaking through' the orange ring. For this set up if loops are wrapped around the central ring the same number of times, they can be deformed into eachother.*
+
+I hope it makes sense to you that this is very close to *what knots are at their core*: a piece of string restricting its free movement through space by the fact that a part of it is blocking itself. It then is a small step to see that the properties of this division of the space, $\Reals^3 \setminus K$, is a knot-invariant. This fact is then exploited through some snazzy group theory to end up with the recipe described above.
+
+The Alexander polynomial is very effective at telling knots apart: It is different for all prime knots up to crossing number 8! However, it cannot discern between a knot and its mirror image.
 
 ### Other invariants
 
