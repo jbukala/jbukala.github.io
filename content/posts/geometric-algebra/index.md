@@ -217,3 +217,24 @@ The above content is an amalgamation of the sources below. All of them approach 
 * [GAlgebra](https://galgebra.readthedocs.io/en/latest/galgebra_guide.html), a Symbolic Geometric Algebra/Calculus package for SymPy. Also has a great (more axiomatic) introduction to the topic.
 * A talk by Marc ten Bosch who wants to [get rid of quaternions](https://www.youtube.com/watch?v=Idlv83CxP-8) from 3D engines by using *rotors* instead.
 * [Imaginary numbers are not real](http://geometry.mrao.cam.ac.uk/wp-content/uploads/2015/02/ImagNumbersArentReal.pdf) - The Geometric Algebra of Spacetime. A paper going over the uses in a physics setting.
+
+
+### Bonus: Derivatives, calculus made simple
+
+Because I can't help myself: Some more examples on how you can now view things more simply from this perspective. What we have been doing so far was to define a few geometric basics so they work in any dimension in a logically consistent way. Now let's see where this takes us when considering derivatives. When considering infinitesimal quantities like $dx$ or $dy$, their n-dimensional generalisation is called a [differential form](https://en.wikipedia.org/wiki/Differential_form), and the rules for working with it are the same as the rules 1 and 2 we used in working with our geometric algebra basis (for the same reasons). The exterior derivative (our generalization), for $\omega$ in a space with orthogonal basis vectors $x^{i}$ is defined as:
+$$
+d \omega  = \sum_{i=1}^{n} \frac{\partial f}{\partial x^{i}} dx^{i} dx^{I}
+$$
+Where $dx^{I} = \prod_{i} dx^{i}$ is made by multiplying together all possible $dx^{i}$, and of course using the geometric product for multiplying differential forms. $dx^{I}$ would be like an infinitesimal oriented surface in 2D or volume in 3D.
+
+We then have enough baggage to formulate the [Generalized Stokes' theorem](https://en.wikipedia.org/wiki/Generalized_Stokes_theorem):
+$$
+\int_{\partial D} \omega = \int_{D} d \omega
+$$
+Which says that if you integrate a function over the *boundary* of a region $\partial D$, it is the same as integrating the change of that function over the entire region $D$. This simple statement contains the essence of what calculus is all about, and contains as special cases: 
+* [Fundamental theorem of calculus](https://en.wikipedia.org/wiki/Fundamental_theorem_of_calculus): For $D$ being a 1D straight line segment
+* [Gradient theorem](https://en.wikipedia.org/wiki/Gradient_theorem): For $D$ being a 1D curve
+* [Green's theorem](https://en.wikipedia.org/wiki/Green%27s_theorem): For $D$ being a 2D area
+* [Kelvin-Stokes theorem](https://en.wikipedia.org/wiki/Stokes%27_theorem): For $D$ being a 3D volume
+
+Now again, you didnt *need* geometric algebra to do this, but the fact that the differential forms work according to the same rules as multivectors makes it much simpler to see it all through the same lens, and gives you one coherent framework to do geometric operations in.

@@ -1,7 +1,7 @@
 ---
 title: "Knot Theory"
-date: 2023-11-13T19:55:59+01:00
-draft: true
+date: 2023-12-02T18:20:59+01:00
+draft: false
 tags: ["Math", "Theory", "Knots", "Linear Algebra", "Topology", "Group Theory", "Polynomials"]
 math: true
 showtoc: true
@@ -29,7 +29,7 @@ It turns out that there exist many different knots. There is a system of enumera
 ![First part of the Knot Table](images/knot_table_red.svg)\
 *Fig: The table of prime knots up to 7 crossings with Alexander-Briggs notation ([Source](https://en.wikipedia.org/wiki/File:Knot_table.svg))*
 
-The simplest form of a knot is called a [prime knot](https://en.wikipedia.org/wiki/Prime_knot). Yes, that word carries a lot of baggage with it, and no it doesn't just talk the talk. Prime knots are not the result of composing together other simpler knots, and all knots can be uniquely constructed by connecting prime knots together. (Composing a knot is as simple as cutting both of them open, and connecting the ends of the knots together.) Prime knots are the equivalent of prime numbers within number theory. 
+The simplest form of a knot is called a [prime knot](https://en.wikipedia.org/wiki/Prime_knot). Yes, that word carries a lot of baggage with it, and no it doesn't just talk the talk. Prime knots are not the result of composing together other simpler knots, and all knots can be uniquely constructed by connecting prime knots together. (Composing a knot is as simple as cutting both of them open, and connecting the ends of the knots together.) Prime knots are the equivalent of prime numbers within number theory. The above table can still be depicted very comfortably here, but the number of prime knots as a function of crossing number [increases dramatically quick](https://oeis.org/A002863).
 
 What I didn't say yet is how we know we know that these are all different knots, and how we know that these are all knots with up to 7 crossings. This is a really hard question. Finding out if two knots are equivalent to eachother is actually the **central question of knot theory**, and it leads to some interesting places.
 
@@ -113,19 +113,18 @@ To check our work we can go to this [Knot Atlas Wiki page](http://katlas.math.to
 
 This whole procedure is a bit magical when you see it, but remember: as long as you can prove none of the Reidemeister moves would change the outcome, you are good.
 
-The [actual derivation](https://math.berkeley.edu/~hutching/teach/215b-2004/yu.pdf) is based on the [fundamental group](https://en.wikipedia.org/wiki/Fundamental_group), a concept in algebraic topology which is really cool in its own right. Bit heavy on the theory, but it comes down to studying how the knot $K$ subdivides the $\Reals^3$ space itself into pieces where a loop of string would get stuck if you try to move it around from one place to the other. 
+The [actual derivation](https://math.berkeley.edu/~hutching/teach/215b-2004/yu.pdf) is based on the [fundamental group](https://en.wikipedia.org/wiki/Fundamental_group), a concept in algebraic topology which is really cool in its own right. Bit heavy on the theory, but it comes down to studying how the knot $K$ subdivides the $\Reals^3$ space itself into pieces where a loop of string would get stuck if you try to move it around from one place to the other. \
 For example: I can take a ring from my finger (an unknot), and then study how it subdivides $\Reals^3$: Get a couple of string pieces, and see how many different simple loops you can make that cannot be transformed into eachother. See the picture below for illustration. Together with the operation of adding two loops together, it turns out that this space of different loops is actually a [group](https://en.wikipedia.org/wiki/Group_theory) isomorphic to $\Z$.
 
 ![Illustration of the fundamental group of the unknot](images/fundamental_group_unknot.svg)\
-*Fig: Each of the three simple/unknotted red loops cannot be deformed into eachother without 'breaking through' the orange ring. For this set up if loops are wrapped around the central ring the same number of times, they can be deformed into eachother.*
+*Fig: Each of the three simple/unknotted red oriented loops cannot be deformed into eachother without 'breaking through' the orange ring. For this set up if loops are wrapped around the central ring the same number of times, they can be deformed into eachother.*
 
-I hope it makes sense to you that this is very close to *what knots are at their core*: a piece of string restricting its free movement through space by the fact that a part of it is blocking itself. It then is a small step to see that the properties of this division of the space, $\Reals^3 \setminus K$, is a knot-invariant. This fact is then exploited through some snazzy group theory to end up with the recipe described above.
+I hope it makes sense to you that this is very close to *what knots are at their core*: a piece of string restricting its free movement through space by the fact that a part of it is blocking itself. It then is a small step to see that the properties of this division of the space, $\Reals^3 \setminus K$, is a knot-invariant. You could not wiggle the red loops around the ring free in the simple example above, and neither will deforming the ring itself help. This fact is then exploited through some snazzy group theory to end up with the recipe for the Alexander polynomial described above.
 
-The Alexander polynomial is very effective at telling knots apart: It is different for all prime knots up to crossing number 8! However, it cannot discern between a knot and its mirror image.
+The Alexander polynomial is very effective at telling knots apart: It is different for all prime knots up to crossing number 8! However, it cannot discern between a knot and its mirror image. But of course people have been at it for about 100 years by now, so a lot more invariants have been found with differing properties.
 
 ### Other invariants
 
-There is also:
 * [Conway polynomial](https://en.wikipedia.org/wiki/Alexander_polynomial#Alexander%E2%80%93Conway_polynomial): A recursively-defined polynomial in $z$ with integer values for the coefficients, commonly written $\nabla(z)$. It defines the un-knot to have a polynomial equal to $1$, together with a recursive relationship: $\nabla(L_{+}) - \nabla(L_{-}) = z\nabla(L_{0})$, where $L_{+}$ and $L_{-}$ can be 'made' from $L_{0}$ by taking two separate parts of a knot, and connecting the strings together in 2 different ways (see the figure below). In this way more and more complicated knots can be constructed from the un-knot.
 * [Genus](https://en.wikipedia.org/wiki/Seifert_surface#Genus_of_a_knot): This approach considers the lines of the knot to bound a certain surface (called the Seifert surface). The genus of this surface (the number of holes in it) is an invariant.
 * [Chirality](https://en.wikipedia.org/wiki/Chiral_knot): If you take the mirror image of a knot, will you get the same knot? If you get a different one, that knot is *chiral*
@@ -137,11 +136,10 @@ There is also:
 
 There are more invariants like this as you may have seen listed in the Knot Atlas wiki link. Some are generally stronger than others, but none of them are found to be distinctive enough to discern between *all* different knots. For example, it is still an [open problem](https://en.wikipedia.org/wiki/Jones_polynomial#Detection_of_the_unknot) whether there exist other knots than the un-knot with Jones polynomial $V(K) = 1$. When trying to solve the question of whether two given knots are the same oftentimes multiple of these invariants are computed and compared against eachother to obtain a higher degree of confidence that they are the same. But only finding the correct series of Reidemeister moves can give you certainty.
 
-## Applications
+## Further reading
 
-*This section has been intentionally left blank*
+Hopefully this brief intro to knot theory has shown you how very simple questions around strings can lead to interesting approaches in all kinds of fields: (algebraic) topology, group theory, linear algebra, polynomials, etc. At this point we have just tried to answer the most obvious question, but did not for example look at the linking together of multiple knots, braids or applications in biology and physics. Each of these is a whole other rabbit hole.
 
-## References
-
-* A really great [lecture series on knot theory](https://www.youtube.com/watch?v=EBWP1POPc2A&list=PLOROtRhtegr4c1H1JaWN1f6J_q1HdWZOY) by Dr. Bosman at Andrews University. The Youtube video playlist starts with a nice entry level explanation to the central topic, but goes very in depth and the lecturer is excellent.
+For some more info take a look at:
+* A really great [lecture series on knot theory](https://www.youtube.com/watch?v=EBWP1POPc2A&list=PLOROtRhtegr4c1H1JaWN1f6J_q1HdWZOY) by Dr. Bosman at Andrews University. The Youtube video playlist starts with a nice entry level explanation to the central topic, but goes very in depth and the lecturer is excellent. Most of the stuff on this page is based on this.
 * The [Rolfsen knot table](http://katlas.math.toronto.edu/wiki/The_Rolfsen_Knot_Table) in the Knot Atlas. Nice reference information and pictures.
