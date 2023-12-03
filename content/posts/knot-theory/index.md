@@ -138,7 +138,8 @@ There are more invariants like this as you may have seen listed in the Knot Atla
 
 ## Further reading
 
-Hopefully this brief intro to knot theory has shown you how very simple questions around strings can lead to interesting approaches in all kinds of fields: (algebraic) topology, group theory, linear algebra, polynomials, etc. At this point we have just tried to answer the most obvious question, but did not for example look at the linking together of multiple knots, braids or applications in biology and physics. Each of these is a whole other rabbit hole.
+Hopefully this brief intro to knot theory has shown you how very simple questions around strings can lead to interesting approaches in all kinds of fields: (algebraic) topology, group theory, linear algebra, polynomials, etc. \
+At this point we have just tried to answer the most obvious question, but did not for example look at the linking together of multiple knots, braiding, what happens when we consider torsion in the string, or that they have a finite thickness as well. Nor did we look at applications in biology, physics or taking your [knitting](https://www.popularmechanics.com/science/math/a36276147/hidden-binary-of-knitting/) game to the [next level](https://arxiv.org/abs/2002.01497). Each of these is a whole other rabbit hole.
 
 For some more info take a look at:
 * A really great [lecture series on knot theory](https://www.youtube.com/watch?v=EBWP1POPc2A&list=PLOROtRhtegr4c1H1JaWN1f6J_q1HdWZOY) by Dr. Bosman at Andrews University. The Youtube video playlist starts with a nice entry level explanation to the central topic, but goes very in depth and the lecturer is excellent. Most of the stuff on this page is based on this.

@@ -60,7 +60,7 @@ params:
   profileMode:
     enabled: true # needs to be explicitly set
     title: Joris
-    subtitle: "A Data Scientist sharing some notes on mostly Math & Machine Learning"
+    subtitle: "A Data Scientist sharing some thoughts and notes, mostly on Math & Machine Learning"
     #imageUrl: "<img location>"
     #imageWidth: 120
     #imageHeight: 120
@@ -116,10 +116,10 @@ menu:
       name: posts
       url: /posts/
       weight: 10
-    - identifier: categories
-      name: categories
-      url: /categories/
-      weight: 20
+    #- identifier: categories
+    #  name: categories
+    #  url: /categories/
+    #  weight: 20
     - identifier: tags
       name: tags
       url: /tags/
