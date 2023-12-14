@@ -65,3 +65,7 @@ Something that is also already clear that even in this polar representation, the
 This is actually not a disaster: It gives some extra free space to dump gadgets like your heart rate, the date, etc.
 
 Finally - I don't expect the *seconds*-hand to be of much practical use. Not sure how fast you can multiply prime numbers together in your head, although it *does* make it look extra funky!
+
+## Garmin implementation
+
+For an actual Garmin implementation of this watchface, see the follow-up post [Impractical Time Telling II]({{< ref "/posts/impractical-time-telling-ii" >}} "Impractical Time Telling II").
