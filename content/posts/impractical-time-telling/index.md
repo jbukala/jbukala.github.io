@@ -60,7 +60,7 @@ The current implementation is a very simple one in Python with matplotlib. A nic
 
 Something that is also already clear that even in this polar representation, there is a large part of the plot that is not being used. As mentioned already, most primes only need to be able to represent 1 or 2 factors (e.g. $53^4 = 7890481$ will never get used). For our watchface this means there is a sort of outward spiral-shaped part of the plot that will always be empty, looking roughly like the black area below:
 
-![Empty part of current plot](images/empty_spiral.svg)
+![Empty part of current plot](images/empty_spiral.svg)\
 
 This is actually not a disaster: It gives some extra free space to dump gadgets like your heart rate, the date, etc.
 
