@@ -16,9 +16,9 @@ The plan was to do this in some downtime over the Christmas holidays, but the st
 
 ## Garmin development
 
-To develop a watchface, you should install the SDK on your machine, and install packages for the specific devices that you want to emulate. It's highly recommended to then also install a PyCharm or VSCode extension for 'Monkey C'. From your IDE you can then easily start an emulator for a device to test your software during development. [Monkey C](https://developer.garmin.com/connect-iq/monkey-c/) is Garmins own object-oriented language that should make it easy to use for app development.
+To develop a watchface, you should install the SDK on your machine, and install packages for the specific devices that you want to emulate. It's highly recommended to then also install a PyCharm or VSCode extension for 'Monkey C'. From your IDE you can then easily start an emulator for a device to test your software during development. [Monkey C](https://developer.garmin.com/connect-iq/monkey-c/) is Garmin's own object-oriented language that should make it easy to use for app development.
 
-## My experience & Peculiarities
+## My experience & peculiarities
 
 The SDK comes with some very basic examples in it, but I had to search for a while to get my bearings in the beginning. Where in a project to start adding your actual logic, what should get defined where, and what gets executed when. Once I got a hang of that and managed to draw a circle onto the screen, the sailing was fairly smooth. Monkey C is a simple language to just start programming in and figure it out on the go. I spent an embarrassing amount of time trying to draw the right colors, before I realized my watch model only supports black and white...
 
@@ -47,4 +47,6 @@ The finished implementation showing the time at 08:28 is shown below:
 
 ![Garmin watchface screencapture](images/garmin_prime_time_8_28.JPG)
 
-If you want to see the code, see the [Github repo](https://github.com/jbukala/prime_time) (Specifically in the *prime_time* subfolder). I will also see if I can get it into the Garmin app store without too much hassle as a finishing touch.
+The watchface is actually submitted to the Garmin app store and can be [downloaded from there](https://apps.garmin.com/en-US/apps/a1447c12-44e6-4546-8552-de22f06e2170). If you want to see the code, check out the [Github repo](https://github.com/jbukala/prime_time) (Specifically in the *prime_time* subfolder). 
+
+Currently the watchface only supports installing it on the Inspire 2S model, but I will see if I can generalize the layout enough so that it can be used on most/all models. Hopefully this can be done simply by using some relative coordinates and defining separate layouts for round versus square shaped watches.
