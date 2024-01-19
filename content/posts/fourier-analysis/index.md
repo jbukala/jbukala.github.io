@@ -38,9 +38,9 @@ $$
 s(x) = A_{0} + \sum_{n=1}^{\infty} A_{n} \cos \Big( \frac{2 \pi n x}{P} \Big) + B_{n} \sin \Big( \frac{2 \pi n x}{P} \Big)
 $$
 
-Where $A_{n} , B_{n} \in \Reals$, $P$ is the period of the function (the length of the interval that keeps repeating itself) and $s(x)$ is the function.
+Where $A_{n} , B_{n} \in \Reals$ are coefficients, $P$ is the period of the function (the length of the interval that keeps repeating itself) and $s(x)$ is the function.
 
-First question you may have here is why are there cosines here all of a sudden? You were promised sines only and now you feel bamboozled. Slick rescue here is by using the identity $\sin \Big( \phi + \frac{\pi}{2} \Big) = \cos ( \phi )$, so we could just substitute the cosines in the above equation by *shifting* the argument and forgetting about it. To see why either of them is needed look at the first example of this post. The top (red) graph has a non-zero value at $t=0$. No amount of multiplying the argument of a sine function can make it non-zero, so we should allow for shifting the sine function around on the x-axis as well (or equivalently allow for using cosines) to be able to model this function.
+First question you may have here is why are there cosines here all of a sudden? You were promised sines only and now you feel bamboozled. A quick save can be made by using the identity $\sin \Big( \phi + \frac{\pi}{2} \Big) = \cos ( \phi )$, so we could just substitute the cosines in the above equation by *shifting* the argument and forgetting about it. To see why either of them is needed look at the first example of this post. The top (red) graph has a non-zero value at $t=0$. No amount of multiplying the argument of a sine function can make it non-zero there, so we should allow for shifting the sine function around on the x-axis as well (or equivalently allow for using cosines) to be able to model this function.
 
 Now with the sines and cosines, we additionally allow for *scaling* the x-axis in a specific way. We take the set of sine waves such that it makes $n$ whole periodic movements in the interval of length $P$ (for $n$ starting from 0 all the way up to infinity).
 
@@ -58,13 +58,13 @@ A_{n} = \frac{2}{P} \int_{-P/2}^{P/2} s(x) \cos \Big( \frac{2 \pi n x}{P} \Big) 
 B_{n} = \frac{2}{P} \int_{-P/2}^{P/2} s(x) \sin \Big( \frac{2 \pi n x}{P} \Big) dx
 $$
 
-The coefficient $A_{0}$ is simply the average value of the function $s(x)$ in the interval $[-\frac{P}{2}, \frac{P}{2}]$. Taking this coefficient separate essentially substracts it from whatever else we are calculating and allows us to assume that the function is centered around the x-axis.
+The coefficient $A_{0}$ is simply the average value of the function $s(x)$ in the interval $[-\frac{P}{2}, \frac{P}{2}]$. Taking this coefficient separate essentially substracts it from whatever else we are calculating and allows us to assume that the rest of the function is centered around the x-axis.
 
 The coefficients $A_{n}$ are a bit more esoteric: On this same interval, it essentially looks at the average value of the cosine multiplied with our function $s(x)$. Some more explanation for this will follow later on in this post but for now, convince yourself that the value of $A_{n}$ will be a measure of how much the function values 'agree' with eachother. If both the functions are highly positive at a certain $x$, this will give a high value. Same if they are both negative. But if they tend to disagree (e.g. one is positive and the other negative) this will give a negative contribution to this integral. It is a very similar concept to seeing how much the two functions correlate with eachother on this interval.
 
 For $B_{n}$, exactly the same argument holds, but now swapping out the cosine for the sine.
 
-The last question that remains before we can play around a bit with them concerns that pesky infinite sum in the main formula. Why do you need an infinite number of terms to get anything done around here?! The answer is that we *mostly* don't. If the function you want to approximate is similar enough to a set of simple waves you can need way less. In the example at the top we needed just two terms to fully reconstruct the signal (because that's literally [how I constructed that signal](https://github.com/jbukala/jbukala.github.io/blob/main/content/posts/fourier-analysis/fourier_plots.py) in the first place, but okay).
+The last question that remains before we can play around a bit with them concerns that pesky infinite sum in the main formula. Why do you need an infinite number of terms to get anything done around here?! The answer is that we *mostly* don't. If the function you want to approximate is similar enough to a set of simple waves you need way fewer. In the example at the top we needed just two terms to fully reconstruct the signal (because that's literally [how I constructed that signal](https://github.com/jbukala/jbukala.github.io/blob/main/content/posts/fourier-analysis/fourier_plots.py) in the first place, but okay).
 
 ### Fun with Fourier approximations
 
@@ -72,7 +72,7 @@ To play around with approximating signals by Fourier series, [check out this app
 
 The white signal at the top is the function $s(x)$ that we want to approximate. This can be varied by clicking the buttons on the right of the graph ('Sine' until 'Noise'). The red signal overlapping it is our current Fourier approximation. In the bottom-right there is a slider called 'number of terms'. This means: How many sines and cosines do we want to use in our approximation (until which $n$ will we be calculating the summation). The most interesting setting will be to vary this between 1 and about 10 terms, as this is where the most drastic changes to the output will be seen. The bottom two graphs are just plots of all the $A_{n}$ and $B_{n}$ values that are calculated for the approximation.
 
-Now you can see that for the 'sine' or 'cosine' input signal we indeed only need to have one term to have a perfect approximation. The more 'spiky' a signal is (sawtooth, square, or noise at its extreme), the more terms we need to add to make a reasonable approximation. If you select the Square signal and start at 1 term and move up from there, you will see that the approximation never really gets 'good' around the part where the function jumps up or down. The input function is just not very 'wave-like' in those places.
+Now you can see that for the 'sine' or 'cosine' input signal we indeed only need to have one term to have a perfect approximation. The more 'spiky' a signal is (sawtooth, square, or noise at its extreme), the more terms we need to add to make a reasonable approximation. If you select the Square signal and start at 1 term and move up from there, you will see that the approximation never really gets 'good' around the part where the function jumps up or down. The square signal function is just not very 'wave-like' in those places.
 
 To get a feel for how 'good' an approximation is, there is a 'sound'-checkbox as well, which plays your approximation as a sound wave. This way you can listen how much those extra Fourier terms matter to your human ear.
 
@@ -88,7 +88,7 @@ $$
 Where $i$ is the imaginary unit. For understanding more about *why* this formula is true check out the link. We can just use it here to rewrite the equations above and end up with the following:
 
 $$
-s(x) = \sum_{- \infty}^{\infty} c_{n} e^{\frac{2 \pi i n x}{P}} \\[12pt]
+s(x) = \sum_{n = - \infty}^{\infty} c_{n} e^{\frac{2 \pi i n x}{P}} \\[12pt]
 
 c_n = \frac{2}{P} \int_{-P/2}^{P/2} s(x) e^{- \frac{2 \pi i n x}{P}} dx
 
@@ -99,7 +99,7 @@ Note that the formula got a bit more abstract, but also simpler. We now only hav
 ![Polar plot complex exponential](https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Euler%27s_formula.svg/480px-Euler%27s_formula.svg.png) \
 *Fig: A graphical illustration of Eulers formula resulting in the natural use of polar coordinates in the complex plane ([Source](https://commons.wikimedia.org/wiki/File:Euler%27s_formula.svg))*
 
-With this illustration it becomes more natural to talk about a point in terms of polar coordinates: Its *magnitude* (distance from zero) and *phase* (rotation around zero, starting at the positive x-axis). If you go back to the applet we played with you can check the box names 'Mag/Phase View' to look at the Fourier coefficients from this perspective. Keep in mind that the thing we are doing is exactly the same, we have merely rewritten it to look at it from another perspective that tends to come in handy.
+With this illustration it becomes more natural to talk about a point in terms of polar coordinates: Its *magnitude* (distance from zero) and *phase* (rotation around zero, starting at the positive x-axis). If you go back to the applet we played with you can check the box names 'Mag/Phase View' to look at the Fourier coefficients from this perspective. Keep in mind that the thing we are doing is exactly the same, we have just rewritten it to look at it from another perspective that tends to come in handy.
 
 ## The Fourier Transform
 
@@ -111,7 +111,7 @@ $$
 \hat{f}(\xi) = \int_{- \infty}^{\infty} f(x) e^{- i 2 \pi \xi x} dx
 $$
 
-As you see its very similar to our series formula, with a few minor differences. Because this function $\hat{f}(\xi)$ is a complex-valued one encoding both the magnitude of the frequencies and their phases, we can get the magnitude of it to find $F( \omega )$ if we only want to look at the relative magnitude of each frequency. (Essentially we throw away all the phase information.)
+As you see its very similar to our series formula, with a few minor differences. Here it doesnt matter anymore if our function is periodic or not, we can transform it all the same. Hence this integral going over the entire real line. Because this function $\hat{f}(\xi)$ is a complex-valued one encoding both the magnitude of the frequencies and their phases, we can get the magnitude of it to find $F( \omega )$ if we only want to look at the relative importance of each frequency. (Essentially we throw away all the phase information.)
 
 You can see the results of Fourier-transforming a few simple functions in the figure below.
 
@@ -120,7 +120,7 @@ You can see the results of Fourier-transforming a few simple functions in the fi
 
 You can see that a simple sine wave, being spread out over the entire $t$-axis, only has a single nonzero point when looking at the frequency content. The sinc-function, looking a bit more complicated in the time-domain, is a simple non-zero block in the frequency-domain. A Gaussian function is still a Gaussian afterwards, so it's an *eigenfunction* of the Fourier transform! (Maybe this makes sense to you if you look at the formula of a Gaussian function: you can see how similar to our complex exponential it is. If you are interested, finding Fourier eigenfunctions is another fun mathematical rabbithole.)
 
-To emphasise that this is merely a change of perspective: no information is lost during this transform, meaning that we can also do it the other way around. The way to do it is really similar, called the inverse Fourier transform and looks like this:
+To emphasise that this is merely a change of perspective: no information is lost during this transform, meaning that we can also do it the other way around. The way to go back is really similar, called the inverse Fourier transform and looks like this:
 
 $$
 f(x) = \int_{- \infty}^{\infty} \hat{f}(\xi) e^{i 2 \pi \xi x} dx
@@ -132,17 +132,17 @@ The only thing that changed is the minus sign in the complex exponential of the 
 
 *This section can be safely skipped if you just want to see the applications and how/where to use it, or are just not that into linear algebra.*
 
-We now have the formulas to start applying it, but for those who are wondering how we got to them or why they work in the first place, this section attempts to give some intuition on the general idea behind it.
+We now have the formulas to start applying it, but for those who are wondering how we got to them or why they work in the first place, this section attempts to give some intuition on the idea behind it.
 
 The general train of thought is as follows:
 * Vector spaces have a basis, from which you can make any element in that space by scalar multiplication and vector addition of the elements in the basis
 * If the vectors are orthogonal (their *inner product* is 0) and normalized (they have length 1) they are called *orthonormal*. This is a nice property for a basis to have.
-* The space of functions is also a vector space. You can check all [the requirements](wikipedia-vector-space) yourself, but it's easy to see that it is closed under addition of its elements as well as scalar multiplication:
+* The space of functions is also a vector space. You can check all [the requirements](https://en.wikipedia.org/wiki/Vector_space#Definition_and_basic_properties) yourself, but it's easy to see that it is closed under addition of its elements as well as scalar multiplication when you define them in the most straightforward way:
 $$
 (f + g)(x) = f(x) + g(x) \\[12pt]
 (\lambda \cdot f)(x) = \lambda \cdot f(x)
 $$
-* This means that functions defined on the interval $[a,b]$ are vectors as well, and that they form an (infinite-dimensional) vector space
+* This means that functions defined on an interval $[a,b]$ are vectors as well, and that they form an (infinite-dimensional) vector space
 * In this space you can also define an inner product as follows:
 $$
 \langle f, g \rangle = \int_{- \infty}^{\infty} f(x)g(x) dx
@@ -158,30 +158,65 @@ Hopefully this train of thought makes it make more sense. It can also provoke fu
 * [Bessel functions](https://en.wikipedia.org/wiki/Fourier%E2%80%93Bessel_series)
 * Something else tailored to your data
 
-Which one of these is appropriate to write your function in really depends on the kinds of functions you're modeling. We already saw that for the Fourier series the square wave wasn't approximated so well near its jumps.
+Which one of these is appropriate to write your function in really depends on the kinds of functions you're modeling. We already saw that for the Fourier series the square wave wasn't approximated so well near its jumps, and each choice here will have some pros and cons.
 
 ## Applications
 
-* Image processing
-* Sound processing
-* JPEG / MP3 / multiplications / Positional encoding
+So, let's finally get down to the applications. In essense, the Fourier transform pops up anywhere waves or recurring patterns are. 
 
-Use-cases:
-* Predictive Maintenance
-* Feature generation (FB Prophet?)
-* Spectral (noise) filtering
-* Signal processing
+### Audio
+Something we already mentioned (and is the most obvious) is in sound. Sound consists of pressure waves, oftentimes in repeating patterns. We tend to discuss sounds in terms of frequencies (My voice is *lower* than yours, this music has lots of *bass*, etc). The Fourier transform gives us a mechanism to move from the physical phenomenon that a microphone might pick up (air pressure over time) towards something making more sense to us as humans. Even the hair cells in our ears are each tuned to be receptive to their own specific sound frequencies, so the signal going towards our brains is already Fourier-transformed!
 
-### Discrete Fourier Transforms
+You can see an example of Fourier transforming audio in the figure below:
+
+![Image of raw sound signal versus frequency spectrum](./images/fourier-transform-audio.svg) \
+*Fig: A raw audio clip of two people speaking the same words, and their Fourier spectrums underneath it*
+
+In this image, you can see that the Fourier spectra are mostly non-zero near the low frequencies. Because the sampling rate of this audio file is fairly high (48.000 data points per second!) it is possible to measure really high frequencies, that are not really present in spoken language. Looking at these graphs side by side you can also see how this can be useful as a lossless **compression** algorithm. The Fourier signal is quite sparse (consists of mostly zeroes), so there is no need to save every single datapoint. This is why its used in the MP3 file-format as well.
+
+This is even more efficient if you also explicitly want to throw out known noise at certain frequencies, like a low-frequency background hum or an annoying high-frequency beep. It is really straightforward in the frequency-domain to set specific frequencies or frequency ranges to zero, and then doing an inverse Fourier transform. This does exactly what you expect and can be a great **noise filtering** system if you know the frequency characteristics of your noise.
+
+![Example of Fourier transforms used to filter noise](https://i.stack.imgur.com/yWESP.png) \
+*Fig: Example of filtering out (high-frequency) noise using the Fourier transform ([source](https://www.appsloveworld.com/bestanswer/matlab/33/filtering-signal-noise-using-fourier-transforms-and-matlab))* 
+
+The frequency spectrum can be fairly distinctive from person to person, so this can make a good simple **voice recognition** system.
+
+### Images
+
+Until so far we have been applying the Fourier transform to a 1D signal. With very little extra steps, we can generalize this to more dimensions. Most of what we have to do is perform our integral over an $n$-D space now, and see our frequency as a vector, with a component for each dimension.
+
+![Image and its Fourier transform](https://www.projectrhea.org/rhea/images/thumb/0/01/Cameraman.jpg/800px-Cameraman.jpg) \
+*Fig: an image and its Fourier transform ([source](https://www.projectrhea.org/))*
+
+Armed with this generalization, the most of the same uses apply to images as well: Image compression ([interactive demo](https://demonstrations.wolfram.com/ImageCompressionViaTheFourierTransform/)), noise filtering, decent space to start doing some simple image recognition in.
+
+This is why it's used in the JPEG image file format as well.
+
+### Time-series
+
+In time-series data, the Fourier spectrum can help you quickly identify **seasonality** in your dataset: just look for spikes around specific frequencies, to see how much your signal varies daily, weekly, yearly, etc. Some libraries, like the FB Prophet library, will also use Fourier coefficients to build features from under the hood.
+
+Sensor data is also used a lot in the field of **predictive maintenance**. Oftentimes before physical components of systems fail, they will exhibit a higher-frequency vibration. This is something that can be more clearly seen as a sudden spike in the high-frequency part of the spectrum of a movement-sensor.
+
+![Predictive maintenance use-case illustration](https://www.eetimes.eu/wp-content/uploads/2020/03/arrow-figure_1-1.jpg) \
+*Fig: Example predictive maintenance use-case using spectral analysis ([source](https://www.embedded.com/open-source-kit-supports-predictive-maintenance/))*
+
+### Others
+
+For NLP: The **positional encoding** scheme used in Transformer models can also be more [readily understood](https://towardsdatascience.com/master-positional-encoding-part-i-63c05d90a0c3) in the context of Fourier theory.
+
+In the field of **digital signal processing**, [filters](https://en.wikipedia.org/wiki/Digital_filter) can be designed to have a very specific effect, dampening or amplifying it depending on frequency.
+
+The multiplication of very large numbers can be [done more efficiently](http://numbers.computation.free.fr/Constants/Algorithms/fft.html) with the Fourier Transform.
+
+### Discrete and Fast Fourier Transforms
 
 Digital signal processing
 Shannon-Nyquist theorem
-
-### Fast Fourier Transform
-Explanation
+FFT Explanation
 
 ## Conclusion
-Take-homes andusefullness
+Take-homes
 
 ## Follow-ups / Continue Reading
 
@@ -191,4 +226,4 @@ Take-homes andusefullness
 * Uncertainty principle
 
 Further Reading:
-* [More step by step visuals with long-form explanation](https://devincody.github.io/Blog/post/an_intuitive_interpretation_of_the_fourier_transform/)
+* [More step by step visuals with long-form explanation](https://devincody.github.io/Blog/post/an_intuitive_interpretation_of_the_fourier_transform/) on the mathematical intuition behind the Fourier transform
