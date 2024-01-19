@@ -179,7 +179,7 @@ This is even more efficient if you also explicitly want to throw out known noise
 ![Example of Fourier transforms used to filter noise](https://i.stack.imgur.com/yWESP.png) \
 *Fig: Example of filtering out (high-frequency) noise using the Fourier transform ([source](https://www.appsloveworld.com/bestanswer/matlab/33/filtering-signal-noise-using-fourier-transforms-and-matlab))* 
 
-The frequency spectrum can be fairly distinctive from person to person, so this can make a good simple **voice recognition** system.
+The frequency spectrum of speech can be fairly distinctive from person to person, so this can make a good simple **voice recognition** system as well.
 
 ### Images
 
@@ -188,7 +188,7 @@ Until so far we have been applying the Fourier transform to a 1D signal. With ve
 ![Image and its Fourier transform](https://www.projectrhea.org/rhea/images/thumb/0/01/Cameraman.jpg/800px-Cameraman.jpg) \
 *Fig: an image and its Fourier transform ([source](https://www.projectrhea.org/))*
 
-Armed with this generalization, the most of the same uses apply to images as well: Image compression ([interactive demo](https://demonstrations.wolfram.com/ImageCompressionViaTheFourierTransform/)), noise filtering, decent space to start doing some simple image recognition in.
+Armed with this generalization, most of the same uses apply to images as well: Image compression ([interactive demo](https://demonstrations.wolfram.com/ImageCompressionViaTheFourierTransform/)), noise filtering, decent space to start doing some simple image recognition in.
 
 This is why it's used in the JPEG image file format as well.
 
@@ -200,6 +200,8 @@ Sensor data is also used a lot in the field of **predictive maintenance**. Often
 
 ![Predictive maintenance use-case illustration](https://www.eetimes.eu/wp-content/uploads/2020/03/arrow-figure_1-1.jpg) \
 *Fig: Example predictive maintenance use-case using spectral analysis ([source](https://www.embedded.com/open-source-kit-supports-predictive-maintenance/))*
+
+In general for **Data Science**, the relative strength of the signal within certain frequency bands can be great features to put into your Machine Learning model. They are quick to make, mostly quite interpretable in a business context and powerful predictors.
 
 ### Others
 
