@@ -16,7 +16,7 @@ def get_raw_signal_and_fourier(input_file: str):
 
     # Get raw signal
     x = np.arange(0, num_samples/sample_rate - 1/sample_rate, 1/sample_rate)
-    y = (data[:, 0] - np.mean(data[:, 0])) / np.std(data[:, 0])  # take first channel only for now and standardize it
+    y = data[:, 0] #(data[:, 0] - np.mean(data[:, 0])) / np.std(data[:, 0])  # take first channel only for now and standardize it
 
     # Get Fourier-transformed signal (only need second half as its a real-valued input)
     xf = rfftfreq(num_samples, 1 / sample_rate)

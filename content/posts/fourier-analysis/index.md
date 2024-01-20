@@ -13,7 +13,7 @@ showtoc: true
 
 People going into Data Science as a profession tend to come from a diverse set of technical backgrounds. The last few years more and more come from specifically Data Science masters programs. Fourier Analysis is a topic that tends to not be discussed in these settings. I think it's still interesting enough to dive into for a bit, both because of its interesting mathematics and because it can give a lot of insight when working with time-series data.
 
-In this post I hope to give you a brief overview of what the topic is all about, explain the mathematics behind it and what you can do with it.
+In this post I will give you a brief overview of what the topic is all about, explain the mathematics behind it and what you can do with it.
 
 ## What is Fourier Theory?
 
@@ -22,14 +22,14 @@ Fourier theory busies itself with trying to view everything as waves. The most s
 ![Decomposition of a periodic signal into sine waves](images/sine-wave-decomposition.svg) \
 *Fig: How to get from the top (red) signal to its constituent simple sine waves?*
 
-In this example, the red function can be built by $f(x) = \sin(0.01x) + 1.5\sin(0.02(x+100))$. It is not a priori clear that this is easy or even possible, right? After all, the problem of finding the prime decomposition of a huge number is so difficult that most of our cryptography is based around it. Perhaps the decomposition of a general function into sine waves will be similar?
+In this example, the red function can be built by $f(x) = \sin(0.01x) + 1.5\sin(0.02(x+100))$. It is not a priori clear that this is easy or even possible, right? After all, the problem of finding the prime decomposition of a huge number is so difficult that most of our cryptography is based around it. Perhaps the decomposition of a general function into sine waves will be similarly hard?
 
 We lucked out here though for reasons I'll go into later. This decomposition is quite fast to calculate and has resulted in more than a few technological applications over the years. So much so that I'm 100% sure you have used it today without realizing it, unless you are reading this post on paper far from human civilization. (In which case: please reach out to me by mail pigeon because I'm very curious how you heard of it.)
 
 ### Why sine waves though
 At this point maybe you're thinking: What is the big deal around sine waves anyways? If your head is not still in high school geometry class you're probably not spending most of your day using sin/cos/tan to find triangle side lengths etc.
 
-In a nutshell: they are the simplest form of a periodic function that is smooth, differentiable, integrateable. Their first and second derivatives have some nice properties. Each sine wave has one constant *frequency* (the amount of vibrations per second), which allows you to look at functions in terms of their frequencies, which can be very insightful depending on the application. Using sine waves also causes the decomposition process itself to have some nice properties which we can go into later on.
+In a nutshell: they are the simplest form of a periodic function that is smooth, differentiable, integrateable. Their first and second derivatives have some nice properties. Each sine wave has one constant *frequency* (the amount of full periodic movements per second), allowing you to look at functions in terms of their frequencies. This can be very insightful depending on the application. Using sine waves also causes the decomposition process itself to have some nice properties which we can go into later on.
 
 ## Fourier Series
 Okay so just to spill the beans on how to write a periodic function in terms of sine waves, you do it like this:
@@ -46,7 +46,7 @@ Now with the sines and cosines, we additionally allow for *scaling* the x-axis i
 
 This gives us the basic building blocks in terms of which we will describe any periodic signal. The signal is then built from them simply by multiplying each with a coefficient and adding them up.
 
-The second question that remains is: Okay we have these coefficients $A_{n}$ and $B_{n}$, but how do we find them? If its possible to rebuild a signal in terms of these sine wave building blocks, calculating these seems like the secret sauce and the heart of the matter.
+The second question that remains is: Okay there are these coefficients $A_{n}$ and $B_{n}$, but how do we find them? If it's possible to rebuild a signal in terms of these sine wave building blocks, calculating these seems like the secret sauce and the heart of the matter.
 
 Again I will give you the answer, then try to make it make sense:
 
@@ -60,9 +60,9 @@ $$
 
 The coefficient $A_{0}$ is simply the average value of the function $s(x)$ in the interval $[-\frac{P}{2}, \frac{P}{2}]$. Taking this coefficient separate essentially substracts it from whatever else we are calculating and allows us to assume that the rest of the function is centered around the x-axis.
 
-The coefficients $A_{n}$ are a bit more esoteric: On this same interval, it essentially looks at the average value of the cosine multiplied with our function $s(x)$. Some more explanation for this will follow later on in this post but for now, convince yourself that the value of $A_{n}$ will be a measure of how much the function values 'agree' with eachother. If both the functions are highly positive at a certain $x$, this will give a high value. Same if they are both negative. But if they tend to disagree (e.g. one is positive and the other negative) this will give a negative contribution to this integral. It is a very similar concept to seeing how much the two functions correlate with eachother on this interval.
+The coefficients $A_{n}$ are a bit more esoteric: On this same interval, it essentially looks at the average value of the cosine multiplied with our function $s(x)$. Some more explanation for this will follow later on in this post but for now, convince yourself that the value of $A_{n}$ will be a measure of how much the function values 'agree' with eachother. If both $s(x)$ and the cosine function are highly positive at a certain $x$, this will give a high value. Same if they are both negative. But if they tend to disagree (e.g. one is positive and the other negative) this will give a negative contribution to this integral. It is a very similar concept to seeing how much the two functions correlate with eachother on this interval.
 
-For $B_{n}$, exactly the same argument holds, but now swapping out the cosine for the sine.
+For $B_{n}$, exactly the same argument as $A_{n}$ holds, but now swapping out the cosine for the sine.
 
 The last question that remains before we can play around a bit with them concerns that pesky infinite sum in the main formula. Why do you need an infinite number of terms to get anything done around here?! The answer is that we *mostly* don't. If the function you want to approximate is similar enough to a set of simple waves you need way fewer. In the example at the top we needed just two terms to fully reconstruct the signal (because that's literally [how I constructed that signal](https://github.com/jbukala/jbukala.github.io/blob/main/content/posts/fourier-analysis/fourier_plots.py) in the first place, but okay).
 
@@ -111,7 +111,7 @@ $$
 \hat{f}(\xi) = \int_{- \infty}^{\infty} f(x) e^{- i 2 \pi \xi x} dx
 $$
 
-As you see its very similar to our series formula, with a few minor differences. Here it doesnt matter anymore if our function is periodic or not, we can transform it all the same. Hence this integral going over the entire real line. Because this function $\hat{f}(\xi)$ is a complex-valued one encoding both the magnitude of the frequencies and their phases, we can get the magnitude of it to find $F( \omega )$ if we only want to look at the relative importance of each frequency. (Essentially we throw away all the phase information.)
+As you see its very similar to our series formula, with a few minor differences ([taking the limit](https://en.wikipedia.org/wiki/Fourier_transform#Definition) of $P$ growing to cover the entire real line in the $c_{n}$ formula). Here it doesn't matter anymore if our function is periodic or not, we can transform it all the same. Hence this integral going over the entire real line. Because this function $\hat{f}(\xi)$ is a complex-valued one encoding both the magnitude of the frequencies and their phases, we can get the magnitude of it to find $F( \omega ) = ||\hat{f}(\xi)|| $ if we only want to look at the relative importance of each frequency. (Essentially we throw away all the phase information in that step.)
 
 You can see the results of Fourier-transforming a few simple functions in the figure below.
 
@@ -132,10 +132,10 @@ The only thing that changed is the minus sign in the complex exponential of the 
 
 *This section can be safely skipped if you just want to see the applications and how/where to use it, or are just not that into linear algebra.*
 
-We now have the formulas to start applying it, but for those who are wondering how we got to them or why they work in the first place, this section attempts to give some intuition on the idea behind it.
+We now have the formulas to start using it, but for those who are wondering how we got to them or why they work in the first place, this section attempts to give some intuition on the idea behind it.
 
 The general train of thought is as follows:
-* Vector spaces have a basis, from which you can make any element in that space by scalar multiplication and vector addition of the elements in the basis
+* Vector spaces have a *basis*, from which you can make any element in that space by scalar multiplication and vector addition of the elements in the basis
 * If the vectors are orthogonal (their *inner product* is 0) and normalized (they have length 1) they are called *orthonormal*. This is a nice property for a basis to have.
 * The space of functions is also a vector space. You can check all [the requirements](https://en.wikipedia.org/wiki/Vector_space#Definition_and_basic_properties) yourself, but it's easy to see that it is closed under addition of its elements as well as scalar multiplication when you define them in the most straightforward way:
 $$
@@ -143,14 +143,14 @@ $$
 (\lambda \cdot f)(x) = \lambda \cdot f(x)
 $$
 * This means that functions defined on an interval $[a,b]$ are vectors as well, and that they form an (infinite-dimensional) vector space
-* In this space you can also define an inner product as follows:
+* In this space you can also define an [inner product](https://en.wikipedia.org/wiki/Inner_product_space#Definition) as follows:
 $$
 \langle f, g \rangle = \int_{- \infty}^{\infty} f(x)g(x) dx
 $$
-* Armed with this inner product, you can calculate that $\langle sin(\frac{2 \pi x n_i}{b-a}) , sin(\frac{2 \pi x n_j}{b-a}) \rangle = 0 \quad \forall n_{i}, n_{j} \in \N$ if $n_{i} \neq n_{j}$. In other words, all these different sine waves are *orthogonal*. And depending on the domain they can also be normalized by putting a normalization factor in front. So we can create an *orthonormal* set of functions.
+* Armed with this inner product, you can calculate that $\langle sin(\frac{2 \pi x n_i}{b-a}) , sin(\frac{2 \pi x n_j}{b-a}) \rangle = 0 \quad \forall \quad n_{i}, n_{j} \in \N$ if $n_{i} \neq n_{j}$. In other words, all these different sine waves are *orthogonal*. And depending on the domain they can also be normalized by putting a normalization factor in front. So we can create an *orthonormal* set of functions.
 * By using the sets of sines and cosines together, or alternatively the complex exponential form, it forms a *basis* for this space of functions. (No proof for that in this post though)
 * Looking at it from this perspective, the Fourier transform is nothing more than a basis transformation on the space of functions!
-* If you scroll up to the definitions, you see that calculation of the coefficients $A_{n}$, $B_{n}$ or $C{n}$ is just calculating the inner product between our function and each of our basis vectors. We then use these coefficients as scalar factors of each basis vector, just like any basis transformation in linear algebra.
+* If you scroll up to the definitions, you see that calculation of the coefficients $A_{n}$, $B_{n}$ or $C_{n}$ is just calculating the inner product between our function and each of our basis vectors. We then use these coefficients as scalar factors of each basis vector, just like any basis transformation in linear algebra.
 
 Hopefully this train of thought makes it make more sense. It can also provoke further questions like what's so special about this set of functions that makes them able to form an orthonormal basis? Turns out they are not even *that* special. You can take different sets of functions to [generalize this concept](https://en.wikipedia.org/wiki/Generalized_Fourier_series):
 * [Chebyshev polynomials](https://en.wikipedia.org/wiki/Chebyshev_polynomials)
@@ -162,19 +162,19 @@ Which one of these is appropriate to write your function in really depends on th
 
 ## Applications
 
-So, let's finally get down to the applications. In essense, the Fourier transform pops up anywhere waves or recurring patterns are. 
+So, let's finally get down to the applications. In essence, the Fourier transform pops up anywhere there are waves or recurring patterns, which is a lot of places! 
 
 ### Audio
-Something we already mentioned (and is the most obvious) is in sound. Sound consists of pressure waves, oftentimes in repeating patterns. We tend to discuss sounds in terms of frequencies (My voice is *lower* than yours, this music has lots of *bass*, etc). The Fourier transform gives us a mechanism to move from the physical phenomenon that a microphone might pick up (air pressure over time) towards something making more sense to us as humans. Even the hair cells in our ears are each tuned to be receptive to their own specific sound frequencies, so the signal going towards our brains is already Fourier-transformed!
+Something we already mentioned (and is the most obvious) is in sound. Sound consists of pressure waves, oftentimes in repeating patterns. We tend to discuss sounds in terms of frequencies (My voice is *higher* than yours, this music has lots of *bass*, etc). The Fourier transform gives us a mechanism to move from the physical phenomenon that a microphone might pick up (air pressure over time) towards something making more sense to us as humans. Even the hair cells in our ears are each tuned to be receptive to their own specific sound frequencies, so the signal going towards our brains is already Fourier-transformed!
 
 You can see an example of Fourier transforming audio in the figure below:
 
 ![Image of raw sound signal versus frequency spectrum](./images/fourier-transform-audio.svg) \
 *Fig: A raw audio clip of two people speaking the same words, and their Fourier spectrums underneath it*
 
-In this image, you can see that the Fourier spectra are mostly non-zero near the low frequencies. Because the sampling rate of this audio file is fairly high (48.000 data points per second!) it is possible to measure really high frequencies, that are not really present in spoken language. Looking at these graphs side by side you can also see how this can be useful as a lossless **compression** algorithm. The Fourier signal is quite sparse (consists of mostly zeroes), so there is no need to save every single datapoint. This is why its used in the MP3 file-format as well.
+In this image, you can see that the Fourier spectra are mostly non-zero near the low frequencies. Because the sampling rate of this audio file is fairly high (48.000 data points per second!) it is possible to encode really high frequencies, that are not really present in spoken language. Looking at these graphs side by side you can also see how this can be useful as a lossless **compression** algorithm. The Fourier signal is quite sparse (consisting of mostly zeroes), so there is no need to save every single datapoint. This is why it's used in the MP3 file-format as well.
 
-This is even more efficient if you also explicitly want to throw out known noise at certain frequencies, like a low-frequency background hum or an annoying high-frequency beep. It is really straightforward in the frequency-domain to set specific frequencies or frequency ranges to zero, and then doing an inverse Fourier transform. This does exactly what you expect and can be a great **noise filtering** system if you know the frequency characteristics of your noise.
+This is even more efficient if you also explicitly want to throw out known noise at certain frequencies, like a low-frequency background hum or an annoying high-frequency beep. It's really straightforward in the frequency-domain to overwrite specific frequencies or frequency ranges with 0, and then doing an inverse Fourier transform. This does exactly what you expect and can be a great **noise filtering** system if you know the frequency characteristics of your noise.
 
 ![Example of Fourier transforms used to filter noise](https://i.stack.imgur.com/yWESP.png) \
 *Fig: Example of filtering out (high-frequency) noise using the Fourier transform ([source](https://www.appsloveworld.com/bestanswer/matlab/33/filtering-signal-noise-using-fourier-transforms-and-matlab))* 
@@ -194,7 +194,7 @@ This is why it's used in the JPEG image file format as well.
 
 ### Time-series
 
-In time-series data, the Fourier spectrum can help you quickly identify **seasonality** in your dataset: just look for spikes around specific frequencies, to see how much your signal varies daily, weekly, yearly, etc. Some libraries, like the FB Prophet library, will also use Fourier coefficients to build features from under the hood.
+In time-series data, the Fourier spectrum can help you quickly identify **seasonality** in your dataset: just look for spikes around specific frequencies, to see how much your signal varies daily, weekly, yearly, etc. Some time-series libraries, like the FB Prophet library, will also use Fourier coefficients to build features from under the hood.
 
 Sensor data is also used a lot in the field of **predictive maintenance**. Oftentimes before physical components of systems fail, they will exhibit a higher-frequency vibration. This is something that can be more clearly seen as a sudden spike in the high-frequency part of the spectrum of a movement-sensor.
 
@@ -211,20 +211,31 @@ In the field of **digital signal processing**, [filters](https://en.wikipedia.or
 
 The multiplication of very large numbers can be [done more efficiently](http://numbers.computation.free.fr/Constants/Algorithms/fft.html) with the Fourier Transform.
 
-### Discrete and Fast Fourier Transforms
+## Discrete and Fast Fourier Transforms
 
-Digital signal processing
-Shannon-Nyquist theorem
-FFT Explanation
+So far, all of the formulas that we've been using have been for continuous functions $s(x)$. However, a lot of real-life scenario's discussed here instead have *discrete* signals. This means that there is (usually a constant) time between measurements of your signal. e.g. the audio file we discussed had 48.000 measurements per second, so 1/48.000 seconds in between each measurement.
+
+### Discrete Fourier Transform (DFT)
+Once again we are lucky in that this doesn't change much for us: We take the formula for $c_n$ replace integrals with sums and discretize the values in the complex exponential. Assuming a signal with $N$ measurements $\lbrace x_{n} \rbrace = \lbrace x_{0}, x_{1}, ..., x_{N-1} \rbrace$, its Discrete Fourier transform $\lbrace X_{n} \rbrace$ is calculated as:
+
+$$
+X_{k} = \sum_{n=0}^{N-1} = x_{n} \cdot e^{-i 2 \pi\frac{k}{N}n}
+$$
+
+In this discrete setting there's something else we should take into account: Our ability to measure high frequency signals is limited by the amount of measurements we make per second (the *sampling frequency*). If I only ever measure the temperature on Jan 1st every year, there is no way for me to know that it varies in a yearly pattern, or even throughout the day. The fact that you need to have a sampling frequency at least twice the highest frequency you want to represent is known as the [Shannon-Nyquist theorem](https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem).
+
+### Fast Fourier Transform
+
+The [Fast Fourier Transform](https://en.wikipedia.org/wiki/Fast_Fourier_transform) or FFT for short, is something that takes the definition of the Discrete Fourier transform but uses a much more efficient algorithm to compute it. For a signal with length $n$, the computational complexity of the naive DFT is $\mathcal{O}(n^2)$, which the FFT takes down to $\mathcal{O}(n \log n)$. This has been a game changer, especially when it was invented for general-length signals in 1965. 
 
 ## Conclusion
 Take-homes
 
 ## Follow-ups / Continue Reading
 
-* Convolution theorem
+* [Convolution theorem](https://en.wikipedia.org/wiki/Convolution_theorem): The mathematical operation of *convolution* of two signals is used in many fields to calculate statistical expectations, convolve signals with filters, convolutional neural networks, etc.). This theorem states that performing the operation in the Frequency domain comes down to performing a simple pointwise multiplication, instead of a complicated integral. This fact is exploited in most practical implementations: The signals are both Fourier-transformed, quickly multiplied with eachother, and the result then inverse-Fourier transformed.
 * Laplace transform
-* Wavelets (JPEG2000)
+* [Wavelets](https://en.wikipedia.org/wiki/Wavelet): A family of functions that are created from one *mother* function by translation and scaling in a certain way. An advantage is more localisation, as they have only a small area where they are non-zero. They are used in more current image formats like JPEG2000.
 * Uncertainty principle
 
 Further Reading:
