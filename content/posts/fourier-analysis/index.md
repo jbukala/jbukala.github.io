@@ -156,6 +156,7 @@ Hopefully this train of thought makes it make more sense. It can also provoke fu
 * [Chebyshev polynomials](https://en.wikipedia.org/wiki/Chebyshev_polynomials)
 * [Legendre polynomials](https://en.wikipedia.org/wiki/Legendre_polynomials)
 * [Bessel functions](https://en.wikipedia.org/wiki/Fourier%E2%80%93Bessel_series)
+* Wavelets (see below)
 * Something else tailored to your data
 
 Which one of these is appropriate to write your function in really depends on the kinds of functions you're modeling. We already saw that for the Fourier series the square wave wasn't approximated so well near its jumps, and each choice here will have some pros and cons.
@@ -229,14 +230,20 @@ In this discrete setting there's something else we should take into account: Our
 The [Fast Fourier Transform](https://en.wikipedia.org/wiki/Fast_Fourier_transform) or FFT for short, is something that takes the definition of the Discrete Fourier transform but uses a much more efficient algorithm to compute it. For a signal with length $n$, the computational complexity of the naive DFT is $\mathcal{O}(n^2)$, which the FFT takes down to $\mathcal{O}(n \log n)$. This has been a game changer, especially when it was invented for general-length signals in 1965. 
 
 ## Conclusion
-Take-homes
+
+**Take-homes**
+
 
 ## Follow-ups / Continue Reading
 
-* [Convolution theorem](https://en.wikipedia.org/wiki/Convolution_theorem): The mathematical operation of *convolution* of two signals is used in many fields to calculate statistical expectations, convolve signals with filters, convolutional neural networks, etc.). This theorem states that performing the operation in the Frequency domain comes down to performing a simple pointwise multiplication, instead of a complicated integral. This fact is exploited in most practical implementations: The signals are both Fourier-transformed, quickly multiplied with eachother, and the result then inverse-Fourier transformed.
-* Laplace transform
-* [Wavelets](https://en.wikipedia.org/wiki/Wavelet): A family of functions that are created from one *mother* function by translation and scaling in a certain way. An advantage is more localisation, as they have only a small area where they are non-zero. They are used in more current image formats like JPEG2000.
-* Uncertainty principle
+Some other topics that may be of interest after reading this post:
+* [Convolution theorem](https://en.wikipedia.org/wiki/Convolution_theorem): The mathematical operation of [convolution](https://en.wikipedia.org/wiki/Convolution) of two signals is used in many fields to calculate statistical expectations, convolve signals with filters, convolutional neural networks, etc. This theorem states that performing the operation in the Frequency domain comes down to performing a simple pointwise multiplication, instead of a complicated integral. This fact is exploited in most practical implementations of convolution: The signals are both Fourier-transformed, quickly multiplied with eachother, and the result then inverse-Fourier transformed.
+* [Laplace transform](https://en.wikipedia.org/wiki/Laplace_transform): This transform can be seen as a generalization of the Fourier transform and is defined by: $\mathcal{L} \lbrace f \rbrace (s) = \int_{0}^{\infty} f(x) e^{-st} dt$. Here $s \in \Complex$ is a complex number. If we look at the special case where its purely imaginary: ($s=2 \pi i \xi$) and take the integral over the entire real line (matter of convention) we get the Fourier transform. This transform also turns convolutions into simple multiplications, but as an added benefit turns [differential equations into algebraic equations](https://en.wikipedia.org/wiki/Laplace_transform_applied_to_differential_equations) by turning differentiation into multiplication and integration into division by $s$. Hence it's an important part of the engineering toolbox.
+* [Wavelets](https://en.wikipedia.org/wiki/Wavelet): A family of functions that are created from one *mother* function by translation and scaling it in a certain way. An advantage of the wavelet transform is localization, as they have only a small area where they are non-zero. They are used in more recent image formats like JPEG2000.
+* [Uncertainty principle/Gabor Limit](https://en.wikipedia.org/wiki/Uncertainty_principle): When I showed some examples of simple functions and their Fourier transforms, remember that the sine function is spread out over the entire x-axis, while the fourier transform of it is just a peak at exactly one frequency, so it's very localized in the frequency spectrum. The converse is also true: A unit pulse (a signal only being nonzero at exactly one point) has an infinitely wide spread in the frequency spectrum. It turns out that something like this holds more generally: If something is very localized in one domain, it must be very spread out in the other one. The amount of spread in both can be quantified by calculating their standard deviation, and is at least equal to the so-called *Gabor-limit*: $\sigma_{x}^{2} \sigma_{\xi}^{2} =  \big( \int_{-\infty}^{\infty}x^2 |f(x)|^{2} dx \big) \big( \int_{-\infty}^{\infty}\xi^2 |\hat{f}(\xi)|^{2} d\xi \big) \geq \frac{||f||_{2}^{4}}{16 \pi^2}$ The equality is achieved when both $f$ and $\hat{f}$ are Gaussians. One application of this is in quantum mechanics: The wavefunction describing the position of a particle and the one describing the momentum are Fourier transforms of eachother. A special case of the Gabor limit is then that position and momentum cannot be known at the same time to an arbitrary amount of precision, but that $\sigma_{x} \sigma_{p} \geq \frac{\hbar}{2}$. This is known as the *uncertainty principle*.
 
 Further Reading:
 * [More step by step visuals with long-form explanation](https://devincody.github.io/Blog/post/an_intuitive_interpretation_of_the_fourier_transform/) on the mathematical intuition behind the Fourier transform
+* Proof of the uncertainty principle [using Fourier analysis](https://en.wikipedia.org/wiki/Uncertainty_principle#Wave_mechanics_interpretation) (also called Kennard inequality)
+* [Digital filter](https://en.wikipedia.org/wiki/Digital_filter) design
+* Explanation of the most common FFT algorithm, the [Cooley-Tukey algorithm](https://en.wikipedia.org/wiki/Cooley%E2%80%93Tukey_FFT_algorithm)
