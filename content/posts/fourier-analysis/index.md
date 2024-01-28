@@ -195,7 +195,7 @@ This is why it's used in the JPEG image file format as well.
 
 ### Time-series
 
-In time-series data, the Fourier spectrum can help you quickly identify **seasonality** in your dataset: just look for spikes around specific frequencies, to see how much your signal varies daily, weekly, yearly, etc. Some time-series libraries, like the FB Prophet library, will also use Fourier coefficients to build features from under the hood.
+In time-series data, the Fourier spectrum can help you quickly identify **seasonality** in your dataset: just look for spikes around specific frequencies, to see how much your signal varies daily, weekly, yearly, etc. Some time-series libraries, like the [FB Prophet](https://facebook.github.io/prophet/) library, will also use Fourier coefficients to build features from under the hood.
 
 Sensor data is also used a lot in the field of **predictive maintenance**. Oftentimes before physical components of systems fail, they will exhibit a higher-frequency vibration. This is something that can be more clearly seen as a sudden spike in the high-frequency part of the spectrum of a movement-sensor.
 
@@ -231,7 +231,11 @@ The [Fast Fourier Transform](https://en.wikipedia.org/wiki/Fast_Fourier_transfor
 
 ## Conclusion
 
-**Take-homes**
+* Fourier theory can help you look at time signals in their 'natural' domain
+* The Fourier transformation is nothing more than a basis transformation (to the basis of waves) on the space of functions
+* Knowing Fourier transformations is sort of a gateway to an entire signal processing and representation field
+* As a Data Scientist, frequency space can be a great place to start generating features for your ML models
+* You use its results all day every day in your technology
 
 
 ## Follow-ups / Continue Reading
@@ -239,6 +243,7 @@ The [Fast Fourier Transform](https://en.wikipedia.org/wiki/Fast_Fourier_transfor
 Some other topics that may be of interest after reading this post:
 * [Convolution theorem](https://en.wikipedia.org/wiki/Convolution_theorem): The mathematical operation of [convolution](https://en.wikipedia.org/wiki/Convolution) of two signals is used in many fields to calculate statistical expectations, convolve signals with filters, convolutional neural networks, etc. This theorem states that performing the operation in the Frequency domain comes down to performing a simple pointwise multiplication, instead of a complicated integral. This fact is exploited in most practical implementations of convolution: The signals are both Fourier-transformed, quickly multiplied with eachother, and the result then inverse-Fourier transformed.
 * [Laplace transform](https://en.wikipedia.org/wiki/Laplace_transform): This transform can be seen as a generalization of the Fourier transform and is defined by: $\mathcal{L} \lbrace f \rbrace (s) = \int_{0}^{\infty} f(x) e^{-st} dt$. Here $s \in \Complex$ is a complex number. If we look at the special case where its purely imaginary: ($s=2 \pi i \xi$) and take the integral over the entire real line (matter of convention) we get the Fourier transform. This transform also turns convolutions into simple multiplications, but as an added benefit turns [differential equations into algebraic equations](https://en.wikipedia.org/wiki/Laplace_transform_applied_to_differential_equations) by turning differentiation into multiplication and integration into division by $s$. Hence it's an important part of the engineering toolbox.
+* The [Short-time Fourier transform](https://en.wikipedia.org/wiki/Short-time_Fourier_transform): Usually when you do a Fourier transform, you transform the entire signal. This gives you the widest range of frequencies that you can model, but has as a disadvantage that you have no insight into how the frequency content changes over time. S simple way to fix this problem partly is by just shopping the input signal into segments, and then Fourier transforming each segment separately. You can now track the frequency content over time, even though you may lose some resolution at the low end of the spectrum. This is called the Short-time Fourier Transform.
 * [Wavelets](https://en.wikipedia.org/wiki/Wavelet): A family of functions that are created from one *mother* function by translation and scaling it in a certain way. An advantage of the wavelet transform is localization, as they have only a small area where they are non-zero. They are used in more recent image formats like JPEG2000.
 * [Uncertainty principle/Gabor Limit](https://en.wikipedia.org/wiki/Uncertainty_principle): When I showed some examples of simple functions and their Fourier transforms, remember that the sine function is spread out over the entire x-axis, while the fourier transform of it is just a peak at exactly one frequency, so it's very localized in the frequency spectrum. The converse is also true: A unit pulse (a signal only being nonzero at exactly one point) has an infinitely wide spread in the frequency spectrum. It turns out that something like this holds more generally: If something is very localized in one domain, it must be very spread out in the other one. The amount of spread in both can be quantified by calculating their standard deviation, and is at least equal to the so-called *Gabor-limit*: $\sigma_{x}^{2} \sigma_{\xi}^{2} =  \big( \int_{-\infty}^{\infty}x^2 |f(x)|^{2} dx \big) \big( \int_{-\infty}^{\infty}\xi^2 |\hat{f}(\xi)|^{2} d\xi \big) \geq \frac{||f||_{2}^{4}}{16 \pi^2}$ The equality is achieved when both $f$ and $\hat{f}$ are Gaussians. One application of this is in quantum mechanics: The wavefunction describing the position of a particle and the one describing the momentum are Fourier transforms of eachother. A special case of the Gabor limit is then that position and momentum cannot be known at the same time to an arbitrary amount of precision, but that $\sigma_{x} \sigma_{p} \geq \frac{\hbar}{2}$. This is known as the *uncertainty principle*.
 
