@@ -49,9 +49,9 @@ The second question that remains is: Okay there are these coefficients $A_{n}$ a
 Again I will give you the answer, then try to make it make sense:
 
 $$
-A_{0} = \frac{1}{P} \int_{-P/2}^{P/2} s(x) dx \\[12pt]
+A_{0} = \frac{1}{P} \int_{-P/2}^{P/2} s(x) dx \newline
 
-A_{n} = \frac{2}{P} \int_{-P/2}^{P/2} s(x) \cos \Big( \frac{2 \pi n x}{P} \Big) dx \\[12pt]
+A_{n} = \frac{2}{P} \int_{-P/2}^{P/2} s(x) \cos \Big( \frac{2 \pi n x}{P} \Big) dx \newline
 
 B_{n} = \frac{2}{P} \int_{-P/2}^{P/2} s(x) \sin \Big( \frac{2 \pi n x}{P} \Big) dx
 $$
@@ -86,7 +86,7 @@ $$
 Where $i$ is the imaginary unit. For understanding more about *why* this formula is true check out the link. We can just use it here to rewrite the equations above and end up with the following:
 
 $$
-s(x) = \sum_{n = - \infty}^{\infty} c_{n} e^{\frac{2 \pi i n x}{P}} \\[12pt]
+s(x) = \sum_{n = - \infty}^{\infty} c_{n} e^{\frac{2 \pi i n x}{P}} \newline
 
 c_n = \frac{2}{P} \int_{-P/2}^{P/2} s(x) e^{- \frac{2 \pi i n x}{P}} dx
 
@@ -205,7 +205,7 @@ The general train of thought is as follows:
 * If the vectors are orthogonal (their *inner product* is 0) and normalized (they have length 1) they are called *orthonormal*. This is a nice property for a basis to have.
 * The space of functions is also a vector space. You can check all [the requirements](https://en.wikipedia.org/wiki/Vector_space#Definition_and_basic_properties) yourself, but it's easy to see that it is closed under addition of its elements as well as scalar multiplication when you define them in the most straightforward way:
 $$
-(f + g)(x) = f(x) + g(x) \\[12pt]
+(f + g)(x) = f(x) + g(x) \newline
 (\lambda \cdot f)(x) = \lambda \cdot f(x)
 $$
 * This means that functions defined on an interval $[a,b]$ are vectors as well, and that they form an (infinite-dimensional) vector space
@@ -243,7 +243,7 @@ Some other topics that may be of interest after reading this post:
 * [Laplace transform](https://en.wikipedia.org/wiki/Laplace_transform): This transform can be seen as a generalization of the Fourier transform and is defined by: $\mathcal{L} \lbrace f \rbrace (s) = \int_{0}^{\infty} f(x) e^{-st} dt$. Here $s \in \Complex$ is a complex number. If we look at the special case where its purely imaginary: ($s=2 \pi i \xi$) and take the integral over the entire real line (matter of convention) we get the Fourier transform back. This transform also turns convolutions into simple multiplications, but as an added benefit turns [differential equations into algebraic equations](https://en.wikipedia.org/wiki/Laplace_transform_applied_to_differential_equations) by turning differentiation into multiplication and integration into division by $s$. Hence it's an important part of the engineering toolbox.
 * The [Short-time Fourier transform](https://en.wikipedia.org/wiki/Short-time_Fourier_transform): Usually when you do a Fourier transform, you transform the entire signal. This gives you the widest range of frequencies that you can model, but has as a disadvantage that you have no insight into how the frequency content changes over time. A simple way to start fixing this problem is by just chopping the input signal into segments, and then Fourier transforming each segment separately. You can now track the frequency content over time, even though you may lose some resolution at the low end of the spectrum. This is called the Short-time Fourier Transform.
 * [Wavelets](https://en.wikipedia.org/wiki/Wavelet): A family of functions that are created from one *mother* function by translating and scaling it in a certain way. An advantage of the wavelet transform is localization, as they have only a small area where they are non-zero. This set of functions can then be used similar to the sine waves in a *wavelet transformation*. They are used in more recent image formats like JPEG2000.
-* [Uncertainty principle/Gabor Limit](https://en.wikipedia.org/wiki/Uncertainty_principle): When I showed some examples of simple functions and their Fourier transforms, remember that the sine function is spread out over the entire x-axis, while the fourier transform of it is just a peak at exactly one frequency, so it's very localized in the frequency spectrum. The converse is also true: A unit pulse (a signal only being nonzero at exactly one point) has an infinitely wide spread in the frequency spectrum. It turns out that something like this holds more generally: If something is very localized in one domain, it must be very spread out in the other one. The amount of spread in both can be quantified by calculating their standard deviation, and is at least equal to the so-called *Gabor-limit*: $\sigma_{x}^{2} \sigma_{\xi}^{2} =  \big( \int_{-\infty}^{\infty}x^2 |f(x)|^{2} dx \big) \big( \int_{-\infty}^{\infty}\xi^2 |\hat{f}(\xi)|^{2} d\xi \big) \geq \frac{||f||_{2}^{4}}{16 \pi^2}$. The equality is achieved when both $f$ and $\hat{f}$ are Gaussians. One application of this is in quantum mechanics: The wavefunction describing the position of a particle and the one describing the momentum are Fourier transforms of eachother. A special case of the Gabor limit is then that position and momentum cannot be known at the same time to an arbitrary amount of precision, but that $\sigma_{x} \sigma_{p} \geq \frac{\hbar}{2}$. This is known as the *uncertainty principle*.
+* [Uncertainty principle/Gabor Limit](https://en.wikipedia.org/wiki/Uncertainty_principle): When I showed some examples of simple functions and their Fourier transforms, remember that the sine function is spread out over the entire x-axis, while the fourier transform of it is just a peak at exactly one frequency, so it's very localized in the frequency spectrum. The converse is also true: A unit pulse (a signal only being nonzero at exactly one point) has an infinitely wide spread in the frequency spectrum. It turns out that something like this holds more generally: If something is very localized in one domain, it must be very spread out in the other one. The amount of spread in both can be quantified by calculating their standard deviation, and is at least equal to the so-called *Gabor-limit*: $ \sigma_{x}^{2} \sigma_{\xi}^{2} =  \big( \int_{-\infty}^{\infty}x^2 |f(x)|^{2} dx \big) \big( \int_{-\infty}^{\infty}\xi^2 |\hat{f}(\xi)|^{2} d\xi \big) \geq \frac{||f||_{2}^{4}}{16 \pi^2} $ . The equality is achieved when both $f$ and $\hat{f}$ are Gaussians. One application of this is in quantum mechanics: The wavefunction describing the position of a particle and the one describing the momentum are Fourier transforms of eachother. A special case of the Gabor limit is then that position and momentum cannot be known at the same time to an arbitrary amount of precision, but that $\sigma_{x} \sigma_{p} \geq \frac{\hbar}{2}$. This is known as the *uncertainty principle*.
 
 Further Reading:
 * [More step by step visuals with long-form explanation](https://devincody.github.io/Blog/post/an_intuitive_interpretation_of_the_fourier_transform/) on the mathematical intuition behind the Fourier transform
