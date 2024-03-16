@@ -1,7 +1,7 @@
 ---
-title: "Fourier Analysis"
-date: 2024-01-28T12:10:01+01:00
-draft: true
+title: "Fourier Analysis for DS"
+date: 2024-03-16T10:00:00+01:00
+draft: false
 tags: ["Fourier", "Waves", "Spectrum", "Math", "Machine Learning", "Linear Algebra", "Data Science"]
 math: true
 showtoc: true
@@ -9,9 +9,7 @@ showtoc: true
 
 ## Fourier Analysis for DS
 
-*This post is adapted from a presentation I gave to a group of data scientists / analysts / engineers at my client a few months ago.*
-
-People going into Data Science as a profession tend to come from a diverse set of technical backgrounds. The last few years more and more come from specifically Data Science masters programs. Fourier Analysis is a topic that tends to not be discussed in these settings. I think it's still interesting enough to dive into for a bit, both because of its interesting mathematics and because it can give a lot of insight when working with time-series data.
+People going into Data Science as a profession tend to come from a diverse set of technical backgrounds. However, the last few years more and more come from specifically Data Science masters programs. Fourier Analysis is a topic that tends to not be discussed in these settings. I think it's still interesting enough to dive into for a bit, both because of its interesting mathematics and because it can give a lot of insight when working with time-series data.
 
 In this post I will give you a brief overview of what the topic is all about, explain the mathematics behind it and what you can do with it.
 
@@ -128,39 +126,6 @@ $$
 
 The only thing that changed is the minus sign in the complex exponential of the integral. So now we have a tool to take any signal over time, and look at it from a different perspective. We'll see later on why this perspective pops up in all kinds of applications.
 
-## Mathematical Intuition
-
-*This section can be safely skipped if you just want to see the applications and how/where to use it, or are just not that into linear algebra.*
-
-We now have the formulas to start using it, but for those who are wondering how we got to them or why they work in the first place, this section attempts to give some intuition on the idea behind it.
-
-The general train of thought is as follows:
-* Vector spaces have a *basis*, from which you can make any element in that space by scalar multiplication and vector addition of the elements in the basis
-* If the vectors are orthogonal (their *inner product* is 0) and normalized (they have length 1) they are called *orthonormal*. This is a nice property for a basis to have.
-* The space of functions is also a vector space. You can check all [the requirements](https://en.wikipedia.org/wiki/Vector_space#Definition_and_basic_properties) yourself, but it's easy to see that it is closed under addition of its elements as well as scalar multiplication when you define them in the most straightforward way:
-$$
-(f + g)(x) = f(x) + g(x) \\[12pt]
-(\lambda \cdot f)(x) = \lambda \cdot f(x)
-$$
-* This means that functions defined on an interval $[a,b]$ are vectors as well, and that they form an (infinite-dimensional) vector space
-* In this space you can also define an [inner product](https://en.wikipedia.org/wiki/Inner_product_space#Definition) as follows:
-$$
-\langle f, g \rangle = \int_{- \infty}^{\infty} f(x)g(x) dx
-$$
-* Armed with this inner product, you can calculate that $\langle sin(\frac{2 \pi x n_i}{b-a}) , sin(\frac{2 \pi x n_j}{b-a}) \rangle = 0 \quad \forall \quad n_{i}, n_{j} \in \Z$ if $n_{i} \neq n_{j}$. In other words, all these different sine waves are *orthogonal*. And depending on the domain they can also be normalized by putting a normalization factor in front. So we can create an *orthonormal* set of functions.
-* By using the sets of sines and cosines together, or alternatively the complex exponential form, it forms a *basis* for this space of functions. (No proof for that in this post though)
-* Looking at it from this perspective, the Fourier transform is nothing more than a basis transformation on the space of functions!
-* If you scroll up to the definitions, you see that calculation of the coefficients $A_{n}$, $B_{n}$ or $C_{n}$ is just calculating the inner product between our function and each of our basis vectors. We then use these coefficients as scalar factors of each basis vector, just like any basis transformation in linear algebra.
-
-Hopefully this train of thought makes it make more sense. It can also provoke further questions like what's so special about this set of functions that makes them able to form an orthonormal basis? Turns out they are not even *that* special. You can take different sets of functions to [generalize this concept](https://en.wikipedia.org/wiki/Generalized_Fourier_series):
-* [Chebyshev polynomials](https://en.wikipedia.org/wiki/Chebyshev_polynomials)
-* [Legendre polynomials](https://en.wikipedia.org/wiki/Legendre_polynomials)
-* [Bessel functions](https://en.wikipedia.org/wiki/Fourier%E2%80%93Bessel_series)
-* Wavelets (see below)
-* Something else tailored to your data
-
-Which one of these is appropriate to write your function in really depends on the kinds of functions you're modeling. We already saw that for the Fourier series the square wave wasn't approximated so well near its jumps, and each choice here will have some pros and cons.
-
 ## Applications
 
 So, let's finally get down to the applications. In essence, the Fourier transform pops up anywhere there are waves or recurring patterns, which is a lot of places! 
@@ -229,23 +194,56 @@ In this discrete setting there's something else we should take into account: Our
 
 The [Fast Fourier Transform](https://en.wikipedia.org/wiki/Fast_Fourier_transform) or FFT for short, is something that takes the definition of the Discrete Fourier transform but uses a much more efficient algorithm to compute it. For a signal with length $n$, the computational complexity of the naive DFT is $\mathcal{O}(n^2)$, which the FFT takes down to $\mathcal{O}(n \log n)$. This has been a game changer, especially when it was invented for general-length signals in 1965. 
 
+## Mathematical Intuition
+
+*This section can be safely skipped if you are just not that into linear algebra.*
+
+We now have the formulas to start using it, but for those who are wondering how we got to them or why they work in the first place, this section attempts to give some intuition on the idea behind it.
+
+The general train of thought is as follows:
+* Vector spaces have a *basis*, from which you can make any element in that space by scalar multiplication and vector addition of the elements in the basis
+* If the vectors are orthogonal (their *inner product* is 0) and normalized (they have length 1) they are called *orthonormal*. This is a nice property for a basis to have.
+* The space of functions is also a vector space. You can check all [the requirements](https://en.wikipedia.org/wiki/Vector_space#Definition_and_basic_properties) yourself, but it's easy to see that it is closed under addition of its elements as well as scalar multiplication when you define them in the most straightforward way:
+$$
+(f + g)(x) = f(x) + g(x) \\[12pt]
+(\lambda \cdot f)(x) = \lambda \cdot f(x)
+$$
+* This means that functions defined on an interval $[a,b]$ are vectors as well, and that they form an (infinite-dimensional) vector space
+* In this space you can also define an [inner product](https://en.wikipedia.org/wiki/Inner_product_space#Definition) as follows:
+$$
+\langle f, g \rangle = \int_{- \infty}^{\infty} f(x)g(x) dx
+$$
+* Armed with this inner product, you can calculate that $\langle sin(\frac{2 \pi x n_i}{b-a}) , sin(\frac{2 \pi x n_j}{b-a}) \rangle = 0 \quad \forall \quad n_{i}, n_{j} \in \Z$ if $n_{i} \neq n_{j}$. In other words, all these different sine waves are *orthogonal*. And depending on the domain they can also be normalized by putting a normalization factor in front. So we can create an *orthonormal* set of functions.
+* By using the sets of sines and cosines together, or alternatively the complex exponential form, it forms a *basis* for this space of functions. (No proof for that in this post though)
+* Looking at it from this perspective, the Fourier transform is nothing more than a basis transformation on the space of functions!
+* If you scroll up to the definitions, you see that calculation of the coefficients $A_{n}$, $B_{n}$ or $C_{n}$ is just calculating the inner product between our function and each of our basis vectors. We then use these coefficients as scalar factors of each basis vector, just like any basis transformation in linear algebra.
+
+Hopefully this train of thought makes it make more sense. It can also provoke further questions like what's so special about this set of functions that makes them able to form an orthonormal basis? Turns out they are not even *that* special. You can take different sets of functions to [generalize this concept](https://en.wikipedia.org/wiki/Generalized_Fourier_series):
+* [Chebyshev polynomials](https://en.wikipedia.org/wiki/Chebyshev_polynomials)
+* [Legendre polynomials](https://en.wikipedia.org/wiki/Legendre_polynomials)
+* [Bessel functions](https://en.wikipedia.org/wiki/Fourier%E2%80%93Bessel_series)
+* Wavelets (see below)
+* Something else tailored to your data
+
+Which one of these is appropriate to write your function in really depends on the kinds of functions you're modeling. We already saw that for the Fourier series the square wave wasn't approximated so well near its jumps, and each choice here will have some pros and cons.
+
 ## Conclusion
 
-* Fourier theory can help you look at time signals in their 'natural' domain
-* The Fourier transformation is nothing more than a basis transformation (to the basis of waves) on the space of functions
-* Knowing Fourier transformations is sort of a gateway to an entire signal processing and representation field
-* As a Data Scientist, frequency space can be a great place to start generating features for your ML models
+* Fourier theory can help you look at time signals in their *natural* domain
+* The Fourier transformation is nothing more than a basis transformation (using a basis of waves) on the space of functions
+* Knowing Fourier transformations is a gateway to learning about the signal processing and representation field and more
+* As a Data Scientist, frequency space can be a great place to start generating informative and interpretable features for your ML models
 * You use its results all day every day in your technology
 
 
 ## Follow-ups / Continue Reading
 
 Some other topics that may be of interest after reading this post:
-* [Convolution theorem](https://en.wikipedia.org/wiki/Convolution_theorem): The mathematical operation of [convolution](https://en.wikipedia.org/wiki/Convolution) of two signals is used in many fields to calculate statistical expectations, convolve signals with filters, convolutional neural networks, etc. This theorem states that performing the operation in the Frequency domain comes down to performing a simple pointwise multiplication, instead of a complicated integral. This fact is exploited in most practical implementations of convolution: The signals are both Fourier-transformed, quickly multiplied with eachother, and the result then inverse-Fourier transformed.
-* [Laplace transform](https://en.wikipedia.org/wiki/Laplace_transform): This transform can be seen as a generalization of the Fourier transform and is defined by: $\mathcal{L} \lbrace f \rbrace (s) = \int_{0}^{\infty} f(x) e^{-st} dt$. Here $s \in \Complex$ is a complex number. If we look at the special case where its purely imaginary: ($s=2 \pi i \xi$) and take the integral over the entire real line (matter of convention) we get the Fourier transform. This transform also turns convolutions into simple multiplications, but as an added benefit turns [differential equations into algebraic equations](https://en.wikipedia.org/wiki/Laplace_transform_applied_to_differential_equations) by turning differentiation into multiplication and integration into division by $s$. Hence it's an important part of the engineering toolbox.
+* [Convolution theorem](https://en.wikipedia.org/wiki/Convolution_theorem): The mathematical operation of [convolution](https://en.wikipedia.org/wiki/Convolution) of two signals is used in many fields to calculate statistical expectations, convolve signals with filters, convolutional neural networks, etc. This theorem states that performing the convolution operation in the Frequency domain comes down to performing a simple pointwise multiplication, instead of a complicated integral. This fact is exploited in most practical implementations of convolution: The signals are both Fourier-transformed, quickly multiplied with eachother, and the result then inverse-Fourier transformed.
+* [Laplace transform](https://en.wikipedia.org/wiki/Laplace_transform): This transform can be seen as a generalization of the Fourier transform and is defined by: $\mathcal{L} \lbrace f \rbrace (s) = \int_{0}^{\infty} f(x) e^{-st} dt$. Here $s \in \Complex$ is a complex number. If we look at the special case where its purely imaginary: ($s=2 \pi i \xi$) and take the integral over the entire real line (matter of convention) we get the Fourier transform back. This transform also turns convolutions into simple multiplications, but as an added benefit turns [differential equations into algebraic equations](https://en.wikipedia.org/wiki/Laplace_transform_applied_to_differential_equations) by turning differentiation into multiplication and integration into division by $s$. Hence it's an important part of the engineering toolbox.
 * The [Short-time Fourier transform](https://en.wikipedia.org/wiki/Short-time_Fourier_transform): Usually when you do a Fourier transform, you transform the entire signal. This gives you the widest range of frequencies that you can model, but has as a disadvantage that you have no insight into how the frequency content changes over time. A simple way to start fixing this problem is by just chopping the input signal into segments, and then Fourier transforming each segment separately. You can now track the frequency content over time, even though you may lose some resolution at the low end of the spectrum. This is called the Short-time Fourier Transform.
-* [Wavelets](https://en.wikipedia.org/wiki/Wavelet): A family of functions that are created from one *mother* function by translating and scaling it in a certain way. An advantage of the wavelet transform is localization, as they have only a small area where they are non-zero. They are used in more recent image formats like JPEG2000.
-* [Uncertainty principle/Gabor Limit](https://en.wikipedia.org/wiki/Uncertainty_principle): When I showed some examples of simple functions and their Fourier transforms, remember that the sine function is spread out over the entire x-axis, while the fourier transform of it is just a peak at exactly one frequency, so it's very localized in the frequency spectrum. The converse is also true: A unit pulse (a signal only being nonzero at exactly one point) has an infinitely wide spread in the frequency spectrum. It turns out that something like this holds more generally: If something is very localized in one domain, it must be very spread out in the other one. The amount of spread in both can be quantified by calculating their standard deviation, and is at least equal to the so-called *Gabor-limit*: $\sigma_{x}^{2} \sigma_{\xi}^{2} =  \big( \int_{-\infty}^{\infty}x^2 |f(x)|^{2} dx \big) \big( \int_{-\infty}^{\infty}\xi^2 |\hat{f}(\xi)|^{2} d\xi \big) \geq \frac{||f||_{2}^{4}}{16 \pi^2}$ The equality is achieved when both $f$ and $\hat{f}$ are Gaussians. One application of this is in quantum mechanics: The wavefunction describing the position of a particle and the one describing the momentum are Fourier transforms of eachother. A special case of the Gabor limit is then that position and momentum cannot be known at the same time to an arbitrary amount of precision, but that $\sigma_{x} \sigma_{p} \geq \frac{\hbar}{2}$. This is known as the *uncertainty principle*.
+* [Wavelets](https://en.wikipedia.org/wiki/Wavelet): A family of functions that are created from one *mother* function by translating and scaling it in a certain way. An advantage of the wavelet transform is localization, as they have only a small area where they are non-zero. This set of functions can then be used similar to the sine waves in a *wavelet transformation*. They are used in more recent image formats like JPEG2000.
+* [Uncertainty principle/Gabor Limit](https://en.wikipedia.org/wiki/Uncertainty_principle): When I showed some examples of simple functions and their Fourier transforms, remember that the sine function is spread out over the entire x-axis, while the fourier transform of it is just a peak at exactly one frequency, so it's very localized in the frequency spectrum. The converse is also true: A unit pulse (a signal only being nonzero at exactly one point) has an infinitely wide spread in the frequency spectrum. It turns out that something like this holds more generally: If something is very localized in one domain, it must be very spread out in the other one. The amount of spread in both can be quantified by calculating their standard deviation, and is at least equal to the so-called *Gabor-limit*: $\sigma_{x}^{2} \sigma_{\xi}^{2} =  \big( \int_{-\infty}^{\infty}x^2 |f(x)|^{2} dx \big) \big( \int_{-\infty}^{\infty}\xi^2 |\hat{f}(\xi)|^{2} d\xi \big) \geq \frac{||f||_{2}^{4}}{16 \pi^2}$. The equality is achieved when both $f$ and $\hat{f}$ are Gaussians. One application of this is in quantum mechanics: The wavefunction describing the position of a particle and the one describing the momentum are Fourier transforms of eachother. A special case of the Gabor limit is then that position and momentum cannot be known at the same time to an arbitrary amount of precision, but that $\sigma_{x} \sigma_{p} \geq \frac{\hbar}{2}$. This is known as the *uncertainty principle*.
 
 Further Reading:
 * [More step by step visuals with long-form explanation](https://devincody.github.io/Blog/post/an_intuitive_interpretation_of_the_fourier_transform/) on the mathematical intuition behind the Fourier transform
