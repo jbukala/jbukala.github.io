@@ -50,9 +50,7 @@ Again I will give you the answer, then try to make it make sense:
 
 $$
 A_{0} = \frac{1}{P} \int_{-P/2}^{P/2} s(x) dx \newline
-
 A_{n} = \frac{2}{P} \int_{-P/2}^{P/2} s(x) \cos \Big( \frac{2 \pi n x}{P} \Big) dx \newline
-
 B_{n} = \frac{2}{P} \int_{-P/2}^{P/2} s(x) \sin \Big( \frac{2 \pi n x}{P} \Big) dx
 $$
 
