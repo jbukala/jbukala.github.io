@@ -87,9 +87,7 @@ Where $i$ is the imaginary unit. For understanding more about *why* this formula
 
 $$
 s(x) = \sum_{n = - \infty}^{\infty} c_{n} e^{\frac{2 \pi i n x}{P}} \newline
-
 c_n = \frac{2}{P} \int_{-P/2}^{P/2} s(x) e^{- \frac{2 \pi i n x}{P}} dx
-
 $$
 
 Note that the formula got a bit more abstract, but also simpler. We now only have one type of coefficient $c_{n}$, and the role of the sine and cosine has been taken over by this complex exponential. This complex exponential is often depicted by a circle in the xy-plane, with the number 1 on the x-axis and the number $i$ on the y-axis. See the figure below for an illustration:
@@ -249,9 +247,12 @@ Usually when you do a Fourier transform, you transform the entire signal. This g
 A family of functions that are created from one *mother* function by translating and scaling it in a certain way. An advantage of the [wavelet](https://en.wikipedia.org/wiki/Wavelet) transform is localization, as they have only a small area where they are non-zero. This set of functions can then be used similar to the sine waves in a *wavelet transformation*. They are used in more recent image formats like JPEG2000.
 ### Uncertainty principle/Gabor Limit
 When I showed some examples of simple functions and their Fourier transforms, remember that the sine function is spread out over the entire x-axis, while the fourier transform of it is just a peak at exactly one frequency, so it's very localized in the frequency spectrum. The converse is also true: A unit pulse (a signal only being nonzero at exactly one point) has an infinitely wide spread in the frequency spectrum. It turns out that something like this holds more generally: If something is very localized in one domain, it must be very spread out in the other one. The amount of spread in both can be quantified by calculating their standard deviation, and is at least equal to the so-called *Gabor-limit*: 
+
 $$ 
-\sigma_{x}^{2} \sigma_{ \xi }^{2} =  \big( \int_{- \infty}^{\infty} x^2 \text{\textbar} f(x) \text{\textbar}^{2} dx \big) \big( \int_{-\infty}^{\infty} \xi^2 \text{\textbar} \hat{f} ( \xi ) \text{\textbar}^{2} d \xi \big) \geq \frac{\text{\textbardbl} f \text{\textbardbl}_{2}^{4}}{16 \pi^2}
+\sigma_{x}^{2} \sigma_{ \xi }^{2} =  \big( \int_{- \infty}^{\infty} x^2 \text{\textbar} f(x) \text{\textbar}^{2} dx \big) \big( \int_{-\infty}^{\infty} \xi^2 \text{\textbar} \hat{f} ( \xi ) \text{\textbar}^{2} d \xi \big) \newline 
+\geq \frac{\text{\textbardbl} f \text{\textbardbl}_{2}^{4}}{16 \pi^2}
 $$
+
 The equality is achieved when both $f$ and $\hat{f}$ are Gaussians. One application of this is in quantum mechanics: The wavefunction describing the position of a particle and the one describing the momentum are Fourier transforms of eachother. A special case of the Gabor limit is then that position and momentum cannot be known at the same time to an arbitrary amount of precision, but that $\sigma_{x} \sigma_{p} \geq \frac{\hbar}{2}$. This is known as the [uncertainty principle](https://en.wikipedia.org/wiki/Uncertainty_principle).
 
 Further Reading:
