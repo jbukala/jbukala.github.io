@@ -109,7 +109,7 @@ $$
 \hat{f}(\xi) = \int_{- \infty}^{\infty} f(x) e^{- i 2 \pi \xi x} dx
 $$
 
-As you see its very similar to our series formula, with a few minor differences ([taking the limit](https://en.wikipedia.org/wiki/Fourier_transform#Definition) of $P$ growing to cover the entire real line in the $c_{n}$ formula). Here it doesn't matter anymore if our function is periodic or not, we can transform it all the same. Hence this integral going over the entire real line. Because this function $\hat{f}(\xi)$ is a complex-valued one encoding both the magnitude of the frequencies and their phases, we can get the magnitude of it to find $F( \omega ) = ||\hat{f}(\xi)|| $ if we only want to look at the relative importance of each frequency. (Essentially we throw away all the phase information in that step.)
+As you see its very similar to our series formula, with a few minor differences ([taking the limit](https://en.wikipedia.org/wiki/Fourier_transform#Definition) of $P$ growing to cover the entire real line in the $c_{n}$ formula). Here it doesn't matter anymore if our function is periodic or not, we can transform it all the same. Hence this integral going over the entire real line. Because this function $\hat{f}(\xi)$ is a complex-valued one encoding both the magnitude of the frequencies and their phases, we can get the magnitude of it to find $F( \omega ) = \text{\textbardbl}\hat{f}(\xi)\text{\textbardbl} $ if we only want to look at the relative importance of each frequency. (Essentially we throw away all the phase information in that step.)
 
 You can see the results of Fourier-transforming a few simple functions in the figure below.
 
@@ -250,7 +250,7 @@ A family of functions that are created from one *mother* function by translating
 ### Uncertainty principle/Gabor Limit
 When I showed some examples of simple functions and their Fourier transforms, remember that the sine function is spread out over the entire x-axis, while the fourier transform of it is just a peak at exactly one frequency, so it's very localized in the frequency spectrum. The converse is also true: A unit pulse (a signal only being nonzero at exactly one point) has an infinitely wide spread in the frequency spectrum. It turns out that something like this holds more generally: If something is very localized in one domain, it must be very spread out in the other one. The amount of spread in both can be quantified by calculating their standard deviation, and is at least equal to the so-called *Gabor-limit*: 
 $$ 
-\sigma_{x}^{2} \sigma_{ \xi }^{2} =  \big( \int_{- \infty}^{\infty} x^2 | f(x) |^{2} dx \big) \big( \int_{-\infty}^{\infty} \xi^2 | \hat{f} ( \xi ) |^{2} d \xi \big) \geq \frac{|| f ||_{2}^{4}}{16 \pi^2}
+\sigma_{x}^{2} \sigma_{ \xi }^{2} =  \big( \int_{- \infty}^{\infty} x^2 \text{\textbar} f(x) \text{\textbar}^{2} dx \big) \big( \int_{-\infty}^{\infty} \xi^2 \text{\textbar} \hat{f} ( \xi ) \text{\textbar}^{2} d \xi \big) \geq \frac{\text{\textbardbl} f \text{\textbardbl}_{2}^{4}}{16 \pi^2}
 $$
 The equality is achieved when both $f$ and $\hat{f}$ are Gaussians. One application of this is in quantum mechanics: The wavefunction describing the position of a particle and the one describing the momentum are Fourier transforms of eachother. A special case of the Gabor limit is then that position and momentum cannot be known at the same time to an arbitrary amount of precision, but that $\sigma_{x} \sigma_{p} \geq \frac{\hbar}{2}$. This is known as the [uncertainty principle](https://en.wikipedia.org/wiki/Uncertainty_principle).
 
