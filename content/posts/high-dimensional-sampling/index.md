@@ -166,13 +166,13 @@ Advantages: Even more efficient than HMC in general.
 
 # Conclusion
 When to pick which approach:
-* VI for large datasets, very high dimension (faster, less accurate)
-* MCMC for smaller ones, the need for optimal fit and accuracy (slower, more accurate). Go for MH in lower dimensions perhaps, NUTS in general
+* Use VI for very large datasets and/or very high dimensionality. It is faster, but less accurate
+* Use MCMC otherwise, especially where there is a large need for optimal fit and accuracy. It is slower, yet will converge to the exact result. In general NUTS is the default algorithm in this space for a reason, so go for this one.
 
 # Further Reading
 * [An introduction to Variational Inference](https://arxiv.org/abs/2108.13083) if you want to know more about this approach.
 * [A conceptual introduction to Hamiltonian Monte Carlo](https://arxiv.org/abs/1701.02434). Beware: 60 pages although not too dense to read. Covers a lot of the topics above from a theoretical standpoint.
 * Get going with [PyMC](https://www.pymc.io/welcome.html). The beginner guides are quite good to get started with bayesian modeling from a practical perspective.
-* Great [visualizations with explanations](https://arogozhnikov.github.io/2016/12/19/markov_chain_monte_carlo.html) on Metropolis-Hastings and Hamiltonian Monte Carlo
-* More methods for generating random samples from [specific probability distributions](https://en.wikipedia.org/wiki/Non-uniform_random_variate_generation)
-* Explanation [from a physics perspective](http://arogozhnikov.github.io/2016/12/19/markov_chain_monte_carlo.html) on MCMC methods
+* Great [visualizations with explanations](https://arogozhnikov.github.io/2016/12/19/markov_chain_monte_carlo.html) of Metropolis-Hastings and Hamiltonian Monte Carlo
+* Methods for generating random samples from [specific probability distributions](https://en.wikipedia.org/wiki/Non-uniform_random_variate_generation)
+* Explanation [from a physics perspective](http://arogozhnikov.github.io/2016/12/19/markov_chain_monte_carlo.html) of MCMC methods
