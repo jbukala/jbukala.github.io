@@ -22,9 +22,10 @@ Which is very simple to show by multiplying both sides by $P(B)$ and using the d
 
 This theorem holds not only for discrete events but also for probability distributions in general. This fact is then used in a setting where $A$ is the value of some parameters $\theta$ that you would like to estimate given the measured values of some set of data points $\mathbf{D}$. It then looks like this:
 $$
-P(\theta | \mathbf{D}) = \frac{P(\mathbf{D} | \theta) \cdot P( \theta )}{P(\mathbf{D})} \\[12pt]
+P(\theta | \mathbf{D}) = \frac{P(\mathbf{D} | \theta) \cdot P( \theta )}{P(\mathbf{D})} \newline
 = \frac{P(\mathbf{D} | \theta) \cdot P( \theta )}{\int P(\mathbf{D} | \theta) d\theta}
 $$
+
 Again, using the definition of conditional probability to re-write $P(\mathbf{D})$ as an integral over the entire domain of $\theta$. So far so good. Now you can put in any prior knowledge you have about your parameters into $P(\theta)$ (or make it a constant function if you have none), and put the core of your model in $P(\mathbf{D} | \theta)$, describing how a model with a specifically selected parameter value $\theta$ will generate observations. The last re-write for $P(\mathbf{D})$ in the above formula even saves you from interpreting the almost philosophical question of "what is the probability of my data" by explicitly restricting it only to the model/parameter space you are integrating over.
 
 Note: If you have a limited set of parameter values you are interested in and only care about [comparing their values relative to eachother](https://en.wikipedia.org/wiki/Bayes_factor), the denominator in this equation is simply divided out, so $P(\mathbf{D})$ doesn't have to be calculated at all.
@@ -35,15 +36,14 @@ The problem comes in when you want to calculate this last integral $\int P(\math
 ### Solutions
 
 #### Variational Inference
-One angle of approach is to approximate the integral with one that is very similar, but simpler to integrate and then solve that one. This is called [variational inference](https://en.wikipedia.org/wiki/Variational_Bayesian_methods), and has a rich theorical background with some ways to get bounds for your approximation. It's computationally a quite efficient method for calculating this integral, but it is not guaranteed to asymptotically converge to the correct value.
+One angle of approach is to approximate the integral with one that is very similar, but simpler to integrate and then solve that one. This is called [variational inference](https://en.wikipedia.org/wiki/Variational_Bayesian_methods), and has a rich theoretical background with some ways to get bounds for your approximation. It's computationally a quite efficient method for calculating this integral, but it is not guaranteed to asymptotically converge to the correct value.
 
 
 #### Sampling
 The other way is to try and draw samples from the probability distribution $P(\mathbf{D} | \theta)$, and asymptotically approximate it using them. The rest of this post will mostly discuss this avenue. Drawing samples is an interesting method because once you have them, you can do more with them than just calculate this integral: Samples from a probability distribution $\pi(x)$ are in fact a very general way to calculate all expectation values of a quantity $f(x)$ under $\pi(x)$:
-
 $$
-\mathbb{E}_{\pi} [ f ] = \int f(x) \pi(x) dx \approx  \frac{1}{N} 
- \sum_{n=1}^{N} f(x_{i})$$
+E_{\pi} [f] = \int f(x) \pi(x) dx \approx \frac{1}{N} \sum_{n=1}^{N} f(x_{i})
+$$
 
 Where $\lbrace x_{i} \rbrace$ is the set of $N$ points sampled from $\pi(x)$. Of course, for this we should be able to evaluate the function $f(x)$ at this set of points, which usually isn't a big deal. This makes it relevant not only for Bayesian inference, but also e.g. solving lattice models in statistical physics and chemistry. 
 **The problem at hand now comes down to drawing samples from a general $\pi(\mathbf{x})$.**
@@ -92,7 +92,7 @@ Of course, this only works for our problem when $\pi(x)$ is a constant: not the 
 As a side-note, there are some specific probability distributions we can sample by simply transforming uniform random numbers $z \in [0,1]$, like scaling and shifting to get a uniform number $y = (z+a)(b-a) \in [a,b]$, or using the [Box-Muller transform](https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform) to sample from a Gaussian.
 
 ### Rejection Sampling
-Armed with uniform samples, and a reasonable idea for what the maximum of the distribution $\pi_{max}$ is you want to integrate, rejection sampling is a method that generates a lot of uniform random sample proposals $\mathbf{z}_i$, and for each of these of these generates another uniform random number $a_i \in [0, \pi_{max}]$. If $a_i < \pi(\mathbf{z}_i)$, the point is added to the set of samples $\lbrace x_i \rbrace$. If not, it is instead discarded. The method is fairly simple when looking at it visually:
+Armed with uniform samples, and a reasonable idea for what the maximum of the distribution $\pi_{max}$ is you want to integrate, rejection sampling is a method that generates a lot of uniform random sample proposals $z_{i}$ , and for each of these of these generates another uniform random number $a_i \in [0,\pi_{max}]$. If $a_i < \pi(z_{i})$, the point is added to the set of samples $\lbrace x_{i} \rbrace$. If not, it is instead discarded. The method is fairly simple when looking at it visually:
 
 ![Example of rejection sampling on a one-dimensional function](https://www.jarad.me/figs/2013-10-03-rejection-sampling/unnamed-chunk-4-1.png) \
 *Fig: Example of rejection sampling. Many uniformly random points are generated within this 2D box, but only the blue ones below the function (black line) are kept. The red ones are discarded. ([source](https://www.jarad.me/teaching/2013/10/03/rejection-sampling))* 
