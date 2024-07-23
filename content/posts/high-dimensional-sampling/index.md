@@ -1,16 +1,17 @@
 ---
 title: "High-Dimensional Sampling"
 date: 2024-03-16T10:00:00+01:00
-draft: true
-tags: ["Math", "Machine Learning", "Bayesian", "Integral", "MCMC", "Sampling"]
+draft: false
+tags: ["Math", "Machine Learning", "Bayesian", "Integral", "MCMC", "Sampling", "Dimensionality"]
 math: true
 showtoc: true
 ---
 
-In this post, I will discuss a few things: Firstly how Bayesian inference leads into the need to sample from high-dimensional functions. I'll then discuss some peculiarities of high-dimensional spaces. These will be used when we explore different solution methods, to explain why and when they will work or fail. Finally some brief examples will be shown on how these problems are tackled '*in the wild*' in the context of Bayesian inference.
+Most of the content here I prepared for giving a talk on Bayesian inference. Some background stuff didn't fit in the (introductory) talk itself, so this is more of a space for me to put the rest.
+
+Below, I will discuss a few things: Firstly how Bayesian inference leads into the need to sample from high-dimensional functions. I'll then discuss some peculiarities of high-dimensional spaces. These will be used when I discuss a few different solution methods, to explain why and when they will work or fail.
 
 # Motivations
-
 ## Bayesian inference
 
 Bayes' theorem is most often stated as follows:
@@ -48,24 +49,38 @@ Where $\lbrace x_{i} \rbrace$ is the set of $N$ points sampled from $\pi(x)$. Of
 **The problem at hand now comes down to drawing samples from a general $\pi(\mathbf{x})$.**
 
 # High-Dimensional space
-To look at the workings of sampling approaches, it is first interesting to take a closer look at the space in which we're working. High-dimensional spaces have some peculiarities.
+To look at the workings of sampling approaches, it is first interesting to take a closer look at the space in which we're working. High-dimensional spaces have some peculiarities. 
+
+Note firstly that if you want to sample from a distribution in order to approximate the integral above, you shouldn't focus too much on the regions of space $\mathbf{x}$ where $\pi(\mathbf{x})$ is very close to zero. These areas will not contribute much to the end result in the integral. e.g. When trying to sample from a Gaussian centered around 0 with a standard deviation of 1, you probably won't try to draw too many samples from x=999999.
 
 ## Volumes & Distances
 
-Euclidean distance as a function of dimension:
-$$
-||\mathbf{x}|| = \large( \sum_{n=1}^{N} x_i \large)^{\frac{1}{2}}
-$$
+An interesting thing to note is that in high-dimensional space, there is much more volume *outside* of any given neighbourhood than inside it. This is explained by [Betancourt](https://arxiv.org/pdf/1701.02434.pdf) with the following example:
 
-Volume as a function of dimension
-generate boxes in center, increase dimension
+![Illustration of high-dimensional neighbourhoods with a lattice example](https://i.imgur.com/Qxb4oxp.png) \
+*Fig: Lattice example to show how dimensionality can reduce the relative volume ([source](https://arxiv.org/pdf/1701.02434))*
 
-**Concentration-of-measure**: fight between space exponentially increasing as you go away from origin but prob distribution exponentially dropping: prob mass as a function of origin distance has a maximum somewhere and will tend to zero quickly in high dimensions.
+In the image above, see how if we take the center 1/3rd of a space and start to increase dimensionality, the relative volume of this part quickly diminishes from 1/3, to 1/9, to 1/27. 
+
+A similar thing happens in the situation where we look at a sphere, centered around 0:
+
+![Illustration of the radial volume distribution in an n-dimensional sphere](https://i.imgur.com/ypXl7zG.png) \
+*Fig: Spherical radial volume distribution as a function of dimensionality. ([source](https://arxiv.org/pdf/1701.02434))*
+
+In the image above, the dotted line shows the radius at which there is as much volume of the sphere inside of it, as there is outside. What you can see here is that in higher dimensions, this dotted line moves more and more towards the outside. In very high dimensions, this dotted line is so close to the outside that **most of the volume of this sphere is in a thin 'shell' at the outside**. This happens just because there is so much more space further away from a point than close by. If you wanted to weigh a high-dimensional sphere, you would not even notice if someone had taken the center out.
 
 ## Typical Set
-Small subspace in which most of the probability mass is present.
+This has an interesting consequence for our setting. Let's remember we are looking at probability distributions. Think of a Gaussian-like distribution $\pi$ (without too much loss of generality). We said we should focus mostly on the regions where $\pi$ is large to most effectively sample from it. For a Gaussian, this would be around its center. However, we just discussed how in high dimensions, there is much more space away from any one (center) neighbourhood than inside it. For the n-dimensional sphere it was even negligible! How do we reconcile these observations?
+It turns out that the initial observation in this section was perhaps a bit short-sighted. The most important contributions to the integral we want to approximate don't necessarily come from $\mathbf{x}$ with a large $\pi(\mathbf{x})$, they instead come from large $\pi(\mathbf{x}) d\mathbf{x}$! In other words, $\pi$ diminishes further way from the center, however there being just so much more space $d\mathbf{x}$ away from the center, that these two factors at some distance cause a maximum of $\pi(\mathbf{x})d\mathbf{x}$. This is illustrated in the image below:
 
-## Examples
+![Illustration of how the distribution and the geometry of space combined give rise to a region of interest called the typical set](images/typical_set.png) \
+*Fig: Illustration of how the distribution and the geometry of space combined give rise to a region of interest called the typical set.  ([source](https://arxiv.org/pdf/1701.02434))*
+
+The region where $\pi(\mathbf{x})d\mathbf{x}$ is large is referred to as the *typical set*. For a Gaussian this set forms a narrow ring around the center. The exact size, position and shape of the typical set depends on the distribution and dimensionality, but for many distributions we see a similar end result: A set, comprising only a tiny part of the total space, not necessarily including the mode of the distribution. 
+
+## Consequences for sampling
+
+It's good to remember that when we want to effectively sample from a distribution in high dimensions, practically all of the probability mass will be concentrated in the typical set. Meaning that if we sample a lot of points outside of this space, their contribution will be negligible and thus we are just wasting computations. *An important goal of a good sampling approach will then be to find the typical set and thoroughly explore it*.
 
 # Approaches
 
@@ -117,7 +132,7 @@ $$
 
 In other words, you sample $\mathbf{x}^{next}$ component by component. For each component you make it conditional on the components you already have, and using the components of $\mathbf{x}^{cur}$ otherwise.
 
-This method is avantageous if evaluating the conditional distribution is easy compared to the entire one (e.g. in the base of [Bayesian networks](https://en.wikipedia.org/wiki/Bayesian_network)) or when you are interested in a subset of variables specifically.
+This method is avantageous if evaluating the conditional distribution is easy compared to the entire one (e.g. in the case of [Bayesian networks](https://en.wikipedia.org/wiki/Bayesian_network)) or when you are interested in a subset of variables specifically.
 
 ### Metropolis-Hastings
 For the Metropolis-Hastings method, the next point in the chain is generated by using a reasonable distribution (e.g. a Gaussian) centered on the current point to generate a new proposal (by sampling from it) to move towards. If the function at this point has a higher value, move there. If not, only move there with probability $p_{\text{accept}} = \frac{f(x_{\text{new}})}{f(x_{\text{old}})}$.
@@ -143,36 +158,26 @@ When at a specific point, a certain situation is simulated: That of a particle w
 
 In simpler terms: think of a pinball rolling through a hilly landscape, where the shape of that landscape is $-f(x)$. The pinball starts at your current point where you give it a nudge in a random direction. Intuitively, this means the pinball will tend to go towards the high-probability areas (valleys) and thus the typical set, but because of its random speed and direction, will still roll around a bit and not just stay in the closest local minimum.
 
-To actually simulate the dynamics with Hamiltons equations, we have to approximate the function gradients by [leapfrog integration](https://en.wikipedia.org/wiki/Leapfrog_integration). For this we simulate it with some discrete steps which includes sampling the function at a few locations for each step.
-
-This means that taking a single step is more costly than in the other methods. Howver, each step gives us a lot more too: 
-
-https://en.wikipedia.org/wiki/Symplectic_geometry
-
-advantages: Proposals made on basis of posterior shape. Much more efficient. Samples not correlated in position, very high acceptance rate if your simulation of Hmailtonian mechanics is good.
+To actually simulate the dynamics with Hamiltons equations, we have to approximate the function gradients by [leapfrog integration](https://en.wikipedia.org/wiki/Leapfrog_integration). For this we simulate it with some discrete steps which includes sampling the function at a few locations for each step. This means that taking a single step is more costly than in the other methods. However, each step gives us a lot more too: Firstly the proposals we generate are based on the shape of the posterior function, so can incorporate much more information to make a good step proposal, staying within the typical set. Secondly because of this whole [position/velocity dynamics simulation](https://en.wikipedia.org/wiki/Liouville%27s_theorem_(Hamiltonian)), the samples are not correlated in position as they would usually be. These things result in the acceptance probability of a step being very high and a very efficient exploration of the typical set.
 
 ### No U-Turn Sampler
-HMC method that recognizes when particle dynamics result in taking a U-Turn. At this point, stop simulating dynamics and generate new velocity. (TBD: check)
-Advantages: Even more efficient than HMC in general.
+The [No U-Turn Sampler (NUTS)](https://arxiv.org/abs/1111.4246) is a specific HMC method that recognizes when simulating the particle dynamics result in taking a U-Turn (meaning, the particle returns to a previously visited state). At this point, it stops simulating dynamics and samples a new velocity. This makes sense to do because the intuition is that if a U-Turn occurs, you have likely explored most of the space that the particle dynamics could have reached. This is an even more efficient approach than HMC in general, and the best 'default' algorithm to use.
 
 # Software
+The most used packages for Bayesian modelling that implement all the above-mentioned algorithms (assuming you are working in Python) are:
+* [STAN](https://mc-stan.org/) is a platform that does statistical computation, and has bindings to a couple different languages (e.g. Python that allow you to call it from them. See [PySTAN](https://pystan.readthedocs.io/en/latest/) for an example on how this looks like. Personally I dislike having to put my entire model specification in a big docstring, but I can imagine someone else has written something to avoid this.
+* [PyMC](https://www.pymc.io/welcome.html) is a probabilistic programming language for Python, and the one I've used more myself. See the [example notebooks](https://www.pymc.io/projects/examples/en/latest/gallery.html) for how it's used. To me, it feels more natural and better integrated with Python. If you want to quickly get going with these types of models, I recommend to use this one. When using tutorials etc. take care to use the ones for PyMC4, not PyMC3.
+# Take-Home
+Hopefully it's clear how (at least) Bayesian inference results in the need to sample from high-dimensional spaces, and why these spaces can be a bit unintuitive. We have an overview of the most important algorithms to tackle this problem, as well as their relative strengths. This should give a lot more intuition when working with sampling algorithms in situations where you have to debug why something is not (or only very slowly) converging.
 
-## STAN
-## PyMC
-
-## Example implementations
-### Tuning parameters
-### Timing
-
-# Conclusion
-When to pick which approach:
-* Use VI for very large datasets and/or very high dimensionality. It is faster, but less accurate
+So in a nutshell, when to pick which approach:
+* Use VI for very large datasets and/or very high dimensionality. It is faster, but less accurate.
 * Use MCMC otherwise, especially where there is a large need for optimal fit and accuracy. It is slower, yet will converge to the exact result. In general NUTS is the default algorithm in this space for a reason, so go for this one.
 
 # Further Reading
 * [An introduction to Variational Inference](https://arxiv.org/abs/2108.13083) if you want to know more about this approach.
 * [A conceptual introduction to Hamiltonian Monte Carlo](https://arxiv.org/abs/1701.02434). Beware: 60 pages although not too dense to read. Covers a lot of the topics above from a theoretical standpoint.
-* Get going with [PyMC](https://www.pymc.io/welcome.html). The beginner guides are quite good to get started with bayesian modeling from a practical perspective.
+* Get going with [PyMC](https://www.pymc.io/welcome.html). The beginner guides are quite good to get started with Bayesian modeling from a practical perspective.
 * Great [visualizations with explanations](https://arogozhnikov.github.io/2016/12/19/markov_chain_monte_carlo.html) of Metropolis-Hastings and Hamiltonian Monte Carlo
 * Methods for generating random samples from [specific probability distributions](https://en.wikipedia.org/wiki/Non-uniform_random_variate_generation)
 * Explanation [from a physics perspective](http://arogozhnikov.github.io/2016/12/19/markov_chain_monte_carlo.html) of MCMC methods
