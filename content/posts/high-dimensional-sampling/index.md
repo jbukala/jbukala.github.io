@@ -82,7 +82,7 @@ The region where $\pi(\mathbf{x})d\mathbf{x}$ is large is referred to as the *ty
 
 It's good to remember that when we want to effectively sample from a distribution in high dimensions, practically all of the probability mass will be concentrated in the typical set. Meaning that if we sample a lot of points outside of this space, their contribution will be negligible and thus we are just wasting computations. *An important goal of a good sampling approach will then be to find the typical set and thoroughly explore it*.
 
-## Approaches
+## Sampling approaches
 
 ### Uniform sampling
 Generating uniformly random numbers is actually a relatively simple case that has been studied for ages in the context of computer science, and for which any self-respecting scripting/programming language will have a standard library implementation. See the [linear congruential generator](https://en.wikipedia.org/wiki/Linear_congruential_generator) for a simple example. For an $N$-dimensional point, simply sample $N$ one-dimensional points and concatenate them into a vector.
@@ -92,7 +92,7 @@ Of course, this only works for our problem when $\pi(x)$ is a constant: not the 
 As a side-note, there are some specific probability distributions we can sample by simply transforming uniform random numbers $z \in [0,1]$, like scaling and shifting to get a uniform number $y = (z+a)(b-a) \in [a,b]$, or using the [Box-Muller transform](https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform) to sample from a Gaussian.
 
 ### Rejection Sampling
-Armed with uniform samples, and a reasonable idea for what the maximum of the distribution $\pi_{max}$ is you want to integrate, rejection sampling is a method that generates a lot of uniform random sample proposals $z_{i}$ , and for each of these of these generates another uniform random number $a_i \in [0,\pi_{max}]$. If $a_i < \pi(z_{i})$, the point is added to the set of samples $\lbrace x_{i} \rbrace$. If not, it is instead discarded. The method is fairly simple when looking at it visually:
+Armed with uniform samples, and a reasonable idea for what the maximum of the distribution $\pi_{max}$ is you want to integrate, rejection sampling is a method that generates a lot of uniform random sample proposals $z_{i}$ , and for each of these generates another uniform random number $a_i \in [0,\pi_{max}]$. If $a_i < \pi(z_{i})$, the point is added to the set of samples $\lbrace x_{i} \rbrace$. If not, it is instead discarded. The method is fairly simple when looking at it visually:
 
 ![Example of rejection sampling on a one-dimensional function](https://www.jarad.me/figs/2013-10-03-rejection-sampling/unnamed-chunk-4-1.png) \
 *Fig: Example of rejection sampling. Many uniformly random points are generated within this 2D box, but only the blue ones below the function (black line) are kept. The red ones are discarded. ([source](https://www.jarad.me/teaching/2013/10/03/rejection-sampling))* 
@@ -119,11 +119,11 @@ Markov-Chain Monte Carlo (MCMC) methods are all based on generating a chain of p
 ![Example of MCMC sampling](images/mcmc.PNG) \
 *Fig: Example of MCMC sampling. A chain of points is generated from an initial point. Each next point is stochastically dependent only on the previous one. ([source](https://www.researchgate.net/figure/Markov-chain-Monte-Carlo-sampling-using-random-walk_fig1_331494053))* 
 
-The methods below only differ in the way they generate the next point in the chain. Of course it's important to do this in a way such that the distribution of points in the chain eventually converges to the one you want to sample from.
+The methods discussed below are all MCMC methods and only differ in the way they generate the next point in the chain. Of course it's important to do this in a way such that the distribution of points in the chain eventually converges to the one you want to sample from.
 
 To deal with multimodal distributions, a few of these chains are started in parallel with different initial positions. There is still no guarantee that this will make it explore all modes, but at least this improves the odds.
 
-#### Gibbs sampling
+### Gibbs sampling
 With Gibbs sampling, you try to break down a high-dimensional sampling problem into a series of one-dimensional ones. At each point $\mathbf{x}^{cur}$ in the chain, you generate the next $\mathbf{x}^{next}$ as follows (denoting with $x_i$ the $i$-th component of the vector $\mathbf{x}$):
 $$
 x_0^{next} = P(x_0 | x_1^{cur}, x_2^{cur}, .., x_N^{cur}) \newline
@@ -134,7 +134,7 @@ In other words, you sample $\mathbf{x}^{next}$ component by component. For each 
 
 This method is avantageous if evaluating the conditional distribution is easy compared to the entire one (e.g. in the case of [Bayesian networks](https://en.wikipedia.org/wiki/Bayesian_network)) or when you are interested in a subset of variables specifically.
 
-#### Metropolis-Hastings
+### Metropolis-Hastings
 For the Metropolis-Hastings method, the next point in the chain is generated by using a reasonable distribution (e.g. a Gaussian) centered on the current point to generate a new proposal (by sampling from it) to move towards. If the function at this point has a higher value, move there. If not, only move there with probability $p_{\text{accept}} = \frac{f(x_{\text{new}})}{f(x_{\text{old}})}$.
 
 This approach is both simple to implement (probably about 5 lines of code), flexible and effective, and so historically it has been quite popular. The disadvantage in high dimensions is that typically sampling an (isotropic) Gaussian explores in all directions equally. Remember that the typical set in high-dimensions is only a very small part of the space. Given that you are currently somewhere in the typical set, most directions that you move in will actually take you outside of the typical set, so most steps get rejected. This will, again, make it less effective in higher dimensions.
@@ -151,7 +151,7 @@ def metropolis_hastings_step(x_curr, pi, proposal_dist):
 
 A clear way to improve this is by not using the same proposal distribution everywhere throughout the sampling process, but somehow adapting the proposal to the shape of the function you're sampling from. The goal is then to keep following the directions of high probability to stay in the typical set and sample efficiently. This is the way the best current methods are doing it! Of course, the trick is doing it in a way that's both efficient to calculate and converges to the statistically correct result.
 
-#### Hamiltonian Monte Carlo
+### Hamiltonian Monte Carlo
 The Hamiltonian Monte Carlo (HMC) method does it by simulating [Hamiltonian particle dynamics](https://en.wikipedia.org/wiki/Hamiltonian_mechanics), which is a reformulation of classical mechanics in physics. 
 
 When at a specific point, a certain situation is simulated: That of a particle with a random velocity and its potential energy given by the function that you want to integrate.
@@ -160,7 +160,7 @@ In simpler terms: think of a pinball rolling through a hilly landscape, where th
 
 To actually simulate the dynamics with Hamiltons equations, we have to approximate the function gradients by [leapfrog integration](https://en.wikipedia.org/wiki/Leapfrog_integration). For this we simulate it with some discrete steps which includes sampling the function at a few locations for each step. This means that taking a single step is more costly than in the other methods. However, each step gives us a lot more too: Firstly the proposals we generate are based on the shape of the posterior function, so can incorporate much more information to make a good step proposal, staying within the typical set. Secondly because of this whole [position/velocity dynamics simulation](https://en.wikipedia.org/wiki/Liouville%27s_theorem_(Hamiltonian)), the samples are not correlated in position as they would usually be. These things result in the acceptance probability of a step being very high and a very efficient exploration of the typical set.
 
-#### No U-Turn Sampler
+### No U-Turn Sampler
 The [No U-Turn Sampler (NUTS)](https://arxiv.org/abs/1111.4246) is a specific HMC method that recognizes when simulating the particle dynamics result in taking a U-Turn (meaning, the particle returns to a previously visited state). At this point, it stops simulating dynamics and samples a new velocity. This makes sense to do because the intuition is that if a U-Turn occurs, you have likely explored most of the space that the particle dynamics could have reached. This is an even more efficient approach than HMC in general, and the best 'default' algorithm to use.
 
 ## Software
