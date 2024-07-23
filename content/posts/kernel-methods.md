@@ -4,6 +4,7 @@ date: 2023-11-01T19:27:56+01:00
 draft: true
 tags: ["kernel", "SVM", "Math", "Machine Learning"]
 math: true
+showtoc: true
 ---
 
 ## Kernel Methods
