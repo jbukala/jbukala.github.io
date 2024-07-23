@@ -1,6 +1,6 @@
 ---
 title: "High-Dimensional Sampling"
-date: 2024-03-16T10:00:00+01:00
+date: 2024-07-23T10:00:00+01:00
 draft: false
 tags: ["Math", "Machine Learning", "Bayesian", "Integral", "MCMC", "Sampling", "Dimensionality"]
 math: true
