@@ -27,7 +27,7 @@ fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
 ```
 
 
-Working through some tutorials like [learn you a Haskell](https://learnyouahaskell.com/) and a [MOOC by the University of Helsinki](https://haskell.mooc.fi/), I started writing some little scripts like a module for a [Fourier-Legendre transformation](https://hal.science/hal-01116888/document), or a tool that can be used to browse pages through the [Gemini protocol](https://geminiprotocol.net/) in your CLI.
+Working through some tutorials like [learn you a Haskell](https://learnyouahaskell.com/) and a [MOOC by the University of Helsinki](https://haskell.mooc.fi/), I started writing some little scripts like a module for a [Fourier-Legendre transformation](https://hal.science/hal-01116888/document), or a tool that can be used to browse webpages through the [Gemini protocol](https://geminiprotocol.net/) in your CLI.
 
 To be clear, I am still *horrendous* at Haskell, but I have been able to use it to get a little hands-on experience with some core concepts in functional programming.
 
@@ -51,16 +51,16 @@ Some examples of them are listed below, but array languages you have more likely
 Some example code: 
 * The symbol `⍴` is a function taking one input (called *monadic* in APL) that, when applied to an array, returns the size of it. 
 * `+` and `÷` are functions taking 2 arguments (called *dyadic* in APL) and returning the sum and division (no surprise there)
-* `/` is a function taking another (dyadic) function on the left, and an array on the right, and [folds](https://en.wikipedia.org/wiki/Fold_(higher-order_function)) (aka *reduces*) the array using the function on the left.
+* `⌿` is a function taking another (dyadic) function on the left, and an array on the right, and [folds](https://en.wikipedia.org/wiki/Fold_(higher-order_function)) (aka *reduces*) the array using the function on the left.
 
-Putting all these together we can make a function calculating the average value of an array `X` in APL as follows:
+Putting all these together we can make a function calculating the average value of an array `⍵` in APL as follows:
 
 ```APL
-(+/X)÷⍴X
+{(+⌿⍵)÷⍴⍵}
 ```
-To read this, note that APL is evaluated right-to-left. `⍴X` is evaluated, but now the dyadic function `÷` requires that its argument (between the parentheses) is evaluated first. `+/X` will sum-reduce aka add up all the numbers in the array `X`. Eventually the division is evaluated.
+To read this, note that APL is evaluated right-to-left, and arguments are given to functions just by writing them to the left or right of them. `⍴⍵` is evaluated first, but now the dyadic function `÷` requires that its argument (between the parentheses) is evaluated before the division can take place. `+⌿⍵` will sum-reduce a.k.a. add up all the numbers in the array `⍵`. Eventually the division is evaluated.
 
-This 'odd' decision of using glyphs like `⍎⌽⍕⌈*○≡⍬` to represent the 'building blocks' of computation is explained in Kenneth Iversons 1979 Turing award lecture [Notation as a Tool of Thought](https://dl.acm.org/doi/pdf/10.1145/358896.358899). APL was initially invented simply as a notation, and only years later was a programming implementation made. A lot of its proposed benefits comes down to defining good building blocks, and cutting as much 'noise' out as possible. Yes, this means you have to learn how to read a few new symbols, but you did so as well in your mathematics courses, and I hope you recognize the value of using mathematical notation instead of trying to explain each formula and derivation in plain English. Another neat thing that inspired other languages is that each function is defined on arrays of any dimension. So there is a coherent framework that allows you to determine along which dimensions you would like to calculate the average in the example above.
+This 'odd' decision of using glyphs like `⍎⌽⍕⌈*○≡⍬` to represent the 'building blocks' of computation is explained in Kenneth Iversons 1979 Turing award lecture [Notation as a Tool of Thought](https://dl.acm.org/doi/pdf/10.1145/358896.358899). APL was initially invented simply as a (universal) notation, and only years later was a programming implementation made. A lot of its proposed benefits comes down to defining good building blocks for common problems, and cutting as much 'noise' out as possible. Yes, this means you have to learn how to read a few new symbols, but you did so as well in your mathematics courses, and I hope you recognize the value of using mathematical notation instead of trying to explain each formula and derivation in plain English. Another neat thing that inspired other languages is that each function is defined on arrays of any dimension. So there is a coherent framework that allows you to determine along which dimensions you would like to calculate the average in the example above.
 
 The terse nature of these glyphs means that complex programs which would take many lines of code to implement in most languages are often very brief in APL, see for example an implementation of [Conways Game of Life in APL](https://en.wikipedia.org/wiki/APL_(programming_language)#Game_of_Life):
 ```APL
@@ -81,11 +81,16 @@ For a quick comparison with APL, here is again the code to calculate the average
 
 It looks mostly the same, but now the fold function is `´` and the array size is `≠`.
 
+For another example, see a solution to the [first day of the Advent of Code 2024](https://adventofcode.com/2024/day/1):
+```BQN
++´|(-˝∧˘)⌾⍉
+```
+
 
 ### Tacit programming
 Another neat thing about these languages is that they enable [tacit programming](https://en.wikipedia.org/wiki/Tacit_programming), which is a style of programming that removes all references to the arguments of functions, instead focusing solely on the functions themselves. This is often also referred to as *point-free programming*. See it as functional programming pushed to its extreme.
 
-The BQN code snippet above is actually already point-free: If we simply remove `X`, the argument we want to apply to this function, we are left with `(+´÷≠)`, a composition of functions without any reference to input data. The APL example is **not**, can you see what would go wrong if we simply remove all `X`'s?
+The BQN code snippet above is actually already point-free: If we simply remove `X`, the argument we want to apply to this function, we are left with `(+´÷≠)`, a composition of functions without any reference to input data. The APL example is **not**, can you see what would go wrong if we simply remove all `⍵`'s?
 
 ### Combinators
 The attentive reader may have looked at the BQN code example and wondered about the order of operations. For the APL example I've explained how the expressions are parsed, and you may have seen this will break when you remove the `X` in the middle of the expression. The BQN example is a bit more complex, as it implicitly uses a concept called [trains](https://mlochbaum.github.io/BQN/doc/train.html). Whenever two functions A and B and a dyadic function C is written like (ACB), it means the following: First apply both A and B to the input, and then give both the results of that to the function C. In the code example that means that the sum reduction `+´` and the array size `≠` are first calculated separately, and then the results of those calculations are given to `÷` which divides them by eachother.
@@ -96,14 +101,14 @@ Trains are a specific example of a method of facilitating [function composition]
 ### Learnings from array languages
 * The core concept of parallelizing as much as possible by acting on arrays instead of separate values, and thinking at an aggregate level, have been adopted by the more mainstream languages/packages in machine learning (NumPy, Pandas, PySpark, R).
 
-* Though Haskell has combinators and tacit programming as well, array languages really rubbed my nose in them and some interesting theory behind it.
+* Though Haskell has combinators and tacit programming as well, array languages really rubbed my nose in them and some interesting theory behind it. It's a great concept when used sparingly, but can also lead to some code that is difficult to understand of debug later if not properly documented.
 * Probably this will get better with practice, but using combinators casually remains difficult.
 
 
 ### Learnings from functional programming
 * Robustness of code, strong typing system.
-* Way of expressing yourself that seems closer to mathematics.
-* Awareness of pure functions and more deliberately designing systems separating them from side-effects.
+* Way of expressing yourself that seems closer to mathematics, declarative.
+* Awareness of pure functions and more deliberately designing systems separating them from side-effects. Easy parallelism and testing of code.
 * Good fit for data processing pipelines.
 
 
@@ -112,8 +117,9 @@ Trains are a specific example of a method of facilitating [function composition]
 
 * [Try Haskell online](https://play.haskell.org/)
 * [Try APL online](https://tryapl.org/)
-* [Intro to APL](https://xpqz.github.io/learnapl/intro.html)
-* [BQN resources](https://mlochbaum.github.io/BQN/index.html)
+* [Intro to APL](https://xpqz.github.io/learnapl/intro.html) - tutorial
+* [BQN website](https://mlochbaum.github.io/BQN/index.html)
 * [Try BQN online](https://mlochbaum.github.io/BQN/try.html)
 * [BQNCrate (searchable code examples)](https://mlochbaum.github.io/bqncrate/)
-* [Conor Hoekstra](https://codereport.github.io/about/) is someone making interesting Youtube videos, talks and a podcast on FP, array programming, combinatory logic.
+* [Conor Hoekstra](https://codereport.github.io/about/) is someone making interesting Youtube videos, talks and a podcast on FP, array programming and combinatory logic.
+* Kenneth Iversons 1979 Turing award lecture [Notation as a Tool of Thought](https://dl.acm.org/doi/pdf/10.1145/358896.358899). Its quite approachable and takes you from: "Wow APL is insane and someone should lock this guy up" to "Yeah i see where he's coming from, even if it's probably not for me" within 30 mins (if you read the first section, skim the rest and read the conclusion). It explains a bit about its goals, the context of mathematics, and the desire to keep the mental overhead of the language itself an simple as possible, such that it is maximally conducive to reasoning about mathematical problems/algorithms. Although [some APL wiki pages](https://aplwiki.com/wiki/Tacit_programming#The_Number_of_the_Beast) bring back some doubts...
