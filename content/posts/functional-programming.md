@@ -1,6 +1,6 @@
 ---
 title: "Functional Programming Chronicles"
-date: 2025-06-27T08:20:56+01:00
+date: 2025-06-27T06:20:56+01:00
 draft: false
 tags: ["Programming", "Haskell", "APL", "BQN", "Functional Programming"]
 math: false
