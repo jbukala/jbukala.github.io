@@ -1,7 +1,7 @@
 ---
 title: "Functional Programming Chronicles"
-date: 2025-03-30T19:27:56+01:00
-draft: true
+date: 2025-06-27T08:20:56+01:00
+draft: false
 tags: ["Programming", "Haskell", "APL", "BQN", "Functional Programming"]
 math: false
 showtoc: true
@@ -86,7 +86,7 @@ For another example, see a solution to the [first day of the Advent of Code 2024
 ### Tacit programming
 Another neat thing about these languages is that they enable [tacit programming](https://en.wikipedia.org/wiki/Tacit_programming), which is a style of programming that removes all references to the arguments of functions, instead focusing solely on the functions themselves. This is often also referred to as *point-free programming*. See it as functional programming pushed to its extreme.
 
-The BQN code snippet above is actually already point-free: If we simply remove `X`, the argument we want to apply to this function, we are left with `(+´÷≠)`, a composition of functions without any reference to input data. The APL example is **not**, can you see what would go wrong if we simply remove all `⍵`'s?
+The BQN code snippets above are actually already point-free: If we simply remove (from the first snippet) `X`, the argument we want to apply to this function, we are left with `(+´÷≠)`, a composition of functions without any reference to input data. The APL example is **not**, can you see what would go wrong if we simply remove all `⍵`'s?
 
 ### Combinators
 The attentive reader may have looked at the BQN code example and wondered about the order of operations. For the APL example I've explained how the expressions are parsed, and you may have seen this will break when you remove the `X` in the middle of the expression. The BQN example is a bit more complex, as it implicitly uses a concept called [trains](https://mlochbaum.github.io/BQN/doc/train.html). Whenever two functions A and B and a dyadic function C is written like (ACB), it means the following: First apply both A and B to the input, and then give both the results of that to the function C. In the code example that means that the sum reduction `+´` and the array size `≠` are first calculated separately, and then the results of those calculations are given to `÷` which divides them by each other.
@@ -106,7 +106,7 @@ Trains are a specific example of a method of facilitating [function composition]
 * Promoting a move explicit awareness of pure functions and more deliberately designing systems where side-effects are separated out. Enabling easy parallelism and testing of code.
 * Good fit for data processing pipelines due to the aforementioned points.
 
-In conclusion, many of the aspects that I found valuable are present or can be done in the languages I already knew, particularly Python. NumPy has rank polymorphism for many functions. I can and should be aware of writing pure functions in Python and relegate code with side-effects to the edges of my system. There are even Python libraries like [returns](https://returns.readthedocs.io/en/latest/pages/quickstart.html) that have wrappers allowing you to use *Maybe*, *Result* and *IO* types. I'm still glad these other languages rubbed my nose in it, but my day-to-day work will still be done in Python, and I should try to apply these learnings there as much as possible without being dogmatic/impractical about it.
+In conclusion, many of the aspects that I found valuable are present or can be done in the languages I already knew, particularly Python. NumPy has rank polymorphism for many functions. I can and should be aware of writing pure functions in Python and relegate code with side-effects to the edges of my system. There are even Python libraries like [returns](https://returns.readthedocs.io/en/latest/pages/quickstart.html) that have wrappers allowing you to use *Maybe*, *Result* and *IO* types (though I don't think it would be appreciated by my colleagues if I start using it at work). I'm still glad these other languages rubbed my nose in it, but my day-to-day work will still be done in Python, and I should try to apply these learnings there as much as possible without being dogmatic/impractical about it.
 
 ## Links
 
@@ -117,5 +117,5 @@ In conclusion, many of the aspects that I found valuable are present or can be d
 * [Try BQN online](https://mlochbaum.github.io/BQN/try.html)
 * [BQNCrate (searchable code examples)](https://mlochbaum.github.io/bqncrate/)
 * [Conor Hoekstra](https://codereport.github.io/about/) is someone making interesting Youtube videos, talks and a podcast on FP, array programming and combinatory logic.
-* Kenneth Iversons 1979 Turing award lecture [Notation as a Tool of Thought](https://dl.acm.org/doi/pdf/10.1145/358896.358899). Its quite approachable and takes you from: "Wow APL is insane and someone should lock this guy up" to "Yeah I see where he's coming from, even if it's probably not for me" within 30 mins (if you read the first section, skim the rest and read the conclusion). It explains a bit about its goals, the context of mathematics, and the desire to keep the mental overhead of the language itself an simple as possible, such that it is maximally conducive to reasoning about mathematical problems/algorithms. Although [some APL wiki pages](https://aplwiki.com/wiki/Tacit_programming#The_Number_of_the_Beast) bring back some doubts...
+* Kenneth Iversons 1979 Turing award lecture [Notation as a Tool of Thought](https://dl.acm.org/doi/pdf/10.1145/358896.358899). Its quite approachable and takes you from: "Wow APL is insane and someone should lock this guy up" to "Yeah I see where he's coming from, even if it's probably not for me" within 30 mins (if you read the first section, skim the rest and read the conclusion). It explains a bit about its goals, the context of mathematics, and the desire to keep the mental overhead of the language itself an simple as possible, such that it is maximally conducive to reasoning about mathematical problems/algorithms.
 * And then we have [Uiua](https://www.uiua.org/) - another, even newer one of these languages. Invented around 2023, and still not entirely stable, it's heavily inspired by APL, J and BQN (We're not quite at GenAI levels of hype, but it does seem that there is a bit of a revival of these concepts). It's not only an array programming language, but it's also stack-based. Meaning all arrays get pushed onto a stack, and functions take values from the top of this stack to do their operations, and push the result back on. Together with functions having prefix notation instead of infix (e.g. `+ 2 5` like in Lisp) the stack is its way of simplifying order of operations, without depending on grammatical rules that can be difficult to parse like in APL or BQN, or tons of parentheses like Lisp. The language is explicitly made for tacit programming. Didn't try to use this one myself yet, as I feel I'm deep enough into the rabbit hole for now.
