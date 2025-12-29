@@ -1,7 +1,7 @@
 baseURL: http://jorisbukala.com/
 languageCode: en-us
 title: Joris Bukala | Math & ML
-paginate: 10
+pagination.pagerSize: 10
 theme: PaperMod
 
 enableRobotsTXT: true
@@ -142,4 +142,5 @@ outputs:
     home:
         - HTML
         - RSS
+
         - JSON # is necessary
