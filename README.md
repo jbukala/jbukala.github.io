@@ -1,2 +1,2 @@
-# jbukala.github.io
-Basic Hugo static website hosted at https://jbukala.github.io
+# jorisbukala.com
+Basic Hugo static website hosted at https://jorisbukala.org
