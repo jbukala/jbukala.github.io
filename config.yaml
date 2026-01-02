@@ -79,8 +79,8 @@ params:
   socialIcons:
     - name: linkedin
       url: "https://www.linkedin.com/in/joris-bukala/"
-    - name: github
-      url: "https://github.com/jbukala/"
+    - name: gitea
+      url: "https://codeberg.org/jorisb"
 
 #  analytics:
 #    google:
@@ -96,7 +96,7 @@ params:
     hiddenInSingle: true # hide on single page
 
   editPost:
-    URL: "https://github.com/jbukala/jbukala.github.io/tree/main/content"
+    URL: "https://codeberg.org/jorisb/personal-website/src/branch/main/content"
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
 
@@ -142,5 +142,4 @@ outputs:
     home:
         - HTML
         - RSS
-
         - JSON # is necessary
