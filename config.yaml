@@ -79,7 +79,7 @@ params:
   socialIcons:
     - name: linkedin
       url: "https://www.linkedin.com/in/joris-bukala/"
-    - name: gitea
+    - name: codeberg
       url: "https://codeberg.org/jorisb"
 
 #  analytics:
